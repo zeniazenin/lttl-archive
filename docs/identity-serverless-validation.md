@@ -2,6 +2,20 @@
 
 Updated 2026-10-13. No tenant, cloud key, live security webhook or paid cloud service was created during these tests.
 
+## Alpha.3: signed audit and retention
+
+| Check | Result and boundary |
+|---|---|
+| Desktop suite | **33 passed**, seven hardware-only tests skipped; archive integrity, safe extraction, Auto selection and identity envelope coverage |
+| Broker security suite | **16 passed**, plus the separately executed PostgreSQL test; signatures, transaction rollback on audit failure, invalid receipts/outages, configuration downgrade rejection, holds and key disposition |
+| Independent vault protocol | **8 passed**; pinned signatures, replay, missing/tampered evidence, conflicting histories, concurrent delivery, failed/partial storage and authentication; storage is a test double |
+| Windows release/installed client integration | **146 checks**, **56** fresh mock-IDP sign-ins, all three formats restored by hash; [artifact hashes and recorded results](audit-retention-validation.json) |
+| PostgreSQL/TLS | Signed batches, holds, retention, access expiry, disposition and cleanup passed with real disposable PostgreSQL; [recorded result](identity-postgres-validation.json) |
+| Windows installer | CPU and optional NVIDIA payload verification, retention command/setup files, installed-client integration, round trips and uninstall preservation; [final report](https://github.com/zeniazenin/lttl-archive/blob/v0.1.0-alpha.3/docs/windows-installer-validation.json) |
+| Live infrastructure | Real cloud storage adapters/IAM/holds, real IDP policies and serverless deployments remain **unvalidated** |
+
+External evidence is held indefinitely in this implementation. Local retention cleanup requires independent acknowledgment and honors legal holds. Archive files are not stored by the broker; their preservation requires separate controlled storage. See [setup and migration](audit-retention.md). The following alpha.2 and native-KMS sections are historical baselines.
+
 ## Alpha.2: archive tracking
 
 | Check | Result and boundary |
@@ -12,14 +26,14 @@ Updated 2026-10-13. No tenant, cloud key, live security webhook or paid cloud se
 | Tracking integration | Disabled by default; user and organization activation; immutable effective archive policy; external-user and country-watchlist alerts; unknown identity on IDP denial; untrusted location headers ignored |
 | Tracking failure behavior | Webhook failures remain queued across restart; a simulated tracking database failure prevents a key response |
 | Real PostgreSQL/TLS | Shared tracking policy/event state, owner-only event reads and outbox lease claim passed alongside existing authorization tests. [Recorded result](identity-postgres-validation.json) |
-| Windows installer | **14 checks passed** for alpha.2, including both component configurations, payload hashes, archive round trips and uninstall preservation. [Recorded result](windows-installer-validation.json) |
+| Windows installer | **14 checks passed** for alpha.2, including both component configurations, payload hashes, archive round trips and uninstall preservation. [Historical result](https://github.com/zeniazenin/lttl-archive/blob/v0.1.0-alpha.2/docs/windows-installer-validation.json) |
 | Live deployment | Cloud KMS/IAM, real IDP policy, gateway country enrichment, SIEM notifications and retry schedules **not tested**; require the organization's pilot environment |
 
 Tests use loopback services and disposable databases. Country-alert tests use signed synthetic estimates, not a live geolocation provider. Installer wizard appearance and its optional Explorer-registration step are outside the automated installer test. No GPU compression code changed for alpha.2; earlier hardware benchmark results were not rerun.
 
 ## Native KMS baseline (2026-10-12)
 
-The following records the earlier native-KMS implementation and supersedes the older VM/secret-loader hosting report. Its original counts are retained as historical evidence; the alpha.2 results above are current.
+The following records the earlier native-KMS implementation and supersedes the older VM/secret-loader hosting report. Its original counts are retained as historical evidence; the alpha.3 results above are current.
 
 | Check | Result and boundary |
 |---|---|
@@ -55,6 +69,8 @@ python -m unittest discover -s identity-broker/deploy -p test_launch.py
 python scripts/test-broker-postgres.py --pg-bin PATH_TO_POSTGRESQL_BIN
 python scripts/test-identity-flow.py --cli target/release/lttl.exe --broker identity-broker/target/release/lttl-key-broker.exe
 python scripts/test-identity-flow.py --tracking --cli target/release/lttl.exe --broker identity-broker/target/release/lttl-key-broker.exe
+python scripts/test-identity-flow.py --tracking --audit --cli target/release/lttl.exe --broker identity-broker/target/release/lttl-key-broker.exe
+python -m unittest discover -s identity-broker/audit-vault -v
 ```
 
 The PostgreSQL harness creates a local temporary cluster and CA, starts it on an ephemeral loopback port, runs the actual Rust shared-state contract, stops the server and removes its data. It requires Python `cryptography` and PostgreSQL binaries; it does not install a system service or change system certificate trust. The local runtime was downloaded from EDB's official Windows binary distribution linked by [PostgreSQL's Windows download page](https://www.postgresql.org/download/windows/).

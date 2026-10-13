@@ -92,6 +92,8 @@ enum IdentityCommand {
     Users {#[arg(long)] profile:Option<PathBuf>},
     Events {archive:PathBuf,#[arg(long)] profile:Option<PathBuf>},
     Revoke {archive:PathBuf,#[arg(long)] profile:Option<PathBuf>},
+    /// Inspect retention/holds or submit an administrator action JSON file after IDP sign-in.
+    Retention {archive:PathBuf,#[arg(long)] profile:Option<PathBuf>,#[arg(long)] action:Option<PathBuf>},
 }
 fn profile(path:Option<PathBuf>)->Result<lttl::identity::Profile> {lttl::identity::Profile::load(&path.unwrap_or_else(lttl::identity::default_profile_path))}
 fn sign_in_notice(url:String) {eprintln!("Complete organization sign-in in your browser: {url}");}
@@ -168,6 +170,16 @@ fn run() -> Result<()> {
                 let mut file=std::fs::File::open(archive)?;let (header,_)=lttl::identity::crypto::read_header(&mut file)?;let profile=profile(path)?;
                 anyhow::ensure!(lttl::identity::broker_url(&header.broker)?==profile.broker_url,"Archive and configured service differ");
                 let session=lttl::identity::login(&profile,None,&cancel,&mut sign_in_notice)?;session.revoke(&header.archive_id)?;print_json(&serde_json::json!({"revoked":true}))
+            }
+            IdentityCommand::Retention{archive,profile:path,action}=> {
+                let mut file=std::fs::File::open(archive)?;let (header,_)=lttl::identity::crypto::read_header(&mut file)?;let profile=profile(path)?;
+                anyhow::ensure!(lttl::identity::broker_url(&header.broker)?==profile.broker_url,"Archive and configured service differ");
+                let action=action.map(|path|->Result<serde_json::Value>{
+                    let file=std::fs::File::open(path)?;let mut bytes=Vec::new();
+                    use std::io::Read;file.take(16385).read_to_end(&mut bytes)?;
+                    anyhow::ensure!(bytes.len()<=16384,"Retention action is too large");Ok(serde_json::from_slice(&bytes)?)
+                }).transpose()?;
+                let session=lttl::identity::login(&profile,None,&cancel,&mut sign_in_notice)?;print_json(&session.retention(&header.archive_id,action.as_ref())?)
             }
         },
         Some(Command::Benchmark { inputs, threads, runs }) => {

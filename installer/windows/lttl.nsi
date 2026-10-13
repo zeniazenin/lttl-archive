@@ -10,7 +10,7 @@ OutFile "${OUTPUT}"
 InstallDir "$LOCALAPPDATA\Programs\lttl"
 RequestExecutionLevel user
 SetCompressor /SOLID lzma
-VIProductVersion "0.1.0.0"
+VIProductVersion "0.1.0.3"
 VIAddVersionKey "ProductName" "lttl"
 VIAddVersionKey "FileDescription" "lttl Windows x64 installer"
 VIAddVersionKey "FileVersion" "${VERSION}"

@@ -12,11 +12,13 @@
 
 - [Sharing and security infographic](assets/encrypted-sharing-infographic.png): IDP policy checks, archive key release and optional tracking.
 - [Archive access tracking](archive-tracking.md): per-archive policies, signed security webhooks, country estimates and serverless retries.
+- [Signed audit, retention and legal holds](audit-retention.md): migration, separate audit vault, preservation schedules, administrator CLI/API and cloud IAM boundaries.
 - [Identity sharing](identity-sharing.md): recipient enrollment, encrypted archives and revocation.
 - [Entra + cloud test setup](../identity-broker/deploy/test-environment.md).
 - [Serverless deployment](../identity-broker/deploy/README.md): [Azure](../identity-broker/deploy/azure.md), [AWS](../identity-broker/deploy/aws.md), [Google Cloud](../identity-broker/deploy/gcp.md).
 - [Current identity/KMS validation](identity-serverless-validation.md).
-- [Alpha.2 release notes](releases/v0.1.0-alpha.2.md) and [tracking integration results](tracking-validation.json).
+- [Alpha.3 release notes](releases/v0.1.0-alpha.3.md) and [audit/retention integration results](audit-retention-validation.json).
+- Historical [alpha.2 release notes](releases/v0.1.0-alpha.2.md) and [tracking integration results](tracking-validation.json).
 - Generated examples: [Entra/Azure](identity-entra-azure.md), [Okta/AWS](identity-okta-aws.md), [Keycloak/GCP](identity-keycloak-gcp.md). Replace all placeholders before use.
 
 ## Compression and benchmarks

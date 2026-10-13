@@ -1,0 +1,7 @@
+cryptography>=46,<47
+boto3>=1.40,<2
+azure-functions>=1.21,<2
+azure-identity>=1.19,<2
+azure-storage-blob>=12.24,<13
+google-cloud-storage>=3,<4
+functions-framework>=3,<4

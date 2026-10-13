@@ -19,6 +19,7 @@ import subprocess
 import tempfile
 import threading
 import time
+import sys
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -178,6 +179,7 @@ def main():
     parser.add_argument('--cli', type=Path, default=ROOT / 'target/debug/lttl.exe')
     parser.add_argument('--broker', type=Path, default=ROOT / 'identity-broker/target/debug/lttl-key-broker.exe')
     parser.add_argument('--tracking',action='store_true')
+    parser.add_argument('--audit',action='store_true')
     args = parser.parse_args()
     server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), Provider)
     Provider.origin = 'http://127.0.0.1:' + str(server.server_port)
@@ -198,12 +200,37 @@ def main():
         env = dict(os.environ, LTTL_OIDC_CLIENT_SECRET='local-secret', LTTL_BROKER_MASTER_KEY=identifier(),
                    LTTL_MANUAL_SIGN_IN='1', TEMP=str(work), TMP=str(work))
         receiver=None
+        audit_receiver=None
         if args.tracking:
             receiver=http.server.ThreadingHTTPServer(('127.0.0.1',0),TrackingReceiver)
             threading.Thread(target=receiver.serve_forever,daemon=True).start()
             TrackingReceiver.secret=identifier()
             env.update(LTTL_TRACKING_WEBHOOK_SECRET=TrackingReceiver.secret,LTTL_TRACKING_DISPATCH_TOKEN=identifier(),LTTL_TRACKING_GEO_SECRET=identifier())
             cfg=json.loads(config.read_text());cfg['tracking']={'webhook_url':f'http://127.0.0.1:{receiver.server_port}/events','signed_geo_headers':True};config.write_text(json.dumps(cfg))
+        if args.audit:
+            sys.path.insert(0,str(ROOT/'identity-broker/audit-vault'))
+            from vault import Vault
+            from test_vault import MemorySink
+            from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+            from cryptography.hazmat.primitives import serialization
+            signing_seed=secrets.token_bytes(32)
+            public=b64(Ed25519PrivateKey.from_private_bytes(signing_seed).public_key().public_bytes(serialization.Encoding.Raw,serialization.PublicFormat.Raw))
+            sink=MemorySink();vault=Vault(sink,'integration-test',public)
+            class AuditReceiver(http.server.BaseHTTPRequestHandler):
+                fail=True
+                def log_message(self,*args):pass
+                def do_POST(self):
+                    raw=self.rfile.read(int(self.headers['Content-Length']))
+                    try:
+                        assert self.headers['Authorization']=='Bearer '+env['LTTL_AUDIT_VAULT_TOKEN']
+                        if self.fail:raise OSError('simulated outage')
+                        result=vault.receive(raw);status=200
+                    except Exception:result={'error':'not acknowledged'};status=503
+                    data=json.dumps(result).encode();self.send_response(status);self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data)
+            audit_receiver=http.server.ThreadingHTTPServer(('127.0.0.1',0),AuditReceiver)
+            threading.Thread(target=audit_receiver.serve_forever,daemon=True).start()
+            env.update(LTTL_AUDIT_SIGNING_SEED=b64(signing_seed),LTTL_AUDIT_VAULT_TOKEN=identifier(),LTTL_AUDIT_DISPATCH_TOKEN=identifier())
+            cfg=json.loads(config.read_text());cfg['audit']={'enabled':True,'stream_id':'integration-test','vault_url':f'http://127.0.0.1:{audit_receiver.server_port}/audit','administrator_subjects':['alice'],'evidence_retention_days':1,'archive_retention_days':1};config.write_text(json.dumps(cfg))
         process = subprocess.Popen([str(args.broker), str(config)], env=env, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
         try:
             for _ in range(100):
@@ -453,14 +480,81 @@ def main():
             cli('alice', ['identity', 'revoke', output, '--profile', profile])
             cli('bob', ['test', output, '--identity-profile', profile], success=False)
             check(True, 'CLI revocation enforced')
+            if args.audit:
+                state=json.loads(cli('alice',['identity','retention',work/'zip.lttl','--profile',profile]))
+                check(state['retain_until']>time.time(),'actual CLI retention inspection with fresh IDP authentication')
+                cli_hold=identifier();action_file=work/'hold.json';action_file.write_text(json.dumps({'action':'hold','hold_id':cli_hold,'reason':'CLI case'}))
+                state=json.loads(cli('alice',['identity','retention',work/'zip.lttl','--profile',profile,'--action',action_file]))
+                check(any(h['id']==cli_hold for h in state['holds']),'actual CLI places legal hold')
+                cli('bob',['identity','retention',work/'zip.lttl','--profile',profile],success=False)
+                check(True,'actual CLI rejects non-administrator retention access')
+                alice,bob=login('alice'),login('bob')
+                status,_,created=api('/v1/archives',alice,{'recipients':[bob['user']['id']]})
+                check(status==200,'audited archive creation')
+                aid=created['archive_id'];path='/v1/archives/'+aid+'/retention'
+                check(api(path,bob)[0]==403,'recipient is not a retention administrator')
+                check(api(path,login('alice',aid))[0]==403,'archive-bound session cannot administer retention')
+                check(api(path,alice)[2]['retain_until']>time.time(),'organization retention assigned at creation')
+                action=lambda data:api(path,alice,data,method='POST')
+                check(action({'action':'extend','retain_until':int(time.time()),'reason':'shorten'})[0]==409,'retention cannot be shortened')
+                hold=identifier()
+                check(action({'action':'hold','hold_id':hold,'reason':'case-001'})[0]==200,'administrator places legal hold')
+                check(action({'action':'destroy_key','reason':'disposition'})[0]==409,'retained held key cannot be destroyed')
+                check(action({'action':'access_expiry','expires':int(time.time())-1,'reason':'access ended'})[0]==200,'access expiration independent of preservation')
+                check(api('/v1/archives/'+aid+'/key',login('bob',aid),method='POST')[0]==403,'expired access denied while key is held')
+                check(action({'action':'approval','reference':'case-001','decision':'approved','reason':'review attestation'})[0]==200,'approval attestation recorded')
+                check(api('/v1/archives/'+aid+'/recipients',bob,{'recipients':[bob['user']['id']]})[0]==403,'recipient cannot change archive audience')
+                check(api('/v1/archives/'+aid+'/recipients',alice,{'recipients':[alice['user']['id'],bob['user']['id']]})[0]==200,'owner audience change is audited')
+                check(api('/v1/audit/dispatch',alice,{},method='POST')[0]==403,'user session cannot invoke scheduler endpoint')
+                dispatch=lambda:request(origin+'/v1/audit/dispatch',{},env['LTTL_AUDIT_DISPATCH_TOKEN'])
+                check(dispatch()[0]==500,'vault outage does not acknowledge pending evidence')
+                restart_broker()
+                with contextlib.closing(sqlite3.connect(database)) as db:
+                    check(db.execute('SELECT count(*) FROM audit_pending').fetchone()[0]==1,'signed batch survives broker restart')
+                    db.execute('UPDATE archive_lifecycle SET retain_until=1 WHERE archive_id=?',(aid,));db.execute('UPDATE audit_records SET retain_until=1 WHERE archive_id=?',(aid,));db.commit()
+                check(action({'action':'destroy_key','reason':'disposition'})[0]==409,'hold protects key after retention elapsed')
+                AuditReceiver.fail=False
+                for _ in range(40):
+                    status,_,result=dispatch();check(status==200,'signed batch verified and acknowledged by independent vault')
+                    if result['batch'] is None:break
+                else:raise AssertionError('audit queue did not drain')
+                with contextlib.closing(sqlite3.connect(database)) as db:
+                    check(db.execute('SELECT count(*) FROM audit_records WHERE archive_id=?',(aid,)).fetchone()[0]>0,'hold preserves expired acknowledged audit records')
+                check(action({'action':'release_hold','hold_id':hold,'reason':'case closed'})[0]==200,'authorized hold release')
+                check(action({'action':'destroy_key','reason':'retention completed'})[0]==200,'key destruction allowed only after retention and holds clear')
+                restart_broker()
+                check(api(path,alice)[2]['destroyed'],'key destruction survives restart')
+                # Mutating a signed row cannot be legitimized by signing a later batch.
+                with contextlib.closing(sqlite3.connect(database)) as db:
+                    seq,payload=db.execute('SELECT seq,payload FROM audit_records WHERE exported=0 ORDER BY seq LIMIT 1').fetchone()
+                    db.execute('UPDATE audit_records SET payload=? WHERE seq=?',(payload+' ',seq));db.commit()
+                check(dispatch()[0]==500,'database audit tampering blocks export')
+                with contextlib.closing(sqlite3.connect(database)) as db:
+                    db.execute('UPDATE audit_records SET payload=? WHERE seq=?',(payload,seq));db.commit()
+                for _ in range(40):
+                    status,_,result=dispatch();assert status==200
+                    if result['batch'] is None:break
+                exported=[vault.validate(json.loads(raw)) for name,raw in sink.objects.items() if '/first/' in name]
+                kinds={json.loads(e['payload'])['event'] for batch in exported for e in batch['events']}
+                required={'archive_created','recipients_changed','approval_recorded','authentication_failed','authentication_accepted','key_released','key_denied','archive_revoked','legal_hold_placed','legal_hold_released','archive_key_destroyed','administrator_access_denied'}
+                check(required<=kinds,'independent signed evidence covers required lifecycle decisions')
+                original=json.loads(config.read_text());disabled=dict(original);disabled['audit']=dict(original['audit'],enabled=False)
+                downgrade=work/'downgrade.json';downgrade.write_text(json.dumps(disabled))
+                denied=subprocess.run([str(args.broker),str(downgrade)],env=env,capture_output=True,timeout=20)
+                check(denied.returncode!=0 and b'Cannot disable' in denied.stderr,'signed audit cannot be silently disabled')
             with contextlib.closing(sqlite3.connect(database)) as db:
-                events = dict(db.execute('SELECT event,count(*) FROM audit GROUP BY event'))
+                events = {}
+                for (payload,) in db.execute('SELECT payload FROM audit_records'):
+                    kind=json.loads(payload)['event'];events[kind]=events.get(kind,0)+1
             check(events.get('key-denied', 0) >= 3 and events.get('key-release', 0) >= 9, 'release and denial audit events')
             report = {'scope': 'Local RSA-signed mock OIDC and real broker/CLI; no real tenant',
+                      'cli_sha256': hashlib.sha256(args.cli.read_bytes()).hexdigest(),
+                      'broker_sha256': hashlib.sha256(args.broker.read_bytes()).hexdigest(),
                       'live_entra_validated': False, 'checks_passed': len(CHECKS), 'checks': CHECKS,
                       'authentications': Provider.authentications, 'audit_event_counts': events}
             if args.tracking: report.update(webhook_packets=len(TrackingReceiver.packets),live_webhook_validated=False)
-            (ROOT / ('docs/tracking-validation.json' if args.tracking else 'docs/identity-validation.json')).write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
+            if args.audit:report.update(signed_audit_batches=len(exported),live_audit_vault_validated=False,cloud_storage_adapters_validated=False)
+            (ROOT / ('docs/audit-retention-validation.json' if args.audit else 'docs/tracking-validation.json' if args.tracking else 'docs/identity-validation.json')).write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
             print(f'PASS: {len(CHECKS)} checks; {Provider.authentications} fresh OIDC flows; all 3 formats hash verified.')
         finally:
             process.terminate()
@@ -469,6 +563,7 @@ def main():
             server.shutdown()
             server.server_close()
             if receiver: receiver.shutdown();receiver.server_close()
+            if audit_receiver:audit_receiver.shutdown();audit_receiver.server_close()
 
 
 if __name__ == '__main__':

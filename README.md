@@ -4,7 +4,7 @@ A Rust archiver for Windows with a desktop interface, CLI, CPU/GPU compression, 
 
 **Alpha software.** ZIP, TAR.ZST and TAR.LZ4 work locally. GPU paths have been tested on Intel Arc and an RTX 4070 Laptop GPU. Identity sharing has local integration coverage; live cloud/IDP deployment is still awaiting pilot validation.
 
-[Download Windows installer](https://github.com/zeniazenin/lttl-archive/releases/tag/v0.1.0-alpha.2) · [Documentation](docs/README.md) · [Build from source](docs/development.md) · [Identity setup](identity-broker/deploy/test-environment.md)
+[Download Windows installer](https://github.com/zeniazenin/lttl-archive/releases/tag/v0.1.0-alpha.3) · [Documentation](docs/README.md) · [Build from source](docs/development.md) · [Identity setup](identity-broker/deploy/test-environment.md)
 
 ## Features
 
@@ -16,14 +16,15 @@ A Rust archiver for Windows with a desktop interface, CLI, CPU/GPU compression, 
 - Encrypted `.lttl` envelopes for selected enrolled organization users, with fresh IDP authentication on opening.
 - Native Azure Key Vault, AWS KMS and Google Cloud KMS wrapping, plus serverless broker templates.
 - Optional per-archive access tracking with signed organization security webhooks, durable retries and country-watchlist alerts. [Setup and limits](docs/archive-tracking.md).
+- Signed audit evidence, independent serverless audit vaults, configurable retention and legal holds. [Administrator setup](docs/audit-retention.md).
 
 lttl uses open archive formats and independent compression libraries. It does **not** implement RAR/7z or full WinRAR compatibility. Historical RAR research is included as evidence, not as a reconstructed proprietary codec.
 
 ## Install on Windows
 
-Download `lttl-0.1.0-alpha.2-windows-x64-setup.exe` and its `.sha256` file from the [release page](https://github.com/zeniazenin/lttl-archive/releases/tag/v0.1.0-alpha.2). The installer targets Windows 10/11 x64 and installs for the current user without elevation. It provides Start Menu shortcuts and an uninstaller. Explorer integration and NVIDIA Zstandard runtime components are optional. CPU and portable GPU LZ4 are included by default.
+Download `lttl-0.1.0-alpha.3-windows-x64-setup.exe` and its `.sha256` file from the [release page](https://github.com/zeniazenin/lttl-archive/releases/tag/v0.1.0-alpha.3). The installer targets Windows 10/11 x64 and installs for the current user without elevation. It provides Start Menu shortcuts and an uninstaller. Explorer integration and NVIDIA Zstandard runtime components are optional. CPU and portable GPU LZ4 are included by default.
 
-This alpha installer is **unsigned**; Windows may display a publisher/SmartScreen warning. Verify the downloaded artifact's SHA-256 against the release checksum. No signing certificate was available for this release. Uninstall alpha.1 before installing alpha.2. See [installation, verification and removal](docs/windows-installer.md).
+This alpha installer is **unsigned**; Windows may display a publisher/SmartScreen warning. Verify the downloaded artifact's SHA-256 against the release checksum. No signing certificate was available for this release. Uninstall an earlier version before installing alpha.3. See [installation, verification and removal](docs/windows-installer.md).
 
 ## Build and run
 
@@ -101,9 +102,11 @@ Upgrade the broker and run `--init-db` before using the new client. Configure th
 
 ## Validation and limitations
 
-Alpha.2 passed **33 desktop tests**, **10 broker tests**, **96 end-to-end checks** across 49 mock-IDP sign-ins, the separate PostgreSQL/TLS contract and **14 installer checks**. Seven hardware-only desktop tests were skipped. Tracking tests cover webhook signatures, retries after restart, owner isolation, forged location headers and denial of key release when tracking storage fails. [Validation details](docs/identity-serverless-validation.md).
+Alpha.3 includes **signed audit export, configurable retention and legal holds**, administered through the identity CLI/API. A separate serverless audit vault supports Azure Blob, S3 and Google Cloud Storage under a security-team identity. Broker auditing is independent of optional location tracking; holds protect broker-managed keys/evidence while allowing access revocation. Archive files themselves must be preserved in retention-controlled storage. Upgrade and configure the broker as well as the desktop; installation does not deploy services. [Configuration, migration, cloud deployment and limitations](docs/audit-retention.md).
 
-The earlier portable GPU experiment completed **468 archive/extraction pairs** and **4,316 file-hash checks**. Compression algorithms were unchanged in alpha.2; those measurements were not rerun for the tracking release.
+Alpha.3 validation covers desktop and broker regression tests, eight audit-vault protocol tests, PostgreSQL/TLS, and the real Windows client with a mock IDP and independent mock audit vault. Tests include signed evidence, replay/tampering, holds, independent access expiry, key destruction, failed export and restart recovery. [Current counts and boundaries](docs/identity-serverless-validation.md) · [Installer results](https://github.com/zeniazenin/lttl-archive/blob/v0.1.0-alpha.3/docs/windows-installer-validation.json).
+
+The earlier portable GPU experiment completed **468 archive/extraction pairs** and **4,316 file-hash checks**. Compression algorithms are unchanged in alpha.3; those hardware measurements were not rerun for this release.
 
 Extraction rejects unsafe paths, links/reparse points, collisions and existing-file overwrites. Checksums detect corruption; identity envelopes add authenticated encryption. Windows ACLs/alternate streams, complete metadata preservation, split volumes, recovery records, archive updates and password-encrypted ZIP/7z are not implemented. Do not use actively changing input as a filesystem-consistent backup. See [the detailed user guide](docs/user-guide.md).
 

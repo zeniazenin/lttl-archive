@@ -91,6 +91,13 @@ pub fn login(profile:&Profile,archive_id:Option<&str>,cancel:&AtomicBool,notice:
 }
 
 impl Session {
+    pub fn retention(&self,id:&str,action:Option<&serde_json::Value>)->Result<serde_json::Value> {
+        ensure!(crypto::valid_id(id),"Invalid archive ID");
+        let url=format!("{}/v1/archives/{id}/retention",self.profile.broker_url);
+        let client=http()?;
+        let request=if let Some(action)=action {client.post(url).json(action)}else{client.get(url)};
+        json(request.bearer_auth(&*self.token).send()?)
+    }
     pub fn events(&self,id:&str)->Result<serde_json::Value> {ensure!(crypto::valid_id(id),"Invalid archive ID");json(http()?.get(format!("{}/v1/archives/{id}/events",self.profile.broker_url)).bearer_auth(&*self.token).send()?)}
     pub fn users(&self)->Result<Vec<User>> {let users:Vec<User>=json(http()?.get(format!("{}/v1/users",self.profile.broker_url)).bearer_auth(&*self.token).send()?)?;ensure!(users.len()<=1000 && users.iter().all(|u|crypto::valid_id(&u.id)),"Invalid recipient directory");Ok(users)}
     pub fn revoke(&self,id:&str)->Result<()> {ensure!(crypto::valid_id(id),"Invalid archive ID");let _:serde_json::Value=json(http()?.post(format!("{}/v1/archives/{id}/revoke",self.profile.broker_url)).bearer_auth(&*self.token).send()?)?;Ok(())}

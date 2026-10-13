@@ -7,6 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
+import tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -14,10 +15,13 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--nsis', type=Path, default=ROOT/'tools/nsis-3.12/makensis.exe')
     p.add_argument('--crt', type=Path, help='Visual Studio x64 Microsoft.VC143.CRT redistributable directory')
-    p.add_argument('--version', default='0.1.0-alpha.2')
+    p.add_argument('--version', default=tomllib.loads((ROOT/'Cargo.toml').read_text())['package']['version'])
     args = p.parse_args()
     if not all(c.isalnum() or c in '.-' for c in args.version):
         raise SystemExit('Invalid version')
+    actual=subprocess.check_output([str(ROOT/'target/release/lttl.exe'),'--version'],text=True).strip()
+    if actual != 'lttl '+args.version:
+        raise SystemExit('Release executable version does not match installer version; rebuild first')
     if not args.nsis.is_file():
         raise SystemExit('Download the portable NSIS package or provide --nsis')
     if not args.crt:
@@ -55,10 +59,16 @@ def main():
             copy(ROOT/name, name)
         for name in ['install-explorer.ps1','uninstall-explorer.ps1']:
             copy(ROOT/'scripts'/name, Path('scripts')/name)
-        for src in (ROOT/'docs').glob('*.md'):
-            copy(src, Path('docs')/src.name)
-        for src in (ROOT/'identity-broker/deploy').glob('*.md'):
-            copy(src, Path('identity-broker/deploy')/src.name)
+        # Include nested guides, diagrams, validation and public serverless examples.
+        # Git exclusions keep credentials, generated caches and local configs out.
+        public_files=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','--',
+            'docs','identity-broker/deploy','identity-broker/audit-vault'],cwd=ROOT,text=True).splitlines()
+        for name in sorted(set(public_files)):
+            src=ROOT/name
+            # The final installer hash is only available after packaging; its
+            # validation report belongs in the repository, not inside itself.
+            if name == 'docs/windows-installer-validation.json': continue
+            if src.is_file(): copy(src,Path(name))
         copy(args.nsis.parent/'COPYING', 'licenses/nsis/COPYING')
         rust_notices = toolchain.parent/'share/doc/rust'
         for name in ['COPYRIGHT.html','COPYRIGHT-library.html']:

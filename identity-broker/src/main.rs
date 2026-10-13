@@ -17,6 +17,8 @@ use openidconnect::{
 mod kms;
 mod store;
 mod tracking;
+mod audit;
+mod retention;
 use serde::{Deserialize, Serialize};
 use std::{
     net::SocketAddr,
@@ -52,6 +54,8 @@ struct Config {
     serverless: bool,
     #[serde(default)]
     tracking: tracking::Config,
+    #[serde(default)]
+    audit: audit::Config,
 }
 fn listen() -> String {
     "127.0.0.1:8787".into()
@@ -113,6 +117,7 @@ struct App {
     oidc: Oidc,
     db: store::Store,
     tracking: tracking::Service,
+    audit: audit::Service,
 }
 
 type Shared = Arc<App>;
@@ -214,6 +219,7 @@ async fn oidc(config: &Config, secret: &str, http: &reqwest::Client) -> Result<O
 }
 async fn app(config: Config, secret: String, kms: kms::Kms) -> Result<Shared> {
     let tracking = tracking::Service::new(config.tracking.clone())?;
+    let audit = audit::Service::new(config.audit.clone())?;
     let u = safe_url(&config.public_url)?;
     ensure!(
         u.path() == "/" && u.query().is_none(),
@@ -237,12 +243,14 @@ async fn app(config: Config, secret: String, kms: kms::Kms) -> Result<Shared> {
         .timeout(Duration::from_secs(20))
         .build()?;
     let oidc = oidc(&config, &secret, &http).await?;
-    let db = store::Store::connect(&config.database, config.serverless, false).await?;
+    let mut db = store::Store::connect(&config.database, config.serverless, false).await?;
     db.tracking_policy("schema-check").await.context("Tracking schema missing; run --init-db before starting the upgraded broker")?;
     verify_wrapping(&db, &kms).await?;
+    db.configure_audit(&audit).await.context("Audit configuration/schema invalid; run --init-db on upgrades")?;
     Ok(Arc::new(App {
         config,
         tracking,
+        audit,
         secret: Zeroizing::new(secret),
         kms,
         http,
@@ -376,7 +384,10 @@ fn fresh(auth: Option<i64>, issued: i64, started: i64, time: i64) -> Result<()> 
 async fn callback(State(app): State<Shared>, axum::Extension(location):axum::Extension<tracking::Location>, Query(r): Query<Callback>) -> Api<Redirect> {
     let archive=app.db.state::<Flow>("login_flows",&r.state,false).await?.and_then(|f|f.archive);
     let result=callback_inner(app.clone(),r,&location).await;
-    if result.is_err() {if let Some(id)=archive {app.tracking.record(&app.db,&id,None,"authentication_failed",&location).await?;}}
+    if result.is_err() {
+        if let Some(id)=archive {app.tracking.record(&app.db,&id,None,"authentication_failed",&location).await?;}
+        else {app.db.audit(None,None,"authentication_failed").await?;}
+    }
     result
 }
 async fn callback_inner(app:Shared,r:Callback,location:&tracking::Location)->Api<Redirect> {
@@ -441,6 +452,7 @@ async fn callback_inner(app:Shared,r:Callback,location:&tracking::Location)->Api
         .enroll(&app.config.issuer, subject, &name, &email)
         .await
         .map_err(|_| forbidden())?;
+    app.db.audit_detail(Some(&user.id),f.archive.as_deref(),"authentication_accepted",serde_json::json!({"issuer":app.config.issuer,"subject":subject,"auth_time":claims.auth_time().map(|v|v.timestamp()),"acr":claims.auth_context_ref().map(|v|v.as_str())})).await?;
     if let Some(id)=&f.archive {app.tracking.record(&app.db,id,Some(&user.id),"authenticated",location).await?;}
     let code = crypto::identifier();
     let mut redirect = url::Url::parse(&f.redirect).map_err(|_| bad())?;
@@ -559,15 +571,63 @@ async fn release_authorized(app:&App,id:&str,grant:&Grant)->Api<Json<serde_json:
 async fn tracking_events(State(app):State<Shared>,Path(id):Path<String>,headers:HeaderMap)->Api<Json<serde_json::Value>> {
     let grant=manage(&app,&headers).await?;
     let events=app.db.tracking_events(&id,&grant.user.id).await?.ok_or(forbidden())?;
-    Ok(Json(serde_json::json!({"events":events,"limit":200,"retention_days":90})))
+    Ok(Json(serde_json::json!({"events":events,"limit":200,"retention_days":app.config.audit.evidence_retention_days,"zero_means":"indefinite","legal_holds_override_expiry":true})))
 }
 async fn dispatch_tracking(State(app):State<Shared>,headers:HeaderMap)->Api<Json<serde_json::Value>> {
     if !app.tracking.dispatch_allowed(&headers) {return Err(forbidden());}
-    app.db.prune_tracking().await?;
+    app.db.prune_evidence().await?;
     let delivered=app.tracking.deliver(&app.db,10).await?;
     use sqlx::Row;
     let row=sqlx::query("SELECT COUNT(*) FROM tracking_outbox").fetch_one(&app.db.pool).await?;
     Ok(Json(serde_json::json!({"delivered":delivered,"pending":row.get::<i64,_>(0)})))
+}
+async fn audit_admin(app:&App,headers:&HeaderMap)->Api<Grant> {
+    use sqlx::Row;
+    let grant=match manage(app,headers).await {
+        Ok(grant)=>grant,
+        Err(error)=>{app.db.audit(None,None,"administrator_access_denied").await?;return Err(error)}
+    };
+    let row=sqlx::query("SELECT issuer,subject FROM users WHERE id=$1").bind(&grant.user.id).fetch_one(&app.db.pool).await?;
+    if !app.config.audit.enabled || row.get::<String,_>(0)!=app.config.issuer || !app.config.audit.administrator_subjects.contains(&row.get::<String,_>(1)) {
+        app.db.audit(Some(&grant.user.id),None,"administrator_access_denied").await?;return Err(forbidden());
+    }
+    Ok(grant)
+}
+async fn retention_status(State(app):State<Shared>,Path(id):Path<String>,headers:HeaderMap)->Api<Json<serde_json::Value>> {
+    if !crypto::valid_id(&id) {return Err(bad());}
+    let grant=audit_admin(&app,&headers).await?;
+    app.db.audit(Some(&grant.user.id),Some(&id),"retention_inspected").await?;
+    Ok(Json(app.db.lifecycle(&id).await?))
+}
+async fn retention_update(State(app):State<Shared>,Path(id):Path<String>,headers:HeaderMap,Json(action):Json<retention::Action>)->Api<Json<serde_json::Value>> {
+    if !crypto::valid_id(&id) {return Err(bad());}
+    let grant=audit_admin(&app,&headers).await?;
+    action.validate().map_err(|_|bad())?;
+    if let Err(_) = app.db.retention_action(&id,&grant.user.id,&action).await {
+        app.db.audit_detail(Some(&grant.user.id),Some(&id),"retention_action_denied",serde_json::to_value(&action).map_err(|_|bad())?).await?;
+        return Err(Error(StatusCode::CONFLICT,"Retention action rejected: check hold, retention, archive state and identifiers"));
+    }
+    Ok(Json(app.db.lifecycle(&id).await?))
+}
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct Recipients {recipients:Vec<String>}
+async fn recipients_update(State(app):State<Shared>,Path(id):Path<String>,headers:HeaderMap,Json(r):Json<Recipients>)->Api<Json<serde_json::Value>> {
+    if !crypto::valid_id(&id) {return Err(bad());}
+    let grant=manage(&app,&headers).await?;
+    if app.db.change_recipients(&id,&grant.user.id,&r.recipients).await.is_err() {
+        app.db.audit(Some(&grant.user.id),Some(&id),"recipient_change_denied").await?;return Err(forbidden());
+    }
+    Ok(Json(serde_json::json!({"updated":true})))
+}
+async fn audit_dispatch(State(app):State<Shared>,headers:HeaderMap)->Api<Json<serde_json::Value>> {
+    // Separate machine credential: cannot read archives, place/release holds or destroy keys.
+    let configured=std::env::var("LTTL_AUDIT_DISPATCH_TOKEN").map_err(|_|forbidden())?;
+    let supplied=headers.get(header::AUTHORIZATION).and_then(|v|v.to_str().ok()).and_then(|v|v.strip_prefix("Bearer ")).unwrap_or("");
+    if configured.len()<32 || !tracking::verify(&configured,b"audit dispatch",&tracking::sign(supplied,b"audit dispatch")) {return Err(forbidden());}
+    let batch=app.audit.dispatch(&app.db).await?;
+    let pruned=app.db.prune_evidence().await?;
+    Ok(Json(serde_json::json!({"batch":batch,"local_records_pruned":pruned})))
 }
 async fn tracking_context(State(app):State<Shared>,mut request:Request,next:Next)->Response {
     let peer=request.extensions().get::<axum::extract::ConnectInfo<SocketAddr>>().map(|c|c.0.ip());
@@ -613,6 +673,9 @@ fn router(app: Shared) -> Router {
         .route("/v1/archives/{id}/revoke", post(revoke))
         .route("/v1/archives/{id}/events", get(tracking_events))
         .route("/v1/tracking/dispatch", post(dispatch_tracking))
+        .route("/v1/audit/dispatch", post(audit_dispatch))
+        .route("/v1/archives/{id}/retention", get(retention_status).post(retention_update))
+        .route("/v1/archives/{id}/recipients", post(recipients_update))
         .layer(middleware::from_fn_with_state(app.clone(),tracking_context))
         .layer(DefaultBodyLimit::max(131072))
         .layer(middleware::from_fn(security_headers))
@@ -637,11 +700,16 @@ async fn main() -> Result<()> {
         ("serve", command)
     };
     ensure!(
-        matches!(operation, "serve" | "--check-kms" | "--init-db"),
+        matches!(operation, "serve" | "--check-kms" | "--init-db" | "--audit-public-key"),
         "Unknown operation"
     );
     let mut config: Config = serde_json::from_slice(&std::fs::read(path)?)?;
     config.public_url = config.public_url.trim_end_matches('/').into();
+    if operation == "--audit-public-key" {
+        let seed=crypto::decode_key(&std::env::var("LTTL_AUDIT_SIGNING_SEED").context("Set LTTL_AUDIT_SIGNING_SEED")?)?;
+        let signer=audit::Signer::from_seed(&*seed,&config.audit.stream_id)?;
+        println!("{}",serde_json::json!({"stream":signer.stream,"public_key":signer.public_key}));return Ok(());
+    }
     if operation == "--init-db" {
         store::Store::connect(&config.database, config.serverless, true).await?;
         println!("Database schema ready");

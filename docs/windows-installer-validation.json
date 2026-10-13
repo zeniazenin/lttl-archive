@@ -1,9 +1,11 @@
 {
   "scope": "Actual silent per-user Windows x64 installation in temporary directories, no Explorer registration",
-  "checks_passed": 14,
+  "checks_passed": 17,
   "checks": [
     "Payload hashes and optional component selection: nvidia=False",
     "Installed CLI version",
+    "Installed retention command, audit guide and serverless vault sources",
+    "Installed client passes real mock-IDP audit/retention integration",
     "Installed zip creation/integrity/extraction: nvidia=False",
     "Installed tar-zstd creation/integrity/extraction: nvidia=False",
     "Installed tar-lz4 creation/integrity/extraction: nvidia=False",
@@ -11,14 +13,15 @@
     "Uninstall removes owned files/registration/shortcut and preserves user-added file",
     "Payload hashes and optional component selection: nvidia=True",
     "Installed CLI version",
+    "Installed retention command, audit guide and serverless vault sources",
     "Installed zip creation/integrity/extraction: nvidia=True",
     "Installed tar-zstd creation/integrity/extraction: nvidia=True",
     "Installed tar-lz4 creation/integrity/extraction: nvidia=True",
     "Existing installation refused",
     "Uninstall removes owned files/registration/shortcut and preserves user-added file"
   ],
-  "installer": "lttl-0.1.0-alpha.2-windows-x64-setup.exe",
-  "sha256": "f2a67df11cf83864a54cd1f8b40b1f691521bce1c3ddcfb612c912e519d525ba",
+  "installer": "lttl-0.1.0-alpha.3-windows-x64-setup.exe",
+  "sha256": "e7b935172732fccaf2f96dff2c3aac0da417eb68f0b48cd5f98644f65c28e5c7",
   "nvidia_doctor": {
     "codecs": [
       "ZIP / Deflate (serial)",
@@ -29,7 +32,7 @@
       "available": true,
       "codec": "nvCOMP Zstd, fixed setting",
       "device": "NVIDIA GeForce RTX 4070 Laptop GPU",
-      "initialize_seconds": 2.1035905
+      "initialize_seconds": 2.0072324
     },
     "logical_processors": 22,
     "rar_creation": false

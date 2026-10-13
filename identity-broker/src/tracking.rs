@@ -56,7 +56,7 @@ pub fn sign(secret:&str,bytes:&[u8])->String {
     let mut mac=Hmac::<Sha256>::new_from_slice(secret.as_bytes()).expect("HMAC key");mac.update(bytes);
     crypto::encode(&mac.finalize().into_bytes())
 }
-fn verify(secret:&str,bytes:&[u8],signature:&str)->bool {
+pub(crate) fn verify(secret:&str,bytes:&[u8],signature:&str)->bool {
     use base64::Engine;
     let Ok(signature)=base64::engine::general_purpose::URL_SAFE_NO_PAD.decode(signature) else{return false};
     let mut mac=Hmac::<Sha256>::new_from_slice(secret.as_bytes()).expect("HMAC key");mac.update(bytes);mac.verify_slice(&signature).is_ok()
@@ -104,6 +104,8 @@ impl Service {
         verify(secret,b"lttl dispatch",&sign(supplied,b"lttl dispatch"))
     }
     pub async fn record(&self,db:&Store,id:&str,user:Option<&str>,kind:&str,location:&Location)->Result<()> {
+        // Organizational security audit is mandatory and independent of optional location tracking.
+        db.audit(user,Some(id),kind).await?;
         let Some(policy)=db.tracking_policy(id).await? else{return Ok(())};
         if !policy.enabled {return Ok(())}
         let identity=if let Some(user)=user {sqlx::query("SELECT issuer,subject FROM users WHERE id=$1").bind(user).fetch_optional(&db.pool).await?}else{None};
@@ -121,7 +123,9 @@ impl Service {
             issuer:identity.as_ref().map(|r|r.get(0)),subject:identity.as_ref().map(|r|r.get(1)),organization_membership:membership.into(),location:location.clone(),alerts};
         let mut tx=db.pool.begin().await?;
         sqlx::query("INSERT INTO tracking_events(id,archive_id,at,payload) VALUES($1,$2,$3,$4)").bind(&event.event_id).bind(id).bind(event.occurred_at).bind(serde_json::to_string(&event)?).execute(&mut *tx).await?;
+        sqlx::query("INSERT INTO tracking_retention(id,retain_until) VALUES($1,$2)").bind(&event.event_id).bind(crate::audit::until(db.evidence_retention_days,event.occurred_at)).execute(&mut *tx).await?;
         sqlx::query("INSERT INTO tracking_outbox(id,next_at,attempts,lease) VALUES($1,$2,0,'')").bind(&event.event_id).bind(now()).execute(&mut *tx).await?;
+        db.audit_tx(&mut tx,user,Some(id),"tracking_event",serde_json::to_value(&event)?).await?;
         tx.commit().await?;
         // Await one bounded delivery: serverless runtimes may freeze spawned tasks.
         // Failure leaves the durable outbox for the scheduled dispatcher.
@@ -159,10 +163,6 @@ impl Store {
         if sqlx::query("SELECT id FROM archives WHERE id=$1 AND owner=$2").bind(id).bind(owner).fetch_optional(&self.pool).await?.is_none() {return Ok(None)}
         let rows=sqlx::query("SELECT payload FROM tracking_events WHERE archive_id=$1 ORDER BY at DESC,id DESC LIMIT 200").bind(id).fetch_all(&self.pool).await?;
         Ok(Some(rows.into_iter().map(|r|serde_json::from_str(&r.get::<String,_>(0))).collect::<std::result::Result<_,_>>()?))
-    }
-    pub async fn prune_tracking(&self)->Result<()> {
-        // Bounded data retention; undelivered events expire too, without silent success.
-        sqlx::query("DELETE FROM tracking_events WHERE at<$1").bind(now()-90*86400).execute(&self.pool).await?;Ok(())
     }
 }
 
@@ -224,7 +224,7 @@ mod tests {
         assert_eq!(packets[0].0["x-lttl-event-id"],packets[1].0["x-lttl-event-id"]);
         for(h,body)in packets {let text=format!("{}.{}.{}",h["x-lttl-event-id"].to_str()?,h["x-lttl-timestamp"].to_str()?,body);
             assert!(verify(&"a".repeat(32),text.as_bytes(),h["x-lttl-signature"].to_str()?));assert!(!verify(&"a".repeat(32),b"tampered",h["x-lttl-signature"].to_str()?));}
-        sqlx::query("UPDATE tracking_events SET at=0").execute(&db.pool).await?;db.prune_tracking().await?;
-        assert!(db.tracking_events(&id,&owner.id).await?.unwrap().is_empty());server.abort();Ok(())
+        sqlx::query("UPDATE tracking_events SET at=0").execute(&db.pool).await?;db.prune_evidence().await?;
+        assert_eq!(db.tracking_events(&id,&owner.id).await?.unwrap().len(),1);server.abort();Ok(())
     }
 }

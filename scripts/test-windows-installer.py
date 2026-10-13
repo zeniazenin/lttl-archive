@@ -13,6 +13,8 @@ import subprocess
 import tempfile
 import time
 import winreg
+import sys
+import tomllib
 
 ROOT=Path(__file__).resolve().parents[1]
 REG=r'Software\Microsoft\Windows\CurrentVersion\Uninstall\lttl'
@@ -27,6 +29,7 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('installer',type=Path)
     parser.add_argument('--manifest',type=Path,required=True)
+    parser.add_argument('--identity-broker',type=Path,help='Run audit/retention integration using the installed CPU client')
     args=parser.parse_args()
     if registered(): raise SystemExit('Existing lttl installation found; refusing to modify it')
     setup=args.installer.resolve()
@@ -51,8 +54,15 @@ def main():
                 exe=install/'lttl.exe'
                 def cli(*args):
                     return subprocess.check_output([str(exe),*map(str,args)],text=True,encoding='utf-8',stderr=subprocess.PIPE,timeout=60)
-                assert 'lttl 0.1.0' in cli('--version')
+                assert cli('--version').strip() == 'lttl '+tomllib.loads((ROOT/'Cargo.toml').read_text())['package']['version']
                 checks.append('Installed CLI version')
+                assert '--action' in cli('identity','retention','--help')
+                assert (install/'docs/audit-retention.md').is_file() and (install/'identity-broker/audit-vault/vault.py').is_file()
+                checks.append('Installed retention command, audit guide and serverless vault sources')
+                if args.identity_broker and not nvidia:
+                    subprocess.run([sys.executable,str(ROOT/'scripts/test-identity-flow.py'),'--tracking','--audit',
+                                    '--cli',str(exe),'--broker',str(args.identity_broker.resolve())],check=True,timeout=300)
+                    checks.append('Installed client passes real mock-IDP audit/retention integration')
                 doctor=json.loads(cli('doctor'))
                 if nvidia:
                     # Preserve result rather than asserting availability on every host.

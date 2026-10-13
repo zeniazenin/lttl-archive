@@ -10,11 +10,23 @@ use std::{str::FromStr, time::Duration};
 
 pub struct Store {
     pub pool: AnyPool,
+    pub signer: Option<std::sync::Arc<crate::audit::Signer>>,
+    pub evidence_retention_days: u32,
+    pub archive_retention_days: u32,
 }
 const SCHEMA:&str="
 CREATE TABLE IF NOT EXISTS users(id TEXT PRIMARY KEY,issuer TEXT NOT NULL,subject TEXT NOT NULL,name TEXT NOT NULL,email TEXT NOT NULL,disabled BIGINT NOT NULL DEFAULT 0,UNIQUE(issuer,subject));
 CREATE TABLE IF NOT EXISTS archives(id TEXT PRIMARY KEY,owner TEXT NOT NULL REFERENCES users(id),wrapped BYTEA NOT NULL,recipients TEXT NOT NULL,revoked BIGINT NOT NULL DEFAULT 0,created BIGINT NOT NULL);
 CREATE TABLE IF NOT EXISTS audit(at BIGINT NOT NULL,user_id TEXT,archive_id TEXT,event TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS audit_head(id BIGINT PRIMARY KEY,seq BIGINT NOT NULL,hash TEXT NOT NULL,exported_seq BIGINT NOT NULL,exported_hash TEXT NOT NULL,batch_hash TEXT NOT NULL);
+INSERT INTO audit_head VALUES(1,0,'',0,'','') ON CONFLICT(id) DO NOTHING;
+CREATE TABLE IF NOT EXISTS audit_records(seq BIGINT PRIMARY KEY,archive_id TEXT,at BIGINT NOT NULL,retain_until BIGINT NOT NULL,payload TEXT NOT NULL,hash TEXT NOT NULL,signature TEXT NOT NULL,exported BIGINT NOT NULL);
+CREATE INDEX IF NOT EXISTS audit_archive ON audit_records(archive_id,seq);
+CREATE TABLE IF NOT EXISTS audit_pending(id BIGINT PRIMARY KEY,packet TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS archive_lifecycle(archive_id TEXT PRIMARY KEY REFERENCES archives(id),retain_until BIGINT NOT NULL DEFAULT 0,access_expires BIGINT NOT NULL DEFAULT 0,destroyed BIGINT NOT NULL DEFAULT 0);
+INSERT INTO archive_lifecycle(archive_id) SELECT id FROM archives WHERE id NOT IN (SELECT archive_id FROM archive_lifecycle);
+CREATE TABLE IF NOT EXISTS legal_holds(id TEXT PRIMARY KEY,archive_id TEXT NOT NULL REFERENCES archives(id),reason TEXT NOT NULL,actor TEXT NOT NULL,created BIGINT NOT NULL,released BIGINT NOT NULL DEFAULT 0);
+CREATE INDEX IF NOT EXISTS active_holds ON legal_holds(archive_id,released);
 CREATE TABLE IF NOT EXISTS broker_metadata(name TEXT PRIMARY KEY,value BYTEA NOT NULL);
 CREATE TABLE IF NOT EXISTS login_flows(id TEXT PRIMARY KEY,payload TEXT NOT NULL,expires BIGINT NOT NULL,launched BIGINT NOT NULL DEFAULT 0);
 CREATE TABLE IF NOT EXISTS auth_codes(id TEXT PRIMARY KEY,payload TEXT NOT NULL,expires BIGINT NOT NULL);
@@ -23,6 +35,8 @@ CREATE TABLE IF NOT EXISTS archive_tracking(archive_id TEXT PRIMARY KEY REFERENC
 CREATE TABLE IF NOT EXISTS tracking_events(id TEXT PRIMARY KEY,archive_id TEXT NOT NULL REFERENCES archives(id),at BIGINT NOT NULL,payload TEXT NOT NULL);
 CREATE INDEX IF NOT EXISTS tracking_by_archive ON tracking_events(archive_id,at);
 CREATE INDEX IF NOT EXISTS tracking_expiry ON tracking_events(at);
+CREATE TABLE IF NOT EXISTS tracking_retention(id TEXT PRIMARY KEY REFERENCES tracking_events(id) ON DELETE CASCADE,retain_until BIGINT NOT NULL);
+INSERT INTO tracking_retention(id,retain_until) SELECT id,0 FROM tracking_events WHERE id NOT IN (SELECT id FROM tracking_retention);
 CREATE TABLE IF NOT EXISTS tracking_outbox(id TEXT PRIMARY KEY REFERENCES tracking_events(id) ON DELETE CASCADE,next_at BIGINT NOT NULL,attempts BIGINT NOT NULL,lease TEXT NOT NULL);
 CREATE INDEX IF NOT EXISTS tracking_due ON tracking_outbox(next_at);
 CREATE INDEX IF NOT EXISTS flows_expiry ON login_flows(expires);
@@ -124,7 +138,7 @@ impl Store {
                 sqlx::query(statement).execute(&pool).await?;
             }
         }
-        Ok(Self { pool })
+        Ok(Self { pool, signer:None, evidence_retention_days:0, archive_retention_days:0 })
     }
     pub async fn audit(
         &self,
@@ -132,14 +146,7 @@ impl Store {
         archive: Option<&str>,
         event: &str,
     ) -> Result<()> {
-        sqlx::query("INSERT INTO audit VALUES($1,$2,$3,$4)")
-            .bind(now())
-            .bind(user)
-            .bind(archive)
-            .bind(event)
-            .execute(&self.pool)
-            .await?;
-        Ok(())
+        self.audit_detail(user,archive,event,serde_json::json!({})).await
     }
     pub async fn metadata(&self, name: &str) -> Result<Option<Vec<u8>>> {
         Ok(
@@ -161,7 +168,7 @@ impl Store {
         Ok(())
     }
     pub async fn first_archive(&self) -> Result<Option<(String, Vec<u8>)>> {
-        Ok(sqlx::query("SELECT id,wrapped FROM archives LIMIT 1")
+        Ok(sqlx::query("SELECT a.id,a.wrapped FROM archives a JOIN archive_lifecycle l ON l.archive_id=a.id WHERE l.destroyed=0 LIMIT 1")
             .fetch_optional(&self.pool)
             .await?
             .map(|r| (r.get(0), r.get(1))))
@@ -242,17 +249,14 @@ impl Store {
         .execute(&mut *tx)
         .await?;
         sqlx::query("INSERT INTO archive_tracking(archive_id,policy) VALUES($1,$2)").bind(id).bind(serde_json::to_string(policy)?).execute(&mut *tx).await?;
-        sqlx::query("INSERT INTO audit VALUES($1,$2,$3,'create')")
-            .bind(now())
-            .bind(owner)
-            .bind(id)
-            .execute(&mut *tx)
-            .await?;
+        let retained = crate::audit::until(self.archive_retention_days, now());
+        sqlx::query("INSERT INTO archive_lifecycle(archive_id,retain_until) VALUES($1,$2)").bind(id).bind(retained).execute(&mut *tx).await?;
+        self.audit_tx(&mut tx,Some(owner),Some(id),"archive_created",serde_json::json!({"recipients":recipients,"tracking":policy,"retain_until":retained})).await?;
         tx.commit().await?;
         Ok(())
     }
     pub async fn allowed_key(&self, id: &str, user: &str) -> Result<Option<Vec<u8>>> {
-        let row=sqlx::query("SELECT a.wrapped,a.recipients,a.revoked,u.disabled FROM archives a JOIN users u ON u.id=$2 WHERE a.id=$1").bind(id).bind(user).fetch_optional(&self.pool).await?;
+        let row=sqlx::query("SELECT a.wrapped,a.recipients,a.revoked,u.disabled FROM archives a JOIN users u ON u.id=$2 JOIN archive_lifecycle l ON l.archive_id=a.id WHERE a.id=$1 AND l.destroyed=0 AND (l.access_expires=0 OR l.access_expires>$3)").bind(id).bind(user).bind(now()).fetch_optional(&self.pool).await?;
         if let Some(r) = row {
             let recipients: String = r.get(1);
             if r.get::<i64, _>(2) == 0
@@ -275,12 +279,7 @@ impl Store {
             .await?
             .rows_affected();
         if changed == 1 {
-            sqlx::query("INSERT INTO audit VALUES($1,$2,$3,'revoke')")
-                .bind(now())
-                .bind(owner)
-                .bind(id)
-                .execute(&mut *tx)
-                .await?;
+            self.audit_tx(&mut tx,Some(owner),Some(id),"archive_revoked",serde_json::json!({})).await?;
         }
         tx.commit().await?;
         Ok(changed == 1)
@@ -527,8 +526,11 @@ mod tests {
     #[tokio::test]
     #[ignore = "Requires disposable PostgreSQL with TLS in LTTL_DATABASE_URL; initializes schema"]
     async fn postgres_shared_state_contract() {
-        let a = Store::connect("postgres", true, true).await.unwrap();
-        let b = Store::connect("postgres", true, false).await.unwrap();
+        let mut a = Store::connect("postgres", true, true).await.unwrap();
+        let mut b = Store::connect("postgres", true, false).await.unwrap();
+        let signer=std::sync::Arc::new(crate::audit::Signer::from_seed(&[9;32],"retention-test").unwrap());
+        a.signer=Some(signer.clone());b.signer=Some(signer);
         exercise(&a, &b).await;
+        crate::retention::tests::contract(&mut a).await.unwrap();
     }
 }

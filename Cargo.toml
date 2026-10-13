@@ -1,6 +1,6 @@
 [package]
 name = "lttl"
-version = "0.1.0"
+version = "0.1.0-alpha.3"
 edition = "2024"
 rust-version = "1.88"
 description = "A Windows archiver with an independent Rust engine"
