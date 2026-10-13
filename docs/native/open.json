@@ -1,0 +1,17 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"path\":\"C:\\\\Program Files\\\\WinRAR\\\\Rar.exe\",\"format\":\"pe\",\"kind\":\"executable\",\"sha256\":\"645b3c027627c17c184bdc39c7eb0694e14c43a1fade7696c979cc1808f25494\",\"architecture\":\"x86_64\"}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "path": "C:\\Program Files\\WinRAR\\Rar.exe",
+      "format": "pe",
+      "kind": "executable",
+      "sha256": "645b3c027627c17c184bdc39c7eb0694e14c43a1fade7696c979cc1808f25494",
+      "architecture": "x86_64"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "final_executable_sha256": "7E1BBB60DDA8E06A136EEAB19103A1047C6066940339053A4F7BB5CB4D4164E6",
+  "benchmark_executable": "target/release/lttl-portable-v2-benchmark.exe",
+  "benchmark_executable_sha256": "E3D8D056306678959F07BA36B19EE41A5E630B201A942E230B4D43D3A6FB3EDE",
+  "regression_tests_passed": 28,
+  "explicit_hardware_tests_passed": 4,
+  "benchmark_creation_extraction_pairs": 360,
+  "benchmark_file_hashes": 3320,
+  "gpu_archives_bit_identical_to_v1": true,
+  "post_benchmark_change": "CLI benchmark-session output-directory preflight only; compression and session code unchanged.",
+  "final_smoke_checks": [
+    {
+      "nested_output_rejected_before_creation": true
+    },
+    {
+      "backend": "cpu",
+      "jobs": 2,
+      "roundtrip_verified": true,
+      "reuse_verified": false
+    },
+    {
+      "backend": "intel",
+      "jobs": 2,
+      "roundtrip_verified": true,
+      "reuse_verified": true
+    },
+    {
+      "backend": "nvidia",
+      "jobs": 2,
+      "roundtrip_verified": true,
+      "reuse_verified": true
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "final_executable_sha256": "D47D944BD5201B170AA60F2FAF06C3499B9EF6209B872FB5044ED20482BEC992",
+  "regression_tests_passed": 28,
+  "explicit_hardware_tests_passed": 2,
+  "benchmark_creation_extraction_pairs": 243,
+  "benchmark_file_hashes": 2241,
+  "final_smoke_checks": [
+    {
+      "adapter": "intel",
+      "chunk_kib": 4,
+      "standard_decoder_verified": true
+    },
+    {
+      "adapter": "nvidia",
+      "chunk_kib": 64,
+      "standard_decoder_verified": true
+    },
+    {
+      "lz4_rejects_chunk_mib": true
+    },
+    {
+      "missing_adapter_fails_without_cpu_fallback": true
+    }
+  ]
+}

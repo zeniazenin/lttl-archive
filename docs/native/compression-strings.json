@@ -1,0 +1,326 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"evidence_id\":\"ev_4acc3f7ef1be2a36d4810905d1b5fb0c3ff9bb3bcc05e4c8ddff478f8db47ed5\",\"subject\":{\"name\":\"C:\\\\Program Files\\\\WinRAR\\\\Rar.exe\",\"digest\":{\"sha256\":\"645b3c027627c17c184bdc39c7eb0694e14c43a1fade7696c979cc1808f25494\"},\"format\":\"pe\",\"architecture\":\"x86_64\",\"local_path\":\"C:\\\\Program Files\\\\WinRAR\\\\Rar.exe\"},\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"analysis_profile\":{\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.4\"},\"parameters\":{\"target_kind\":\"executable\",\"target_format\":\"pe\",\"executable_role\":\"application\",\"managed\":false,\"native_aot_metadata\":{\"contract_revision\":\"rtr-9.1-x64-pe-read-only-v3\",\"source_bytes\":134217728,\"work_units\":67108864,\"working_memory_bytes\":67108864,\"report_bytes\":4194304},\"architecture\":\"x86_64\",\"available_architectures\":[\"x86_64\"],\"import_mode\":\"ephemeral-source-immutable\",\"annotation_policy\":\"atomic-function-entry-metadata-v1\",\"load_image_observations\":\"source-mappings-entry-context-v2\",\"function_body_evidence\":\"complete-inclusive-ranges-v1\",\"function_references\":\"complete-body-and-entry-reference-manager-v2\",\"string_inventory_evidence\":\"defined-data-coverage-v1\",\"location_resolution\":\"explicit-address-exact-entry-symbol-first-v3\",\"instruction_flow_evidence\":\"decoded-return-pcode-v1\",\"function_boundary_observations\":\"ghidra-terminal-call-limitations-v1\",\"no_return_repair\":\"disabled-windows-p0\",\"process_launch\":\"official-headless-script-v1\",\"jump_table_evidence\":\"typed-case-default-blocks-v1\",\"decompiler_jump_loads\":true,\"loader\":\"auto-from-header\",\"language_id\":\"auto-from-header\",\"compiler_spec_id\":\"auto-default\",\"analyzer_preset\":\"ghidra-default\"},\"digest\":\"249564812a8d83b9b3f461098fc485ccde60c516d4497547a124081c91d654bf\"},\"predicate_type\":\"rea.analysis\",\"operation\":\"search_strings\",\"parameters\":{\"pattern\":\"thread|compress|dictionary|delta|filter|CUDA|OpenCL\",\"mode\":\"regex\",\"case_sensitive\":false},\"raw_result\":[{\"address\":\"0x1400a2c20\",\"value\":\"CreateThread failed\"},{\"address\":\"0x1400a2d10\",\"value\":\"\\nThread pool initialization failed.\"},{\"address\":\"0x1400a2db0\",\"value\":\"GetThreadGroupAffinity\"},{\"address\":\"0x1400a2dc8\",\"value\":\"SetThreadGroupAffinity\"},{\"address\":\"0x1400a6598\",\"value\":\"`local static thread guard'\"},{\"address\":\"0x1400a7fa0\",\"value\":\"api-ms-win-core-processthreads-l1-1-2\"},{\"address\":\"0x1400b79d0\",\"value\":\"GetCurrentThread\"},{\"address\":\"0x1400b79e4\",\"value\":\"SetThreadPriority\"},{\"address\":\"0x1400b7a32\",\"value\":\"SetThreadExecutionState\"},{\"address\":\"0x1400b7b08\",\"value\":\"CreateThread\"},{\"address\":\"0x1400b7fa8\",\"value\":\"UnhandledExceptionFilter\"},{\"address\":\"0x1400b7fc4\",\"value\":\"SetUnhandledExceptionFilter\"},{\"address\":\"0x1400b80be\",\"value\":\"GetCurrentThreadId\"},{\"address\":\"0x1400d72c4\",\"value\":\"\\n  ac            Clear Archive attribute after compression or extraction\"},{\"address\":\"0x1400d8102\",\"value\":\"\\n  m<0..5>       Set compression level (0-store...3-default...5-maximal)\"},{\"address\":\"0x1400d8198\",\"value\":\"\\n  mc<par>       Set advanced compression parameters\"},{\"address\":\"0x1400d8204\",\"value\":\"\\n  md[x]<n>[kmg] Dictionary size in KB, MB or GB\"},{\"address\":\"0x1400d836e\",\"value\":\"\\n  mt<threads>   Set the number of threads\"},{\"address\":\"0x1400d83c6\",\"value\":\"\\n  n<file>       Additionally filter included files\"},{\"address\":\"0x1400d8430\",\"value\":\"\\n  n@            Read additional filter masks from stdin\"},{\"address\":\"0x1400d84a8\",\"value\":\"\\n  n@<list>      Read additional filter masks from list file\"},{\"address\":\"0x1400d8576\",\"value\":\"\\n  oc            Set NTFS Compressed attribute\"},{\"address\":\"0x1400daf40\",\"value\":\"Compression\"},{\"address\":\"0x1400dca4a\",\"value\":\"\\nNot enough memory for %d MB compression dictionary, changed to %d MB.\"},{\"address\":\"0x1400dcada\",\"value\":\"\\nPlease use a smaller compression dictionary.\"},{\"address\":\"0x1400dcb38\",\"value\":\"\\nNot enough memory to unpack the archive with %u GB compression dictionary.\"},{\"address\":\"0x1400dd16a\",\"value\":\"\\n%u GB dictionary exceeds %u GB limit and needs more than %u GB memory to unpack.\"},{\"address\":\"0x1400dd278\",\"value\":\"\\n%u GB dictionary exceeds %u GB limit and not allowed when compressing data.\"},{\"address\":\"0x1400dd314\",\"value\":\"\\n64-bit self-extracting module is necessary for %u GB compression dictionary.\"}],\"normalized_result\":[{\"address\":\"0x1400a2c20\",\"value\":\"CreateThread failed\"},{\"address\":\"0x1400a2d10\",\"value\":\"\\nThread pool initialization failed.\"},{\"address\":\"0x1400a2db0\",\"value\":\"GetThreadGroupAffinity\"},{\"address\":\"0x1400a2dc8\",\"value\":\"SetThreadGroupAffinity\"},{\"address\":\"0x1400a6598\",\"value\":\"`local static thread guard'\"},{\"address\":\"0x1400a7fa0\",\"value\":\"api-ms-win-core-processthreads-l1-1-2\"},{\"address\":\"0x1400b79d0\",\"value\":\"GetCurrentThread\"},{\"address\":\"0x1400b79e4\",\"value\":\"SetThreadPriority\"},{\"address\":\"0x1400b7a32\",\"value\":\"SetThreadExecutionState\"},{\"address\":\"0x1400b7b08\",\"value\":\"CreateThread\"},{\"address\":\"0x1400b7fa8\",\"value\":\"UnhandledExceptionFilter\"},{\"address\":\"0x1400b7fc4\",\"value\":\"SetUnhandledExceptionFilter\"},{\"address\":\"0x1400b80be\",\"value\":\"GetCurrentThreadId\"},{\"address\":\"0x1400d72c4\",\"value\":\"\\n  ac            Clear Archive attribute after compression or extraction\"},{\"address\":\"0x1400d8102\",\"value\":\"\\n  m<0..5>       Set compression level (0-store...3-default...5-maximal)\"},{\"address\":\"0x1400d8198\",\"value\":\"\\n  mc<par>       Set advanced compression parameters\"},{\"address\":\"0x1400d8204\",\"value\":\"\\n  md[x]<n>[kmg] Dictionary size in KB, MB or GB\"},{\"address\":\"0x1400d836e\",\"value\":\"\\n  mt<threads>   Set the number of threads\"},{\"address\":\"0x1400d83c6\",\"value\":\"\\n  n<file>       Additionally filter included files\"},{\"address\":\"0x1400d8430\",\"value\":\"\\n  n@            Read additional filter masks from stdin\"},{\"address\":\"0x1400d84a8\",\"value\":\"\\n  n@<list>      Read additional filter masks from list file\"},{\"address\":\"0x1400d8576\",\"value\":\"\\n  oc            Set NTFS Compressed attribute\"},{\"address\":\"0x1400daf40\",\"value\":\"Compression\"},{\"address\":\"0x1400dca4a\",\"value\":\"\\nNot enough memory for %d MB compression dictionary, changed to %d MB.\"},{\"address\":\"0x1400dcada\",\"value\":\"\\nPlease use a smaller compression dictionary.\"},{\"address\":\"0x1400dcb38\",\"value\":\"\\nNot enough memory to unpack the archive with %u GB compression dictionary.\"},{\"address\":\"0x1400dd16a\",\"value\":\"\\n%u GB dictionary exceeds %u GB limit and needs more than %u GB memory to unpack.\"},{\"address\":\"0x1400dd278\",\"value\":\"\\n%u GB dictionary exceeds %u GB limit and not allowed when compressing data.\"},{\"address\":\"0x1400dd314\",\"value\":\"\\n64-bit self-extracting module is necessary for %u GB compression dictionary.\"}],\"confidence\":\"observed\",\"authority\":\"shipped-artifact\",\"environment\":null,\"limitations\":[\"The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.\",\"The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.\",\"Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.\",\"Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.\",\"Only Ghidra-defined string Data is observed; packed or undefined string bytes may be absent. Completeness applies to that inventory, and an empty search does not establish that text is absent from the artifact. If an address is known, use read_bytes and xrefs to inspect bytes and references.\",\"Regex mode uses Java Pattern semantics. Matcher or compiler stack exhaustion returns a resource constraint without closing the session; literal mode avoids regex recursion and returns complete matching values.\",\"Windows Ghidra P0 accepts approved native x86 and x86-64 PE applications and DLLs; managed, hostile, sensitive, and mutable-path targets are unsupported.\",\"The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.\",\"Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically.\"],\"locations\":[],\"evidence_links\":[]}"
+    }
+  ],
+  "structuredContent": {
+    "evidence_id": "ev_4acc3f7ef1be2a36d4810905d1b5fb0c3ff9bb3bcc05e4c8ddff478f8db47ed5",
+    "subject": {
+      "name": "C:\\Program Files\\WinRAR\\Rar.exe",
+      "digest": {
+        "sha256": "645b3c027627c17c184bdc39c7eb0694e14c43a1fade7696c979cc1808f25494"
+      },
+      "format": "pe",
+      "architecture": "x86_64",
+      "local_path": "C:\\Program Files\\WinRAR\\Rar.exe"
+    },
+    "provider": {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "version": "12.1.4"
+    },
+    "analysis_profile": {
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.4"
+      },
+      "parameters": {
+        "target_kind": "executable",
+        "target_format": "pe",
+        "executable_role": "application",
+        "managed": false,
+        "native_aot_metadata": {
+          "contract_revision": "rtr-9.1-x64-pe-read-only-v3",
+          "source_bytes": 134217728,
+          "work_units": 67108864,
+          "working_memory_bytes": 67108864,
+          "report_bytes": 4194304
+        },
+        "architecture": "x86_64",
+        "available_architectures": [
+          "x86_64"
+        ],
+        "import_mode": "ephemeral-source-immutable",
+        "annotation_policy": "atomic-function-entry-metadata-v1",
+        "load_image_observations": "source-mappings-entry-context-v2",
+        "function_body_evidence": "complete-inclusive-ranges-v1",
+        "function_references": "complete-body-and-entry-reference-manager-v2",
+        "string_inventory_evidence": "defined-data-coverage-v1",
+        "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+        "instruction_flow_evidence": "decoded-return-pcode-v1",
+        "function_boundary_observations": "ghidra-terminal-call-limitations-v1",
+        "no_return_repair": "disabled-windows-p0",
+        "process_launch": "official-headless-script-v1",
+        "jump_table_evidence": "typed-case-default-blocks-v1",
+        "decompiler_jump_loads": true,
+        "loader": "auto-from-header",
+        "language_id": "auto-from-header",
+        "compiler_spec_id": "auto-default",
+        "analyzer_preset": "ghidra-default"
+      },
+      "digest": "249564812a8d83b9b3f461098fc485ccde60c516d4497547a124081c91d654bf"
+    },
+    "predicate_type": "rea.analysis",
+    "operation": "search_strings",
+    "parameters": {
+      "pattern": "thread|compress|dictionary|delta|filter|CUDA|OpenCL",
+      "mode": "regex",
+      "case_sensitive": false
+    },
+    "raw_result": [
+      {
+        "address": "0x1400a2c20",
+        "value": "CreateThread failed"
+      },
+      {
+        "address": "0x1400a2d10",
+        "value": "\nThread pool initialization failed."
+      },
+      {
+        "address": "0x1400a2db0",
+        "value": "GetThreadGroupAffinity"
+      },
+      {
+        "address": "0x1400a2dc8",
+        "value": "SetThreadGroupAffinity"
+      },
+      {
+        "address": "0x1400a6598",
+        "value": "`local static thread guard'"
+      },
+      {
+        "address": "0x1400a7fa0",
+        "value": "api-ms-win-core-processthreads-l1-1-2"
+      },
+      {
+        "address": "0x1400b79d0",
+        "value": "GetCurrentThread"
+      },
+      {
+        "address": "0x1400b79e4",
+        "value": "SetThreadPriority"
+      },
+      {
+        "address": "0x1400b7a32",
+        "value": "SetThreadExecutionState"
+      },
+      {
+        "address": "0x1400b7b08",
+        "value": "CreateThread"
+      },
+      {
+        "address": "0x1400b7fa8",
+        "value": "UnhandledExceptionFilter"
+      },
+      {
+        "address": "0x1400b7fc4",
+        "value": "SetUnhandledExceptionFilter"
+      },
+      {
+        "address": "0x1400b80be",
+        "value": "GetCurrentThreadId"
+      },
+      {
+        "address": "0x1400d72c4",
+        "value": "\n  ac            Clear Archive attribute after compression or extraction"
+      },
+      {
+        "address": "0x1400d8102",
+        "value": "\n  m<0..5>       Set compression level (0-store...3-default...5-maximal)"
+      },
+      {
+        "address": "0x1400d8198",
+        "value": "\n  mc<par>       Set advanced compression parameters"
+      },
+      {
+        "address": "0x1400d8204",
+        "value": "\n  md[x]<n>[kmg] Dictionary size in KB, MB or GB"
+      },
+      {
+        "address": "0x1400d836e",
+        "value": "\n  mt<threads>   Set the number of threads"
+      },
+      {
+        "address": "0x1400d83c6",
+        "value": "\n  n<file>       Additionally filter included files"
+      },
+      {
+        "address": "0x1400d8430",
+        "value": "\n  n@            Read additional filter masks from stdin"
+      },
+      {
+        "address": "0x1400d84a8",
+        "value": "\n  n@<list>      Read additional filter masks from list file"
+      },
+      {
+        "address": "0x1400d8576",
+        "value": "\n  oc            Set NTFS Compressed attribute"
+      },
+      {
+        "address": "0x1400daf40",
+        "value": "Compression"
+      },
+      {
+        "address": "0x1400dca4a",
+        "value": "\nNot enough memory for %d MB compression dictionary, changed to %d MB."
+      },
+      {
+        "address": "0x1400dcada",
+        "value": "\nPlease use a smaller compression dictionary."
+      },
+      {
+        "address": "0x1400dcb38",
+        "value": "\nNot enough memory to unpack the archive with %u GB compression dictionary."
+      },
+      {
+        "address": "0x1400dd16a",
+        "value": "\n%u GB dictionary exceeds %u GB limit and needs more than %u GB memory to unpack."
+      },
+      {
+        "address": "0x1400dd278",
+        "value": "\n%u GB dictionary exceeds %u GB limit and not allowed when compressing data."
+      },
+      {
+        "address": "0x1400dd314",
+        "value": "\n64-bit self-extracting module is necessary for %u GB compression dictionary."
+      }
+    ],
+    "normalized_result": [
+      {
+        "address": "0x1400a2c20",
+        "value": "CreateThread failed"
+      },
+      {
+        "address": "0x1400a2d10",
+        "value": "\nThread pool initialization failed."
+      },
+      {
+        "address": "0x1400a2db0",
+        "value": "GetThreadGroupAffinity"
+      },
+      {
+        "address": "0x1400a2dc8",
+        "value": "SetThreadGroupAffinity"
+      },
+      {
+        "address": "0x1400a6598",
+        "value": "`local static thread guard'"
+      },
+      {
+        "address": "0x1400a7fa0",
+        "value": "api-ms-win-core-processthreads-l1-1-2"
+      },
+      {
+        "address": "0x1400b79d0",
+        "value": "GetCurrentThread"
+      },
+      {
+        "address": "0x1400b79e4",
+        "value": "SetThreadPriority"
+      },
+      {
+        "address": "0x1400b7a32",
+        "value": "SetThreadExecutionState"
+      },
+      {
+        "address": "0x1400b7b08",
+        "value": "CreateThread"
+      },
+      {
+        "address": "0x1400b7fa8",
+        "value": "UnhandledExceptionFilter"
+      },
+      {
+        "address": "0x1400b7fc4",
+        "value": "SetUnhandledExceptionFilter"
+      },
+      {
+        "address": "0x1400b80be",
+        "value": "GetCurrentThreadId"
+      },
+      {
+        "address": "0x1400d72c4",
+        "value": "\n  ac            Clear Archive attribute after compression or extraction"
+      },
+      {
+        "address": "0x1400d8102",
+        "value": "\n  m<0..5>       Set compression level (0-store...3-default...5-maximal)"
+      },
+      {
+        "address": "0x1400d8198",
+        "value": "\n  mc<par>       Set advanced compression parameters"
+      },
+      {
+        "address": "0x1400d8204",
+        "value": "\n  md[x]<n>[kmg] Dictionary size in KB, MB or GB"
+      },
+      {
+        "address": "0x1400d836e",
+        "value": "\n  mt<threads>   Set the number of threads"
+      },
+      {
+        "address": "0x1400d83c6",
+        "value": "\n  n<file>       Additionally filter included files"
+      },
+      {
+        "address": "0x1400d8430",
+        "value": "\n  n@            Read additional filter masks from stdin"
+      },
+      {
+        "address": "0x1400d84a8",
+        "value": "\n  n@<list>      Read additional filter masks from list file"
+      },
+      {
+        "address": "0x1400d8576",
+        "value": "\n  oc            Set NTFS Compressed attribute"
+      },
+      {
+        "address": "0x1400daf40",
+        "value": "Compression"
+      },
+      {
+        "address": "0x1400dca4a",
+        "value": "\nNot enough memory for %d MB compression dictionary, changed to %d MB."
+      },
+      {
+        "address": "0x1400dcada",
+        "value": "\nPlease use a smaller compression dictionary."
+      },
+      {
+        "address": "0x1400dcb38",
+        "value": "\nNot enough memory to unpack the archive with %u GB compression dictionary."
+      },
+      {
+        "address": "0x1400dd16a",
+        "value": "\n%u GB dictionary exceeds %u GB limit and needs more than %u GB memory to unpack."
+      },
+      {
+        "address": "0x1400dd278",
+        "value": "\n%u GB dictionary exceeds %u GB limit and not allowed when compressing data."
+      },
+      {
+        "address": "0x1400dd314",
+        "value": "\n64-bit self-extracting module is necessary for %u GB compression dictionary."
+      }
+    ],
+    "confidence": "observed",
+    "authority": "shipped-artifact",
+    "environment": null,
+    "limitations": [
+      "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+      "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+      "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+      "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+      "Only Ghidra-defined string Data is observed; packed or undefined string bytes may be absent. Completeness applies to that inventory, and an empty search does not establish that text is absent from the artifact. If an address is known, use read_bytes and xrefs to inspect bytes and references.",
+      "Regex mode uses Java Pattern semantics. Matcher or compiler stack exhaustion returns a resource constraint without closing the session; literal mode avoids regex recursion and returns complete matching values.",
+      "Windows Ghidra P0 accepts approved native x86 and x86-64 PE applications and DLLs; managed, hostile, sensitive, and mutable-path targets are unsupported.",
+      "The Windows bridge uses authenticated IPv4 loopback because Node path-based IPC does not expose Java AF_UNIX sockets; the endpoint file contains no bearer token.",
+      "Windows sessions require the matching packaged Windows x64 native addon, local NTFS targets and runtimes, and Windows 10 or later. Native handles enforce path admission, private DACLs, and Job Object ownership automatically."
+    ],
+    "locations": [],
+    "evidence_links": []
+  }
+}

@@ -1,0 +1,41 @@
+[Unit]
+Description=lttl identity key service
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=lttl
+Group=lttl
+WorkingDirectory=/var/lib/lttl
+StateDirectory=lttl
+StateDirectoryMode=0700
+RuntimeDirectory=lttl
+RuntimeDirectoryMode=0700
+Environment=HOME=/run/lttl
+Environment=AZURE_CONFIG_DIR=/run/lttl/azure
+Environment=CLOUDSDK_CONFIG=/run/lttl/gcloud
+Environment=AWS_SHARED_CREDENTIALS_FILE=/run/lttl/no-static-credentials
+Environment=AWS_CONFIG_FILE=/run/lttl/no-static-config
+Environment=AWS_EC2_METADATA_DISABLED=false
+ExecStart=/usr/bin/python3 /opt/lttl/deploy/launch.py --config /etc/lttl/deployment.json --broker /opt/lttl/lttl-key-broker
+Restart=on-failure
+RestartSec=15
+TimeoutStopSec=30
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+CapabilityBoundingSet=
+LimitCORE=0
+
+[Install]
+WantedBy=multi-user.target

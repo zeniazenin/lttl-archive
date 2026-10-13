@@ -1,0 +1,6 @@
+# Replace the hostname with the origin in broker.json and the IDP callback.
+# Caddy obtains a public TLS certificate; DNS must reach this host on 80/443.
+# Deliberately no access log: OAuth callback query strings contain codes.
+keys.example.com {
+    reverse_proxy 127.0.0.1:8787
+}

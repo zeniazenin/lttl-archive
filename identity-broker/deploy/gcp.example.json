@@ -1,0 +1,6 @@
+{
+  "provider": "gcp",
+  "broker_config": "broker.json",
+  "master_secret": {"project": "your-project", "secret": "lttl-master", "version": "1"},
+  "oidc_secret": {"project": "your-project", "secret": "lttl-oidc", "version": "1"}
+}

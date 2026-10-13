@@ -1,0 +1,17 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"result\":{\"path\":\"C:\\\\Projects\\\\Archiver\\\\docs\\\\native\\\\analysis.snapshot.json\",\"bytes\":9714957,\"primitive_entries\":16,\"workflow_entries\":1,\"evidence_records\":32}}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "path": "C:\\Projects\\Archiver\\docs\\native\\analysis.snapshot.json",
+      "bytes": 9714957,
+      "primitive_entries": 16,
+      "workflow_entries": 1,
+      "evidence_records": 32
+    }
+  }
+}

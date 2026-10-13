@@ -1,0 +1,36 @@
+{
+  "regression_tests_passed": 28,
+  "explicit_hardware_tests_passed": 6,
+  "transfer_failure_tests_passed": true,
+  "zero_payload_tests_passed": true,
+  "all_four_modes_smoke_verified": true,
+  "benchmark_creation_extraction_pairs": 468,
+  "benchmark_file_hashes": 4316,
+  "gpu_archives_bit_identical_to_v2": true,
+  "final_executable_sha256": "B9877B9DB2C298D3304672C082B312BD0B51215A49439820238EBE7A8AE0245C",
+  "benchmark_executable_sha256": "EE8521BCFE1FE99CB9A81F091F6625997D34221727AAB2CFE0C265EB1B0FD1FC",
+  "final_executable_matches_benchmark": false,
+  "auto_portable_backend": "cpu",
+  "hardware": [
+    "Intel(R) Arc(TM) Graphics",
+    "NVIDIA GeForce RTX 4070 Laptop GPU"
+  ],
+  "hardware_api": "Vulkan",
+  "note": "After benchmarking, only cfg(test) coverage was strengthened for zero payload, queued cancellation and output failures; compression/transfer implementation unchanged. Six hardware tests comprise four existing roundtrip/session tests and two new direct-stream transfer tests. Physical device removal not tested.",
+  "final_build_smoke_checks": [
+    {
+      "adapter": "intel",
+      "reused_session_verified": true,
+      "pipeline_verified": true,
+      "roundtrip_sha256_verified": true,
+      "archive_matches_measured_executable": true
+    },
+    {
+      "adapter": "nvidia",
+      "reused_session_verified": true,
+      "pipeline_verified": true,
+      "roundtrip_sha256_verified": true,
+      "archive_matches_measured_executable": true
+    }
+  ]
+}

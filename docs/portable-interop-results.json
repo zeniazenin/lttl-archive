@@ -1,0 +1,14 @@
+[
+  {
+    "adapter": "Intel(R) Arc(TM) Graphics",
+    "files_sha256_verified": 11,
+    "external_decoder": "python-lz4 4.4.5 (C LZ4) + Python tarfile",
+    "archive_bytes": 1423178
+  },
+  {
+    "adapter": "NVIDIA GeForce RTX 4070 Laptop GPU",
+    "files_sha256_verified": 11,
+    "external_decoder": "python-lz4 4.4.5 (C LZ4) + Python tarfile",
+    "archive_bytes": 1423178
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "scope": "Local Windows validation; cloud CLI responses mocked; no live cloud or IDP tenant",
+  "app_nonhardware_tests_passed": 32,
+  "broker_master_key_tests_passed": 2,
+  "cloud_launcher_test_methods_passed": 8,
+  "release_protocol_checks_passed": 70,
+  "release_oidc_flows": 42,
+  "formats_hash_verified": [
+    "zip",
+    "tar-zstd",
+    "tar-lz4"
+  ],
+  "hosting_choices": [
+    "azure",
+    "aws",
+    "gcp",
+    "self-hosted"
+  ],
+  "idp_hosting_combinations_checked": 28,
+  "live_cloud_deployed": false,
+  "live_idp_policy_validated": false,
+  "linux_service_validated": false,
+  "remote_kms_wrapping_implemented": false,
+  "binaries": {
+    "target\\release\\lttl.exe": "6d5ca9688a8ef939ff648125d15bf55905faac8d488737f77e0b59d7a553d06b",
+    "identity-broker\\target\\release\\lttl-key-broker.exe": "674f08be88de71a92a38bc1be8646be5c95a42300be0e4331b93b964dacccd69"
+  },
+  "historical": true,
+  "superseded_by": "identity-serverless-validation.md"
+}

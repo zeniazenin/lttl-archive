@@ -1,0 +1,40 @@
+{
+  "scope": "Actual silent per-user Windows x64 installation in temporary directories, no Explorer registration",
+  "checks_passed": 14,
+  "checks": [
+    "Payload hashes and optional component selection: nvidia=False",
+    "Installed CLI version",
+    "Installed zip creation/integrity/extraction: nvidia=False",
+    "Installed tar-zstd creation/integrity/extraction: nvidia=False",
+    "Installed tar-lz4 creation/integrity/extraction: nvidia=False",
+    "Existing installation refused",
+    "Uninstall removes owned files/registration/shortcut and preserves user-added file",
+    "Payload hashes and optional component selection: nvidia=True",
+    "Installed CLI version",
+    "Installed zip creation/integrity/extraction: nvidia=True",
+    "Installed tar-zstd creation/integrity/extraction: nvidia=True",
+    "Installed tar-lz4 creation/integrity/extraction: nvidia=True",
+    "Existing installation refused",
+    "Uninstall removes owned files/registration/shortcut and preserves user-added file"
+  ],
+  "installer": "lttl-0.1.0-alpha.1-windows-x64-setup.exe",
+  "sha256": "014e65aa9d08bd0016570186a20f461fe95f6efb36cb616a40d54f3c52871399",
+  "nvidia_doctor": {
+    "codecs": [
+      "ZIP / Deflate (serial)",
+      "tar.zst / Zstandard (multithreaded)"
+    ],
+    "explorer": "Optional per-user installer script; Windows 11 Show more options",
+    "gpu_compression": {
+      "available": true,
+      "codec": "nvCOMP Zstd, fixed setting",
+      "device": "NVIDIA GeForce RTX 4070 Laptop GPU",
+      "initialize_seconds": 2.0256684
+    },
+    "logical_processors": 22,
+    "rar_creation": false
+  },
+  "signed": false,
+  "visual_installer_tested": false,
+  "explorer_install_tested": false
+}

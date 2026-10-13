@@ -1,0 +1,2682 @@
+{
+  "DateUTC": "2026-10-12T21:10:13.5497385Z",
+  "Executable": "C:\\Projects\\Archiver\\target\\release\\archiver.exe",
+  "ExecutableSHA256": "224CBD7964D267D7BB80C55E1559171FC6144E8E0203ACCC768BBD9C0631EEA2",
+  "Corpus": "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus",
+  "CorpusHashesVerified": true,
+  "CorpusManifest": [
+    {
+      "Path": "random.bin",
+      "Bytes": "33554432",
+      "SHA256": "2BB899C582FCAD306859A7CCF4A503282A4BBCF6F3D3B73EF922A821F88AF3E1"
+    },
+    {
+      "Path": "records.txt",
+      "Bytes": "33554432",
+      "SHA256": "2A9530E2AE73B267B8A1F9E3F86D55079D7AEA7361412353F238E86EE74297ED"
+    },
+    {
+      "Path": "repeating.bin",
+      "Bytes": "33554432",
+      "SHA256": "0507B913F73A1A98973DE75869EE145774E7046ED6D27B2A40999FAFA78D4A33"
+    },
+    {
+      "Path": "similar\\item000.bin",
+      "Bytes": "1048576",
+      "SHA256": "88339DAE7A7F328CB556D5B8BBD1DA8105775CD5D8AA6F853A9306D74A844515"
+    },
+    {
+      "Path": "similar\\item001.bin",
+      "Bytes": "1048576",
+      "SHA256": "FEA1E93C8D17E63D176E218885D9A9C7A1C33190A519BD5158F5AB8369C77DE8"
+    },
+    {
+      "Path": "similar\\item002.bin",
+      "Bytes": "1048576",
+      "SHA256": "2822472397117C4C0714704F32FCC819B721ADE3A1D904C1BA0103AE39A4AE69"
+    },
+    {
+      "Path": "similar\\item003.bin",
+      "Bytes": "1048576",
+      "SHA256": "C9FAE586FCE143A222BA758B0062AB30A583FDEF20AB4BEE860A18861697FDFC"
+    },
+    {
+      "Path": "similar\\item004.bin",
+      "Bytes": "1048576",
+      "SHA256": "584570C559C6811049F8569EB0F3AD19EC7BC025967A258B784EF7BD65550A19"
+    },
+    {
+      "Path": "similar\\item005.bin",
+      "Bytes": "1048576",
+      "SHA256": "87794F122A9754837CEBA01C50F2F59220292ABCFAD31D9D9FCE31ED0AAC3D20"
+    },
+    {
+      "Path": "similar\\item006.bin",
+      "Bytes": "1048576",
+      "SHA256": "1E00EEC54BCE7E7F6725B5F25BB9761F83886C6C41CA76C95B83F2FA3F859BC5"
+    },
+    {
+      "Path": "similar\\item007.bin",
+      "Bytes": "1048576",
+      "SHA256": "A4B5D961466254E77EAEA9FC23B7A451B7B61C0C588C6FEC7AFA94FBEBA086D4"
+    },
+    {
+      "Path": "similar\\item008.bin",
+      "Bytes": "1048576",
+      "SHA256": "47F35D465D8917EE19AB0B29DAE309579334A0F2CAB334000F22F19834D2DB93"
+    },
+    {
+      "Path": "similar\\item009.bin",
+      "Bytes": "1048576",
+      "SHA256": "E0AE93B3F7FC21DE68F60F49CC34FC944630F906ACFAC609C048DA6F2EA9642C"
+    },
+    {
+      "Path": "similar\\item010.bin",
+      "Bytes": "1048576",
+      "SHA256": "714B448E319B9D4B7F66B61B17ED75600B5FF8C675525F17EA85E6B5C4F7C25F"
+    },
+    {
+      "Path": "similar\\item011.bin",
+      "Bytes": "1048576",
+      "SHA256": "B10520EF9EABBE60DDBFEEFD5BEEEC50FDBAC4E8A7D464A089758104C5B75136"
+    },
+    {
+      "Path": "similar\\item012.bin",
+      "Bytes": "1048576",
+      "SHA256": "AF4AC8FD2F69F6146DEED4136C104C761C1C5BC2BC6EC89405AB73C245573D69"
+    },
+    {
+      "Path": "similar\\item013.bin",
+      "Bytes": "1048576",
+      "SHA256": "9BEA79B92213691E1058AAFB5FCAD1256F1F35C90D538913660037B6E2077620"
+    },
+    {
+      "Path": "similar\\item014.bin",
+      "Bytes": "1048576",
+      "SHA256": "EEAC1C14A9FBBBD7B3DBD45E2A0A449EA74B0A597C1F9AC444B599B84FF305B6"
+    },
+    {
+      "Path": "similar\\item015.bin",
+      "Bytes": "1048576",
+      "SHA256": "17F3A5D8F838D0219C415A4F04A056A4F2562951E5C6BC787002607EBD89C031"
+    },
+    {
+      "Path": "similar\\item016.bin",
+      "Bytes": "1048576",
+      "SHA256": "B310E2B11649609D892F2041F2ACE686353DB0F8A8394E7652F03830B07EA87F"
+    },
+    {
+      "Path": "similar\\item017.bin",
+      "Bytes": "1048576",
+      "SHA256": "BF89CE71FC75CC06061F9F9DE02D2578E1D252EC298B809BD83AD2D94DB2F144"
+    },
+    {
+      "Path": "similar\\item018.bin",
+      "Bytes": "1048576",
+      "SHA256": "7FEF102DA0786BF1C5039434B5ABAE59232603C00558E86406165E4587F6A0A1"
+    },
+    {
+      "Path": "similar\\item019.bin",
+      "Bytes": "1048576",
+      "SHA256": "EB7083A1740B10112F1124A45F71D9F62505AD7B97D548FA9011423A645A00ED"
+    },
+    {
+      "Path": "similar\\item020.bin",
+      "Bytes": "1048576",
+      "SHA256": "14CB997AC61730295B438EC5A814CD48C873EB041C57FE98612A85E1F897D047"
+    },
+    {
+      "Path": "similar\\item021.bin",
+      "Bytes": "1048576",
+      "SHA256": "60F5A28EF90873C4EE23EC034193B2C2372F6C86CD34BF1BF6E5BF8F8BEE39A5"
+    },
+    {
+      "Path": "similar\\item022.bin",
+      "Bytes": "1048576",
+      "SHA256": "D9B4A8BB2C29E3788C31DD57524C6D27E9FD255E50D505E36ED5D66C572E11A4"
+    },
+    {
+      "Path": "similar\\item023.bin",
+      "Bytes": "1048576",
+      "SHA256": "514D3893B83142ADC847934C0778D9098C9CC9D6334D03535E054532A35C4A92"
+    },
+    {
+      "Path": "similar\\item024.bin",
+      "Bytes": "1048576",
+      "SHA256": "F73E2778577D2D653B136FD9AE23E64174943BD2CFAC3AA8D592A5D4ED2FE1ED"
+    },
+    {
+      "Path": "similar\\item025.bin",
+      "Bytes": "1048576",
+      "SHA256": "7BE8C3B43FB09223954E8A07FB6485AFCC99352DFCB798A7E7ED28104731222C"
+    },
+    {
+      "Path": "similar\\item026.bin",
+      "Bytes": "1048576",
+      "SHA256": "A5CF0966775ACC013DEEC7795A9E5DDA2A23F5CDC6D8AAC2828A4A6C20444CB2"
+    },
+    {
+      "Path": "similar\\item027.bin",
+      "Bytes": "1048576",
+      "SHA256": "596E430C9EF1E587E66FC43C55E95CBE85DBC56E270DEC747D42B4D94B61733B"
+    },
+    {
+      "Path": "similar\\item028.bin",
+      "Bytes": "1048576",
+      "SHA256": "3B8D667146F2C5D45F4865C32A0C42CC6BFA5ED9E1A002F8B60392A720A49468"
+    },
+    {
+      "Path": "similar\\item029.bin",
+      "Bytes": "1048576",
+      "SHA256": "EFB41A7A9515744F3038FB1211BFCE1571CA134C4CAC6F40DECDCB6B8B683806"
+    },
+    {
+      "Path": "similar\\item030.bin",
+      "Bytes": "1048576",
+      "SHA256": "D55F57914BA391E67B1A3BF7314571EF416C6A80B9263F720C49760930121C9F"
+    },
+    {
+      "Path": "similar\\item031.bin",
+      "Bytes": "1048576",
+      "SHA256": "1B78EBC107F41E94B8F8C1CE29006F73F8A4C1622F64AA42646F2F48398A552E"
+    }
+  ],
+  "Repeats": 3,
+  "Note": "Separate live-host run from RAR. Warm cache, no isolation; native analysis and development may contend for resources. WallSeconds includes process launch. ZIP is serial regardless of requested threads.",
+  "Results": [
+    {
+      "Corpus": "records.txt",
+      "Format": "zip",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.3926541,
+      "CPUSeconds": 0.078125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 4094615,
+        "files": 1,
+        "elapsed_seconds": 0.0721294
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-zip-fast-t8-r1.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "zip",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.4686008,
+      "CPUSeconds": 0.390625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3544252,
+        "files": 1,
+        "elapsed_seconds": 0.3813995
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-zip-balanced-t8-r1.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "zip",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.6800049,
+      "CPUSeconds": 0.578125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3531734,
+        "files": 1,
+        "elapsed_seconds": 0.5876595
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-zip-small-t8-r1.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "tar-zstd",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.1199702,
+      "CPUSeconds": 0.0625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3179849,
+        "files": 1,
+        "elapsed_seconds": 0.0320255
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-tar-zstd-fast-t8-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.1373356,
+      "CPUSeconds": 0.09375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3622239,
+        "files": 1,
+        "elapsed_seconds": 0.0445489
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-tar-zstd-balanced-t8-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "tar-zstd",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.3224951,
+      "CPUSeconds": 0.453125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3460386,
+        "files": 1,
+        "elapsed_seconds": 0.2338233
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-tar-zstd-small-t8-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 1,
+      "Repeat": 1,
+      "WallSeconds": 0.1512195,
+      "CPUSeconds": 0.0625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3622239,
+        "files": 1,
+        "elapsed_seconds": 0.0646592
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-tar-zstd-balanced-t1-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "1"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "zip",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.1369511,
+      "CPUSeconds": 0.03125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33554596,
+        "files": 1,
+        "elapsed_seconds": 0.0471155
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-zip-fast-t8-r1.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "zip",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.8204357,
+      "CPUSeconds": 0.703125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559881,
+        "files": 1,
+        "elapsed_seconds": 0.728497
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-zip-balanced-t8-r1.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "zip",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.9454208,
+      "CPUSeconds": 0.84375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559881,
+        "files": 1,
+        "elapsed_seconds": 0.8587438
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-zip-small-t8-r1.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "tar-zstd",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.1177045,
+      "CPUSeconds": 0.0625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 68714,
+        "files": 1,
+        "elapsed_seconds": 0.0311099
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-tar-zstd-fast-t8-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.1348525,
+      "CPUSeconds": 0.046875,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 100240,
+        "files": 1,
+        "elapsed_seconds": 0.0354748
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-tar-zstd-balanced-t8-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "tar-zstd",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.1529699,
+      "CPUSeconds": 0.078125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 68698,
+        "files": 1,
+        "elapsed_seconds": 0.0543069
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-tar-zstd-small-t8-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 1,
+      "Repeat": 1,
+      "WallSeconds": 0.1234403,
+      "CPUSeconds": 0.046875,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 100240,
+        "files": 1,
+        "elapsed_seconds": 0.0325646
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-tar-zstd-balanced-t1-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "1"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "zip",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.1347857,
+      "CPUSeconds": 0.078125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33554590,
+        "files": 1,
+        "elapsed_seconds": 0.0436696
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-zip-fast-t8-r1.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "zip",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.8390427,
+      "CPUSeconds": 0.734375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559875,
+        "files": 1,
+        "elapsed_seconds": 0.7505965
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-zip-balanced-t8-r1.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "zip",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 1.0098679,
+      "CPUSeconds": 0.9375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559875,
+        "files": 1,
+        "elapsed_seconds": 0.921378
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-zip-small-t8-r1.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "tar-zstd",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.183499,
+      "CPUSeconds": 0.078125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33555735,
+        "files": 1,
+        "elapsed_seconds": 0.1020434
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-tar-zstd-fast-t8-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.1663589,
+      "CPUSeconds": 0.09375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33555737,
+        "files": 1,
+        "elapsed_seconds": 0.0809232
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-tar-zstd-balanced-t8-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "tar-zstd",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.1675864,
+      "CPUSeconds": 0.09375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33555735,
+        "files": 1,
+        "elapsed_seconds": 0.0794126
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-tar-zstd-small-t8-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 1,
+      "Repeat": 1,
+      "WallSeconds": 0.1533328,
+      "CPUSeconds": 0.078125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33555737,
+        "files": 1,
+        "elapsed_seconds": 0.0641619
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-tar-zstd-balanced-t1-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "1"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "zip",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.1616724,
+      "CPUSeconds": 0.046875,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559514,
+        "files": 32,
+        "elapsed_seconds": 0.0736888
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-zip-fast-t8-r1.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "zip",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.8865092,
+      "CPUSeconds": 0.828125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33564954,
+        "files": 32,
+        "elapsed_seconds": 0.795645
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-zip-balanced-t8-r1.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "zip",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.9101125,
+      "CPUSeconds": 0.890625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33564954,
+        "files": 32,
+        "elapsed_seconds": 0.8261155
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-zip-small-t8-r1.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "tar-zstd",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.1998752,
+      "CPUSeconds": 0.09375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33572121,
+        "files": 32,
+        "elapsed_seconds": 0.1022969
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-tar-zstd-fast-t8-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.1680046,
+      "CPUSeconds": 0.078125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3485457,
+        "files": 32,
+        "elapsed_seconds": 0.071361
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-tar-zstd-balanced-t8-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "tar-zstd",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 1,
+      "WallSeconds": 0.1852072,
+      "CPUSeconds": 0.140625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 1085832,
+        "files": 32,
+        "elapsed_seconds": 0.0903116
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-tar-zstd-small-t8-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 1,
+      "Repeat": 1,
+      "WallSeconds": 0.1672921,
+      "CPUSeconds": 0.140625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3485457,
+        "files": 32,
+        "elapsed_seconds": 0.076869
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-tar-zstd-balanced-t1-r1.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "1"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "zip",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.9032156,
+      "CPUSeconds": 0.8125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559881,
+        "files": 1,
+        "elapsed_seconds": 0.8123801
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-zip-small-t8-r2.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "tar-zstd",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.1201706,
+      "CPUSeconds": 0.0625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 68714,
+        "files": 1,
+        "elapsed_seconds": 0.0316422
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-tar-zstd-fast-t8-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.1225644,
+      "CPUSeconds": 0.046875,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 100240,
+        "files": 1,
+        "elapsed_seconds": 0.0373786
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-tar-zstd-balanced-t8-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "tar-zstd",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.1385595,
+      "CPUSeconds": 0.09375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 68698,
+        "files": 1,
+        "elapsed_seconds": 0.0569344
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-tar-zstd-small-t8-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 1,
+      "Repeat": 2,
+      "WallSeconds": 0.1361687,
+      "CPUSeconds": 0.09375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 100240,
+        "files": 1,
+        "elapsed_seconds": 0.0387638
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-tar-zstd-balanced-t1-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "1"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "zip",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.1374401,
+      "CPUSeconds": 0.0625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33554590,
+        "files": 1,
+        "elapsed_seconds": 0.043484
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-zip-fast-t8-r2.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "zip",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.8540528,
+      "CPUSeconds": 0.796875,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559875,
+        "files": 1,
+        "elapsed_seconds": 0.7663061
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-zip-balanced-t8-r2.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "zip",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 1.0841989,
+      "CPUSeconds": 1.0,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559875,
+        "files": 1,
+        "elapsed_seconds": 1.0035357
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-zip-small-t8-r2.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "tar-zstd",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.1523407,
+      "CPUSeconds": 0.046875,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33555735,
+        "files": 1,
+        "elapsed_seconds": 0.0697395
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-tar-zstd-fast-t8-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.199502,
+      "CPUSeconds": 0.078125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33555737,
+        "files": 1,
+        "elapsed_seconds": 0.1101919
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-tar-zstd-balanced-t8-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "tar-zstd",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.1843993,
+      "CPUSeconds": 0.125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33555735,
+        "files": 1,
+        "elapsed_seconds": 0.0885459
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-tar-zstd-small-t8-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 1,
+      "Repeat": 2,
+      "WallSeconds": 0.1522446,
+      "CPUSeconds": 0.09375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33555737,
+        "files": 1,
+        "elapsed_seconds": 0.0694719
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-tar-zstd-balanced-t1-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "1"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "zip",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.1662979,
+      "CPUSeconds": 0.078125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559514,
+        "files": 32,
+        "elapsed_seconds": 0.0746151
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-zip-fast-t8-r2.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "zip",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.9340565,
+      "CPUSeconds": 0.859375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33564954,
+        "files": 32,
+        "elapsed_seconds": 0.8363243
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-zip-balanced-t8-r2.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "zip",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.9353735,
+      "CPUSeconds": 0.828125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33564954,
+        "files": 32,
+        "elapsed_seconds": 0.8431946
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-zip-small-t8-r2.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "tar-zstd",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.201203,
+      "CPUSeconds": 0.15625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33572121,
+        "files": 32,
+        "elapsed_seconds": 0.1040102
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-tar-zstd-fast-t8-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.1531356,
+      "CPUSeconds": 0.09375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3485457,
+        "files": 32,
+        "elapsed_seconds": 0.0600162
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-tar-zstd-balanced-t8-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "tar-zstd",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.1662458,
+      "CPUSeconds": 0.15625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 1085832,
+        "files": 32,
+        "elapsed_seconds": 0.0752385
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-tar-zstd-small-t8-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 1,
+      "Repeat": 2,
+      "WallSeconds": 0.1513958,
+      "CPUSeconds": 0.125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3485457,
+        "files": 32,
+        "elapsed_seconds": 0.0606409
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-tar-zstd-balanced-t1-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "1"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "zip",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.1661132,
+      "CPUSeconds": 0.09375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 4094615,
+        "files": 1,
+        "elapsed_seconds": 0.0779226
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-zip-fast-t8-r2.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "zip",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.4592751,
+      "CPUSeconds": 0.421875,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3544252,
+        "files": 1,
+        "elapsed_seconds": 0.3667799
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-zip-balanced-t8-r2.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "zip",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.6846896,
+      "CPUSeconds": 0.59375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3531734,
+        "files": 1,
+        "elapsed_seconds": 0.5902987
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-zip-small-t8-r2.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "tar-zstd",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.1328213,
+      "CPUSeconds": 0.125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3179849,
+        "files": 1,
+        "elapsed_seconds": 0.0382125
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-tar-zstd-fast-t8-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.137929,
+      "CPUSeconds": 0.109375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3622239,
+        "files": 1,
+        "elapsed_seconds": 0.0511323
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-tar-zstd-balanced-t8-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "tar-zstd",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.2954402,
+      "CPUSeconds": 0.40625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3460386,
+        "files": 1,
+        "elapsed_seconds": 0.2087092
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-tar-zstd-small-t8-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 1,
+      "Repeat": 2,
+      "WallSeconds": 0.1645696,
+      "CPUSeconds": 0.140625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3622239,
+        "files": 1,
+        "elapsed_seconds": 0.0668953
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-tar-zstd-balanced-t1-r2.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "1"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "zip",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.1400914,
+      "CPUSeconds": 0.0625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33554596,
+        "files": 1,
+        "elapsed_seconds": 0.0451726
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-zip-fast-t8-r2.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "zip",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 2,
+      "WallSeconds": 0.9009048,
+      "CPUSeconds": 0.859375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559881,
+        "files": 1,
+        "elapsed_seconds": 0.801955
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-zip-balanced-t8-r2.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.1683634,
+      "CPUSeconds": 0.0625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33555737,
+        "files": 1,
+        "elapsed_seconds": 0.0740405
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-tar-zstd-balanced-t8-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "tar-zstd",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.1881898,
+      "CPUSeconds": 0.15625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33555735,
+        "files": 1,
+        "elapsed_seconds": 0.0955773
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-tar-zstd-small-t8-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 1,
+      "Repeat": 3,
+      "WallSeconds": 0.1687253,
+      "CPUSeconds": 0.09375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33555737,
+        "files": 1,
+        "elapsed_seconds": 0.0781543
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-tar-zstd-balanced-t1-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "1"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "zip",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.1674119,
+      "CPUSeconds": 0.078125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559514,
+        "files": 32,
+        "elapsed_seconds": 0.0778851
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-zip-fast-t8-r3.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "zip",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.8848508,
+      "CPUSeconds": 0.8125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33564954,
+        "files": 32,
+        "elapsed_seconds": 0.7935933
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-zip-balanced-t8-r3.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "zip",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 1.036455,
+      "CPUSeconds": 0.8125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33564954,
+        "files": 32,
+        "elapsed_seconds": 0.8340307
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-zip-small-t8-r3.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "tar-zstd",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.1863888,
+      "CPUSeconds": 0.078125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33572121,
+        "files": 32,
+        "elapsed_seconds": 0.0938105
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-tar-zstd-fast-t8-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.1673599,
+      "CPUSeconds": 0.078125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3485457,
+        "files": 32,
+        "elapsed_seconds": 0.0669033
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-tar-zstd-balanced-t8-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "tar-zstd",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.1548363,
+      "CPUSeconds": 0.09375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 1085832,
+        "files": 32,
+        "elapsed_seconds": 0.0700972
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-tar-zstd-small-t8-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "similar",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 1,
+      "Repeat": 3,
+      "WallSeconds": 0.1372979,
+      "CPUSeconds": 0.046875,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3485457,
+        "files": 32,
+        "elapsed_seconds": 0.0564717
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\similar",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\similar-tar-zstd-balanced-t1-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "1"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "zip",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.1694972,
+      "CPUSeconds": 0.078125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 4094615,
+        "files": 1,
+        "elapsed_seconds": 0.0788852
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-zip-fast-t8-r3.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "zip",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.4952878,
+      "CPUSeconds": 0.421875,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3544252,
+        "files": 1,
+        "elapsed_seconds": 0.4129173
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-zip-balanced-t8-r3.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "zip",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.8076551,
+      "CPUSeconds": 0.734375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3531734,
+        "files": 1,
+        "elapsed_seconds": 0.7058884
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-zip-small-t8-r3.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "tar-zstd",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.1354344,
+      "CPUSeconds": 0.125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3179849,
+        "files": 1,
+        "elapsed_seconds": 0.0401093
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-tar-zstd-fast-t8-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.1517033,
+      "CPUSeconds": 0.109375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3622239,
+        "files": 1,
+        "elapsed_seconds": 0.0527737
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-tar-zstd-balanced-t8-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "tar-zstd",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.3232002,
+      "CPUSeconds": 0.453125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3460386,
+        "files": 1,
+        "elapsed_seconds": 0.2355161
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-tar-zstd-small-t8-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 1,
+      "Repeat": 3,
+      "WallSeconds": 0.200597,
+      "CPUSeconds": 0.09375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 3622239,
+        "files": 1,
+        "elapsed_seconds": 0.1028247
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\records.txt",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\records.txt-tar-zstd-balanced-t1-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "1"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "zip",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.1364309,
+      "CPUSeconds": 0.0625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33554596,
+        "files": 1,
+        "elapsed_seconds": 0.0452115
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-zip-fast-t8-r3.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "zip",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.8282869,
+      "CPUSeconds": 0.734375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559881,
+        "files": 1,
+        "elapsed_seconds": 0.7446335
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-zip-balanced-t8-r3.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "zip",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.821635,
+      "CPUSeconds": 0.75,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559881,
+        "files": 1,
+        "elapsed_seconds": 0.7395447
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-zip-small-t8-r3.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "tar-zstd",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.1211859,
+      "CPUSeconds": 0.078125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 68714,
+        "files": 1,
+        "elapsed_seconds": 0.0316897
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-tar-zstd-fast-t8-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.1210626,
+      "CPUSeconds": 0.046875,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 100240,
+        "files": 1,
+        "elapsed_seconds": 0.0364682
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-tar-zstd-balanced-t8-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "tar-zstd",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.137733,
+      "CPUSeconds": 0.09375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 68698,
+        "files": 1,
+        "elapsed_seconds": 0.0532268
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-tar-zstd-small-t8-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "RequestedThreads": 1,
+      "Repeat": 3,
+      "WallSeconds": 0.1367497,
+      "CPUSeconds": 0.09375,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 100240,
+        "files": 1,
+        "elapsed_seconds": 0.0382686
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\repeating.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\repeating.bin-tar-zstd-balanced-t1-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "balanced",
+        "--threads",
+        "1"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "zip",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.1352467,
+      "CPUSeconds": 0.0625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33554590,
+        "files": 1,
+        "elapsed_seconds": 0.0447794
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-zip-fast-t8-r3.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "zip",
+      "Preset": "balanced",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.8579035,
+      "CPUSeconds": 0.765625,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559875,
+        "files": 1,
+        "elapsed_seconds": 0.7632309
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-zip-balanced-t8-r3.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "balanced",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "zip",
+      "Preset": "small",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.9954099,
+      "CPUSeconds": 0.921875,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33559875,
+        "files": 1,
+        "elapsed_seconds": 0.9068042
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-zip-small-t8-r3.zip",
+        "--format",
+        "zip",
+        "--preset",
+        "small",
+        "--threads",
+        "8"
+      ]
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "tar-zstd",
+      "Preset": "fast",
+      "RequestedThreads": 8,
+      "Repeat": 3,
+      "WallSeconds": 0.1514037,
+      "CPUSeconds": 0.078125,
+      "PeakWorkingSetBytes": null,
+      "Stats": {
+        "input_bytes": 33554432,
+        "output_bytes": 33555735,
+        "files": 1,
+        "elapsed_seconds": 0.0689359
+      },
+      "IntegrityVerified": true,
+      "Arguments": [
+        "create",
+        "C:\\Projects\\Archiver\\bench-output\\rar-review\\20261012T205958852Z\\corpus\\random.bin",
+        "-o",
+        "C:\\Projects\\Archiver\\bench-output\\rust-review\\20261012T211013033Z\\random.bin-tar-zstd-fast-t8-r3.tar.zst",
+        "--format",
+        "tar-zstd",
+        "--preset",
+        "fast",
+        "--threads",
+        "8"
+      ]
+    }
+  ],
+  "ExtractedHashChecks": [
+    {
+      "Corpus": "records.txt",
+      "Format": "zip",
+      "Preset": "fast",
+      "Files": 1,
+      "ExtractedSHA256Matches": true
+    },
+    {
+      "Corpus": "records.txt",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "Files": 1,
+      "ExtractedSHA256Matches": true
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "zip",
+      "Preset": "fast",
+      "Files": 1,
+      "ExtractedSHA256Matches": true
+    },
+    {
+      "Corpus": "repeating.bin",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "Files": 1,
+      "ExtractedSHA256Matches": true
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "zip",
+      "Preset": "fast",
+      "Files": 1,
+      "ExtractedSHA256Matches": true
+    },
+    {
+      "Corpus": "random.bin",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "Files": 1,
+      "ExtractedSHA256Matches": true
+    },
+    {
+      "Corpus": "similar",
+      "Format": "zip",
+      "Preset": "fast",
+      "Files": 32,
+      "ExtractedSHA256Matches": true
+    },
+    {
+      "Corpus": "similar",
+      "Format": "tar-zstd",
+      "Preset": "balanced",
+      "Files": 32,
+      "ExtractedSHA256Matches": true
+    }
+  ]
+}

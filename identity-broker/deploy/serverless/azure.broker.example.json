@@ -1,0 +1,14 @@
+{
+  "public_url": "https://REPLACE_FUNCTION_HOST.azurewebsites.net",
+  "issuer": "https://login.microsoftonline.com/REPLACE_TENANT_ID/v2.0",
+  "client_id": "REPLACE_CLIENT_ID",
+  "database": "postgres",
+  "serverless": true,
+  "required_acr": null,
+  "wrapping": {
+    "provider": "azure",
+    "key_id": "https://REPLACE-VAULT.vault.azure.net/keys/lttl-wrap/11111111111111111111111111111111",
+    "decrypt_key_ids": [],
+    "auth": "workload"
+  }
+}

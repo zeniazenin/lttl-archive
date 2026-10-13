@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "enwik8",
+    "URL": "https://mattmahoney.net/dc/enwik8.zip",
+    "Description": "https://mattmahoney.net/dc/textdata.html",
+    "ArchiveSHA256": "547994D9980EBED1288380D652999F38A14FE291A6247C157C3D33D4932534BC",
+    "ArchiveBytes": 36445475
+  },
+  {
+    "Name": "canterbury",
+    "URL": "https://raw.githubusercontent.com/pfalcon/canterbury-corpus/c380ef9dc1dc62691757fdfeebdc2f85710e1e46/canterbury/",
+    "Description": "https://corpus.canterbury.ac.nz/descriptions/",
+    "Note": "Primary download was Cloudflare-blocked; public GitHub mirror pinned to commit c380ef9dc1dc62691757fdfeebdc2f85710e1e46. File lengths verified against publisher listing and SHA1 against mirror manifest."
+  }
+]

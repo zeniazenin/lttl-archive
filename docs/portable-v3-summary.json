@@ -1,0 +1,34 @@
+{
+  "intel": {
+    "warm_faster_than_cpu_lz4": [],
+    "warm_at_least_5_percent_faster": [],
+    "strict_speed_and_ratio_wins": [],
+    "archive_speedup_vs_v2_min": 0.9031758045031801,
+    "archive_speedup_vs_v2_max": 1.3184322655181795,
+    "readback_reduction_percent_min": 10.290903015132258,
+    "readback_reduction_percent_max": 99.9526881993009
+  },
+  "nvidia": {
+    "warm_faster_than_cpu_lz4": [
+      "enwik8",
+      "heldout-json",
+      "independent-noise",
+      "precompressed-zip",
+      "raw-sensors",
+      "similar-files",
+      "structured-csv"
+    ],
+    "warm_at_least_5_percent_faster": [
+      "enwik8",
+      "heldout-json",
+      "precompressed-zip",
+      "similar-files",
+      "structured-csv"
+    ],
+    "strict_speed_and_ratio_wins": [],
+    "archive_speedup_vs_v2_min": 1.1231559373571955,
+    "archive_speedup_vs_v2_max": 1.4574988973102463,
+    "readback_reduction_percent_min": 10.290903015132258,
+    "readback_reduction_percent_max": 99.9526881993009
+  }
+}

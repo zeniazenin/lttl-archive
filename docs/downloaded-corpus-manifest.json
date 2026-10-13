@@ -1,0 +1,93 @@
+{
+  "GeneratorVersion": "downloaded-public-1",
+  "Note": "Unmodified public benchmark files; enwik8 publisher SHA1 and length verified. Archive/file SHA256 values record exact downloaded bytes, not a publisher signature. Treat all contents as inert data.",
+  "Sources": [
+    {
+      "Name": "enwik8",
+      "URL": "https://mattmahoney.net/dc/enwik8.zip",
+      "Description": "https://mattmahoney.net/dc/textdata.html",
+      "ArchiveSHA256": "547994D9980EBED1288380D652999F38A14FE291A6247C157C3D33D4932534BC",
+      "ArchiveBytes": 36445475
+    },
+    {
+      "Name": "canterbury",
+      "URL": "https://raw.githubusercontent.com/pfalcon/canterbury-corpus/c380ef9dc1dc62691757fdfeebdc2f85710e1e46/canterbury/",
+      "Description": "https://corpus.canterbury.ac.nz/descriptions/",
+      "Note": "Primary download was Cloudflare-blocked; public GitHub mirror pinned to commit c380ef9dc1dc62691757fdfeebdc2f85710e1e46. File lengths verified against publisher listing and SHA1 against mirror manifest."
+    }
+  ],
+  "Datasets": [
+    {
+      "Name": "canterbury",
+      "InputBytes": 2810784,
+      "Files": [
+        {
+          "Path": "canterbury\\alice29.txt",
+          "Bytes": 152089,
+          "SHA256": "7467306EE0FEED4971260F3C87421154A05BE571D944E9CB021A5713700C38F0"
+        },
+        {
+          "Path": "canterbury\\asyoulik.txt",
+          "Bytes": 125179,
+          "SHA256": "EAA3526FE53859F34ECDF255712F9ECF0B2C903451D4755B2EDAA2E2599CB0FC"
+        },
+        {
+          "Path": "canterbury\\cp.html",
+          "Bytes": 24603,
+          "SHA256": "E0CD21CEF5B6C4069461E949BE100080C3CE887DE6F1DD8626C480528EFAAF61"
+        },
+        {
+          "Path": "canterbury\\fields.c",
+          "Bytes": 11150,
+          "SHA256": "85D73E354CC50CEC76CB5A50537CF8DC035F8CBB8480F9E1CBE2F7D6C23393C7"
+        },
+        {
+          "Path": "canterbury\\grammar.lsp",
+          "Bytes": 3721,
+          "SHA256": "1B0805DFC0AE706B35AAC2BB4E15F02485EFD24DDA5DBD29DE7B2F84D1A88C15"
+        },
+        {
+          "Path": "canterbury\\kennedy.xls",
+          "Bytes": 1029744,
+          "SHA256": "9AF47239CA29DFE20E633F80BBBB9A4CC9783D0803D7B2B5626F42E4C3790420"
+        },
+        {
+          "Path": "canterbury\\lcet10.txt",
+          "Bytes": 426754,
+          "SHA256": "5314BA1DBB03F471DF88BEC6CD120A938EF60D0FD3511C5C1DCE61BF7463245F"
+        },
+        {
+          "Path": "canterbury\\plrabn12.txt",
+          "Bytes": 481861,
+          "SHA256": "07E2E0B461AF78C7C647CB53DAB39DE560198E16F799B4516ECCF0FBD69F764C"
+        },
+        {
+          "Path": "canterbury\\ptt5",
+          "Bytes": 513216,
+          "SHA256": "0EC3A75089BB52342813496B17E51377BC9EBA3CB519A444D67025354841D650"
+        },
+        {
+          "Path": "canterbury\\sum",
+          "Bytes": 38240,
+          "SHA256": "EE5733CD76ECC2F9D8FF156ADC3C02A7A851051DCF43A2D56FF4EE4FF606BDB3"
+        },
+        {
+          "Path": "canterbury\\xargs.1",
+          "Bytes": 4227,
+          "SHA256": "C58AEB5D2D1E12751D47E7412B45784405FC30A5671B03D480FA05776E183619"
+        }
+      ]
+    },
+    {
+      "Name": "enwik8",
+      "InputBytes": 100000000,
+      "Files": [
+        {
+          "Path": "enwik8\\enwik8",
+          "Bytes": 100000000,
+          "SHA256": "2B49720EC4D78C3C9FABAEE6E4179A5E997302B3A70029F30F2D582218C024A8"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+**
+!identity-broker/
+!identity-broker/Cargo.toml
+!identity-broker/Cargo.lock
+!identity-broker/src/
+!identity-broker/src/**
+!identity-broker/deploy/
+!identity-broker/deploy/serverless/
+!identity-broker/deploy/serverless/azure/
+!identity-broker/deploy/serverless/azure/**
+!identity-broker/deploy/serverless/config/
+!identity-broker/deploy/serverless/config/**
+!src/
+!src/identity/
+!src/identity/crypto.rs

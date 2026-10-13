@@ -1,0 +1,22 @@
+{
+  "scope": "Local Windows native KMS contracts and release binaries; cloud deployment unvalidated",
+  "broker_tests_passed": 8,
+  "postgres_contract_passed": true,
+  "desktop_identity_tests_passed": 4,
+  "idp_hosting_combinations": 28,
+  "legacy_launcher_tests_passed": 8,
+  "release_protocol_checks_passed": 75,
+  "release_oidc_flows": 43,
+  "native_kms_providers": [
+    "azure",
+    "aws",
+    "gcp"
+  ],
+  "linux_packages_built": false,
+  "live_cloud_kms_tested": false,
+  "live_idp_tested": false,
+  "binaries": {
+    "target\\release\\lttl.exe": "d9e6f167b5d14872523b17e51d70bc3f68f07a6cf954e62cdabe32b704ea01eb",
+    "identity-broker\\target\\release\\lttl-key-broker.exe": "cd313fb2f9d96f42c3cb37898df1ecd4e0f70d99677f97a2b2f856955f07b5d0"
+  }
+}

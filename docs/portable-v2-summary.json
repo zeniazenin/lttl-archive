@@ -1,0 +1,16 @@
+{
+  "intel": {
+    "warm_faster_than_cpu_lz4": [],
+    "warm_at_least_5_percent_faster": [],
+    "strict_speed_and_ratio_wins": [],
+    "kernel_speedup_min": 0.8285195879621967,
+    "kernel_speedup_max": 11.435684050004271
+  },
+  "nvidia": {
+    "warm_faster_than_cpu_lz4": [],
+    "warm_at_least_5_percent_faster": [],
+    "strict_speed_and_ratio_wins": [],
+    "kernel_speedup_min": 1.4511287599274594,
+    "kernel_speedup_max": 16.717774762550885
+  }
+}

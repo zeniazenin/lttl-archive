@@ -1,0 +1,43 @@
+[package]
+name = "lttl"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+description = "A Windows archiver with an independent Rust engine"
+license = "MIT"
+default-run = "lttl"
+
+[features]
+default = ["gui"]
+gui = ["dep:eframe", "dep:rfd"]
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tar = "0.4"
+tempfile = "3"
+walkdir = "2"
+zip = { version = "2.4", default-features = false, features = ["deflate"] }
+zstd = { version = "0.13", features = ["zstdmt"] }
+libloading = "0.8"
+xxhash-rust = { version = "0.8", features = ["xxh64", "xxh32"] }
+wgpu = "=0.19.4"
+pollster = "0.3"
+lz4_flex = "0.11"
+rayon = "1.10"
+chacha20poly1305 = "0.10"
+sha2 = "0.10"
+base64 = "0.22"
+zeroize = { version = "1", features = ["derive"] }
+url = "2"
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "rustls-tls"] }
+webbrowser = "1"
+eframe = { version = "0.31", optional = true, default-features = false, features = ["default_fonts", "glow"] }
+rfd = { version = "0.15", optional = true }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true

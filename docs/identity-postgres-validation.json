@@ -1,0 +1,18 @@
+{
+  "scope": "Disposable local PostgreSQL, verified TLS and password authentication; no managed cloud database",
+  "postgres": "pg_ctl (PostgreSQL) 17.11",
+  "tls": "verify-full with ephemeral trusted CA and IP SAN",
+  "shared_state_contract_passed": true,
+  "checks": [
+    "schema initialization",
+    "independent connection pools",
+    "one-use login launch",
+    "atomic concurrent code/session consumption",
+    "expiry",
+    "distinct issuer/subject identities",
+    "recipient authorization",
+    "owner-only revocation",
+    "disabled recipient rejection",
+    "audit writes"
+  ]
+}

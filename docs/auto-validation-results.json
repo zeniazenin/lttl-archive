@@ -1,0 +1,134 @@
+{
+  "executable_sha256": "59887d30dfdb846828eaa29e22387b49b3d86d0e356793b93749fb2904f5a929",
+  "tar_version": "bsdtar 3.8.8 - libarchive 3.8.8 zlib/1.2.13.1-motley liblzma/5.8.3 bz2lib/1.0.8 libzstd/1.5.7 cng/2.0 libb2/bundled",
+  "checks": [
+    {
+      "check": "independent-bsdtar",
+      "dataset": "independent-noise",
+      "sha256_matches": 1,
+      "stats": {
+        "input_bytes": 67108864,
+        "output_bytes": 67112672,
+        "files": 1,
+        "elapsed_seconds": 0.1058895,
+        "selection": {
+          "policy_version": 1,
+          "goal": "Balanced",
+          "content_class": "low-compression-benefit",
+          "backend": "Cpu",
+          "preset": "Fast",
+          "stored": true,
+          "threads": 1,
+          "chunk_kib": 4096,
+          "batch_mib": 4,
+          "sampled_bytes": 1572864,
+          "sampled_files": 1,
+          "selection_seconds": 0.0073475,
+          "cpu_fast_ratio": 1.0000292460123699,
+          "cpu_balanced_ratio": 1.0000286102294922,
+          "cpu_small_ratio": null,
+          "gpu_trial_ratio": null,
+          "gpu_trial": null,
+          "gpu_unavailable": null,
+          "reason": "Every sampled region resisted compression; write checksummed standard Zstd raw blocks on CPU to avoid wasted search/transfers."
+        }
+      }
+    },
+    {
+      "check": "independent-bsdtar",
+      "dataset": "structured-csv",
+      "sha256_matches": 1,
+      "stats": {
+        "input_bytes": 67108864,
+        "output_bytes": 8777246,
+        "files": 1,
+        "elapsed_seconds": 2.0755342,
+        "gpu": {
+          "device": "NVIDIA GeForce RTX 4070 Laptop GPU",
+          "chunk_bytes": 65536,
+          "batch_bytes": 33554432,
+          "initialize_seconds": 0.0,
+          "host_wall_seconds": 0.05544230000000001,
+          "host_to_device_ms": 5.699968121945858,
+          "compression_ms": 32.39974403381348,
+          "device_to_host_ms": 11.1463681794703,
+          "batches": 3,
+          "chunks": 1025,
+          "h2d_bytes": 67135512,
+          "d2h_bytes": 8785446,
+          "checksum_seconds": 0.0078396
+        },
+        "selection": {
+          "policy_version": 1,
+          "goal": "Small",
+          "content_class": "structured-text",
+          "backend": "Gpu",
+          "preset": "Small",
+          "stored": false,
+          "threads": 8,
+          "chunk_kib": 64,
+          "batch_mib": 32,
+          "sampled_bytes": 1572864,
+          "sampled_files": 1,
+          "selection_seconds": 1.9352832,
+          "cpu_fast_ratio": 0.14876683553059897,
+          "cpu_balanced_ratio": 0.1604741414388021,
+          "cpu_small_ratio": 0.13681729634602866,
+          "gpu_trial_ratio": 0.1317571004231771,
+          "gpu_trial": {
+            "device": "NVIDIA GeForce RTX 4070 Laptop GPU",
+            "chunk_bytes": 65536,
+            "batch_bytes": 33554432,
+            "initialize_seconds": 1.8893753,
+            "host_wall_seconds": 0.0148398,
+            "host_to_device_ms": 0.19414399564266205,
+            "compression_ms": 13.074975967407227,
+            "device_to_host_ms": 0.15513600036501884,
+            "batches": 1,
+            "chunks": 24,
+            "h2d_bytes": 1573440,
+            "d2h_bytes": 207524,
+            "checksum_seconds": 0.0
+          },
+          "gpu_unavailable": null,
+          "reason": "Size goal and structured text: actual GPU trial is at least 0.5% smaller than every CPU sample; reuse its context with 64 KiB chunks / 32 MiB batches."
+        }
+      }
+    },
+    {
+      "check": "missing-runtime-auto-fallback",
+      "sha256_matches": 1,
+      "stats": {
+        "input_bytes": 67108864,
+        "output_bytes": 9183299,
+        "files": 1,
+        "elapsed_seconds": 0.3552636,
+        "selection": {
+          "policy_version": 1,
+          "goal": "Small",
+          "content_class": "structured-text",
+          "backend": "Cpu",
+          "preset": "Small",
+          "stored": false,
+          "threads": 8,
+          "chunk_kib": 1024,
+          "batch_mib": 32,
+          "sampled_bytes": 1572864,
+          "sampled_files": 1,
+          "selection_seconds": 0.0276195,
+          "cpu_fast_ratio": 0.14876683553059897,
+          "cpu_balanced_ratio": 0.1604741414388021,
+          "cpu_small_ratio": 0.13681729634602866,
+          "gpu_trial_ratio": null,
+          "gpu_trial": null,
+          "gpu_unavailable": "Load GPU runtime C:\\Projects\\Archiver\\.qa\\auto-validation-uz5r_dk_\\without-nvidia\\gpu\\lttl_gpu.dll. Run scripts/build-gpu.ps1 for this build directory: LoadLibraryExW failed: The specified module could not be found. (os error 126)",
+          "reason": "Size goal: select the cheapest CPU preset within 1% of the smallest sampled output. GPU trial unavailable; retain CPU before creating the archive."
+        }
+      }
+    },
+    {
+      "check": "explicit-gpu-error-no-output",
+      "error": "\nError: Load GPU runtime C:\\Projects\\Archiver\\.qa\\auto-validation-uz5r_dk_\\without-nvidia\\gpu\\lttl_gpu.dll. Run scripts/build-gpu.ps1 for this build directory: LoadLibraryExW failed: The specified module could not be found. (os error 126)\n"
+    }
+  ]
+}

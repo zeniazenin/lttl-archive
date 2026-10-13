@@ -1,0 +1,14 @@
+{
+  "public_url": "https://REPLACE_SERVICE_HOST.run.app",
+  "issuer": "https://login.microsoftonline.com/REPLACE_TENANT_ID/v2.0",
+  "client_id": "REPLACE_CLIENT_ID",
+  "database": "postgres",
+  "serverless": true,
+  "required_acr": null,
+  "wrapping": {
+    "provider": "gcp",
+    "key_id": "projects/REPLACE_PROJECT/locations/us-central1/keyRings/lttl-test/cryptoKeys/lttl-wrap/cryptoKeyVersions/1",
+    "decrypt_key_ids": [],
+    "auth": "workload"
+  }
+}

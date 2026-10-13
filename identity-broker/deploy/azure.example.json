@@ -1,0 +1,6 @@
+{
+  "provider": "azure",
+  "broker_config": "broker.json",
+  "master_secret": {"uri": "https://your-vault.vault.azure.net/secrets/lttl-master/11111111111111111111111111111111"},
+  "oidc_secret": {"uri": "https://your-vault.vault.azure.net/secrets/lttl-oidc/22222222222222222222222222222222"}
+}
