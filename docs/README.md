@@ -10,6 +10,7 @@
 
 ## Organization sharing
 
+- [Sharing and security infographic](assets/encrypted-sharing-infographic.png): IDP policy checks, archive key release and optional tracking.
 - [Archive access tracking](archive-tracking.md): per-archive policies, signed security webhooks, country estimates and serverless retries.
 - [Identity sharing](identity-sharing.md): recipient enrollment, encrypted archives and revocation.
 - [Entra + cloud test setup](../identity-broker/deploy/test-environment.md).

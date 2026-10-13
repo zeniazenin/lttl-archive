@@ -1,0 +1,49 @@
+Generation method: built-in image_gen tool. No reference images. Opaque background.
+
+Use case: infographic-diagram.
+Create a polished, publication-ready infographic for the lttl encrypted archive app, intended for the project's README and organization deployment presentations. One landscape image, approximately 3:2 aspect ratio, high resolution, very crisp and legible English typography. Clean editorial enterprise design, white/off-white canvas, navy text, restrained blue identity controls, teal approved access, amber monitoring and red denied access. Simple refined archive, person, shield, key-vault and security-console illustrations; generous whitespace; clear numbered steps and unambiguous arrows. Avoid decorative clutter, official provider logos, invented UI features and tiny illegible footnotes.
+
+Title exactly: "lttl | ENCRYPTED SHARING"
+Subtitle exactly: "Identity policies control key access. Optional tracking reports access attempts."
+
+Upper section is the main flow, numbered 1 through 5, left to right:
+1. "Choose recipients"
+   "Create an encrypted .lttl archive"
+   Show sender selecting allowed people beside a locked archive.
+2. "Share the locked file"
+   "Email • cloud drive • USB"
+   Show the same closed archive traveling. It remains encrypted wherever copied.
+3. "Sign in to your IDP"
+   Make this the visual policy gate, prominent blue shield.
+   Three clear policy badges: "Require MFA", "Location / geofencing", "Organization policies".
+   Supporting label: "Fresh sign-in for each opening".
+4. "Broker checks access"
+   Supporting copy: "IDP approved + selected recipient + not revoked".
+   Small connected cloud-vault icon labeled "Cloud KMS protects wrapping keys".
+   The IDP supplies authentication approval to this broker, not an encryption key. The broker separately authorizes the recipient and releases an archive data key.
+5. "Decrypt locally"
+   Teal connector from step 4 labeled "ALLOW: archive key released".
+   Show intended recipient opening files on their own computer.
+   A separate red denied branch under the identity/broker gate, with closed lock and exact label: "DENY: no key; archive stays encrypted".
+Small reassuring caption under the main flow: "Archive contents never pass through the key broker."
+
+Lower section is a second clear visual lane, not mixed with the sharing arrows:
+Heading exactly "OPTIONAL TRACKING — A SETTING OF THE ARCHIVE"
+Supporting copy: "Enabled by the sender, or required by the organization."
+Show a dashed line from the shared locked archive to two neutral scenario illustrations: an archive forwarded to an unapproved person ("Unexpected recipient") and a copied archive beside a globe ("Unexpected country"). Do NOT depict tracking of a file's static disk location, automatic discovery of every copy, or GPS.
+Those scenarios lead to "Attempt reaches the broker", then an amber arrow labeled "Signed webhook + durable retries" leading to a large "Company security system" dashboard.
+Dashboard has a neat event card with these exact fields:
+"When: UTC timestamp"
+"Who: verified identity, or unknown"
+"Where: observed IP / estimated country"
+"Result: sign-in attempt, denial or key release"
+Small alert badges underneath: "Outside organization", "Access denied", "Country watchlist (e.g. KP)".
+These are monitoring alerts, not evidence of actual theft or guaranteed blocking. A different-country attempt may be allowed or denied according to IDP policy. The tracking country watchlist itself only alerts.
+
+Bottom strip with legible concise boundary statements, integral to the design:
+"Country alerts require trusted location data; identity stays unknown until verified."
+"Tracking sees attempts reaching the service—not offline copies or proof of theft."
+"Previously obtained plaintext or keys cannot be recalled."
+
+Technical fidelity: Tracking is stored in the authenticated archive and broker, not an opt-out switch on a recipient's client. Broker independently enforces permissions and revocation in addition to fresh IDP authentication. Master wrapping keys stay in cloud KMS; individual archive data keys may be released to the authorized app. No implication that the IDP itself stores archive keys or that copying alone triggers an event. Do not add unsupported claims, such as real-time GPS, guaranteed theft detection, automatic IDP group sync, every action always monitored, or offline revocation.
+Render as one cohesive beautiful infographic, all requested text spelled accurately, clearly structured and readable.

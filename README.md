@@ -72,6 +72,8 @@ In the latest recorded warm-job benchmark, RTX portable LZ4 beat CPU LZ4 on **7/
 
 ## Identity-protected sharing
 
+![Encrypted archive sharing: recipient selection, IDP access policies, broker authorization, local decryption and optional signed security alerts.](docs/assets/encrypted-sharing-infographic.png)
+
 The sender selects enrolled recipients and creates an encrypted `.lttl` archive. A recipient authenticates through the configured IDP, and the broker releases the archive key only if authorized and not revoked. The master wrapping keys stay in the native cloud KMS; archive data keys exist briefly in the broker and desktop. Archive files never pass through the broker.
 
 | Cloud | Broker compute | Wrapping service |
