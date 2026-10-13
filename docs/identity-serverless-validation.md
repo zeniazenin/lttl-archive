@@ -1,6 +1,25 @@
 # Native KMS and serverless validation
 
-Recorded 2026-10-12 (local workspace date). This supersedes the older VM/secret-loader hosting report. No tenant, cloud key, or paid cloud service was created during this implementation.
+Updated 2026-10-13. No tenant, cloud key, live security webhook or paid cloud service was created during these tests.
+
+## Alpha.2: archive tracking
+
+| Check | Result and boundary |
+|---|---|
+| Desktop suite | **33 passed**, seven hardware-dependent tests skipped; includes authenticated tracking headers and legacy untracked-header compatibility |
+| Broker unit/HTTP contract suite | **10 passed**; native KMS contracts, tracking policy, signed location-header validation, webhook signatures, owner isolation, restart retry and concurrent delivery leasing |
+| Real release broker + desktop CLI | **96 checks passed** across **49** fresh mock-OIDC flows; all three archive formats restored with matching hashes. [Recorded result](tracking-validation.json) |
+| Tracking integration | Disabled by default; user and organization activation; immutable effective archive policy; external-user and country-watchlist alerts; unknown identity on IDP denial; untrusted location headers ignored |
+| Tracking failure behavior | Webhook failures remain queued across restart; a simulated tracking database failure prevents a key response |
+| Real PostgreSQL/TLS | Shared tracking policy/event state, owner-only event reads and outbox lease claim passed alongside existing authorization tests. [Recorded result](identity-postgres-validation.json) |
+| Windows installer | **14 checks passed** for alpha.2, including both component configurations, payload hashes, archive round trips and uninstall preservation. [Recorded result](windows-installer-validation.json) |
+| Live deployment | Cloud KMS/IAM, real IDP policy, gateway country enrichment, SIEM notifications and retry schedules **not tested**; require the organization's pilot environment |
+
+Tests use loopback services and disposable databases. Country-alert tests use signed synthetic estimates, not a live geolocation provider. Installer wizard appearance and its optional Explorer-registration step are outside the automated installer test. No GPU compression code changed for alpha.2; earlier hardware benchmark results were not rerun.
+
+## Native KMS baseline (2026-10-12)
+
+The following records the earlier native-KMS implementation and supersedes the older VM/secret-loader hosting report. Its original counts are retained as historical evidence; the alpha.2 results above are current.
 
 | Check | Result and boundary |
 |---|---|
@@ -35,6 +54,7 @@ From the repository root, with a writable temporary directory and loopback netwo
 python -m unittest discover -s identity-broker/deploy -p test_launch.py
 python scripts/test-broker-postgres.py --pg-bin PATH_TO_POSTGRESQL_BIN
 python scripts/test-identity-flow.py --cli target/release/lttl.exe --broker identity-broker/target/release/lttl-key-broker.exe
+python scripts/test-identity-flow.py --tracking --cli target/release/lttl.exe --broker identity-broker/target/release/lttl-key-broker.exe
 ```
 
 The PostgreSQL harness creates a local temporary cluster and CA, starts it on an ephemeral loopback port, runs the actual Rust shared-state contract, stops the server and removes its data. It requires Python `cryptography` and PostgreSQL binaries; it does not install a system service or change system certificate trust. The local runtime was downloaded from EDB's official Windows binary distribution linked by [PostgreSQL's Windows download page](https://www.postgresql.org/download/windows/).

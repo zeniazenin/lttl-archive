@@ -23,14 +23,14 @@ lttl uses open archive formats and independent compression libraries. It does **
 
 Download `lttl-0.1.0-alpha.2-windows-x64-setup.exe` and its `.sha256` file from the [release page](https://github.com/zeniazenin/lttl-archive/releases/tag/v0.1.0-alpha.2). The installer targets Windows 10/11 x64 and installs for the current user without elevation. It provides Start Menu shortcuts and an uninstaller. Explorer integration and NVIDIA Zstandard runtime components are optional. CPU and portable GPU LZ4 are included by default.
 
-This initial installer is **unsigned**; Windows may display a publisher/SmartScreen warning. Verify the downloaded artifact's SHA-256 against the release checksum. No signing certificate was available for this release. See [installation, verification and removal](docs/windows-installer.md).
+This alpha installer is **unsigned**; Windows may display a publisher/SmartScreen warning. Verify the downloaded artifact's SHA-256 against the release checksum. No signing certificate was available for this release. Uninstall alpha.1 before installing alpha.2. See [installation, verification and removal](docs/windows-installer.md).
 
 ## Build and run
 
 Install the Windows MSVC Rust toolchain, Visual Studio C++ Build Tools and Windows SDK. Rust **1.92+** builds both the desktop and identity broker. From PowerShell:
 
 ```powershell
-git clone https://github.com/zeniazenin/lttl-archive.git
+git clone --branch main https://github.com/zeniazenin/lttl-archive.git
 cd lttl-archive
 .\scripts\cargo.ps1 build --release --locked
 .\target\release\lttl.exe gui
@@ -84,9 +84,24 @@ Shared managed PostgreSQL preserves permissions and one-use authorization state 
 
 Start with [the IDP + key-store test guide](identity-broker/deploy/test-environment.md), [sharing workflow](docs/identity-sharing.md), and [deployment overview](identity-broker/deploy/README.md). The installer does not deploy a broker or create cloud resources. Live MFA/location policy, cloud IAM and serverless packages remain pilot acceptance requirements. Access revocation cannot recall plaintext or keys already obtained by an authorized recipient.
 
+## Archive tracking
+
+For an encrypted `.lttl` archive, select **Track access attempts for this archive**, or use:
+
+```powershell
+lttl create .\documents -o .\shared.lttl --identity-profile .\company.json --recipient RECIPIENT_BROKER_ID --track-access --alert-country KP
+lttl identity events .\shared.lttl --profile .\company.json
+```
+
+Tracking is off by default. Organizations can require it for newly created archives. The authenticated archive header and broker record carry the effective policy; recipients cannot disable it with a client setting. Signed webhooks report attempts, verified identity when available, UTC time and network-location evidence. Alerts can flag denied access, users outside configured organization membership, or watched countries.
+
+Upgrade the broker and run `--init-db` before using the new client. Configure the webhook, separate signing/dispatch secrets and a serverless retry schedule. External-user classification requires the organization's broker account list; country alerts require signed estimates from a trusted gateway. Offline copies cannot be detected, and an alert is not proof of theft. [Complete setup, receiver example and limitations](docs/archive-tracking.md).
+
 ## Validation and limitations
 
-The recorded portable GPU experiment completed **468 archive/extraction pairs** and **4,316 file-hash checks**. The identity release suite passed **75 checks**, including restart/replay behavior and hash-verified restoration of all three formats. Native KMS contracts and a real local PostgreSQL/TLS test passed. [Validation details](docs/identity-serverless-validation.md).
+Alpha.2 passed **33 desktop tests**, **10 broker tests**, **96 end-to-end checks** across 49 mock-IDP sign-ins, the separate PostgreSQL/TLS contract and **14 installer checks**. Seven hardware-only desktop tests were skipped. Tracking tests cover webhook signatures, retries after restart, owner isolation, forged location headers and denial of key release when tracking storage fails. [Validation details](docs/identity-serverless-validation.md).
+
+The earlier portable GPU experiment completed **468 archive/extraction pairs** and **4,316 file-hash checks**. Compression algorithms were unchanged in alpha.2; those measurements were not rerun for the tracking release.
 
 Extraction rejects unsafe paths, links/reparse points, collisions and existing-file overwrites. Checksums detect corruption; identity envelopes add authenticated encryption. Windows ACLs/alternate streams, complete metadata preservation, split volumes, recovery records, archive updates and password-encrypted ZIP/7z are not implemented. Do not use actively changing input as a filesystem-consistent backup. See [the detailed user guide](docs/user-guide.md).
 

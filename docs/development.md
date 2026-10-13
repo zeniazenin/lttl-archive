@@ -2,6 +2,8 @@
 
 Use Rust 1.92+ with `x86_64-pc-windows-msvc`, Visual Studio C++ Build Tools and Windows SDK for the supported Windows build. The desktop manifest retains its earlier 1.88 minimum; the broker's dependencies require 1.92. The repository has two Cargo packages, not a Cargo workspace. Both lockfiles are committed.
 
+Use the `main` branch for current source and documentation. Published tags such as `v0.1.0-alpha.2` identify the source snapshot for each installer; later documentation commits do not change an existing release artifact.
+
 ```powershell
 .\scripts\cargo.ps1 build --release --locked
 .\scripts\cargo.ps1 test --locked
@@ -21,10 +23,13 @@ Default desktop tests skip seven hardware-dependent checks. Run GPU tests serial
 python -m pip install cryptography
 python scripts/test-broker-postgres.py --pg-bin PATH_TO_POSTGRESQL_BIN
 python scripts/test-identity-flow.py --cli target/release/lttl.exe --broker identity-broker/target/release/lttl-key-broker.exe
+python scripts/test-identity-flow.py --tracking --cli target/release/lttl.exe --broker identity-broker/target/release/lttl-key-broker.exe
 python -m unittest discover -s identity-broker/deploy -p test_launch.py
 ```
 
 The protocol harness runs a mock RSA-signed OIDC provider and actual executables over loopback. No live tenant is contacted. Use writable TEMP/TMP paths in restricted environments. [Current identity test boundaries](identity-serverless-validation.md) distinguish contract tests from cloud acceptance.
+
+The `--tracking` variant adds a local signed-webhook receiver, organization policy, country-header validation, outage/restart retries and a tracking-storage failure test. It writes `docs/tracking-validation.json`; the baseline run writes `docs/identity-validation.json`. Alpha.2's recorded results are 33 desktop tests (seven hardware tests skipped), 10 broker tests, the separate PostgreSQL/TLS contract, and 96 tracking integration checks. These are recorded results, not live cloud acceptance.
 
 ## Build the Windows installer
 

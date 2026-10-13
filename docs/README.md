@@ -15,6 +15,7 @@
 - [Entra + cloud test setup](../identity-broker/deploy/test-environment.md).
 - [Serverless deployment](../identity-broker/deploy/README.md): [Azure](../identity-broker/deploy/azure.md), [AWS](../identity-broker/deploy/aws.md), [Google Cloud](../identity-broker/deploy/gcp.md).
 - [Current identity/KMS validation](identity-serverless-validation.md).
+- [Alpha.2 release notes](releases/v0.1.0-alpha.2.md) and [tracking integration results](tracking-validation.json).
 - Generated examples: [Entra/Azure](identity-entra-azure.md), [Okta/AWS](identity-okta-aws.md), [Keycloak/GCP](identity-keycloak-gcp.md). Replace all placeholders before use.
 
 ## Compression and benchmarks
