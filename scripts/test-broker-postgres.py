@@ -93,7 +93,8 @@ def main():
                 'shared_state_contract_passed': True,
                 'checks': ['schema initialization', 'independent connection pools', 'one-use login launch',
                            'atomic concurrent code/session consumption', 'expiry', 'distinct issuer/subject identities',
-                           'recipient authorization', 'owner-only revocation', 'disabled recipient rejection', 'audit writes']
+                           'recipient authorization', 'owner-only revocation', 'disabled recipient rejection', 'audit writes',
+                           'archive tracking policy and events across pools', 'owner-only tracking access', 'webhook outbox lease claim']
             }, indent=2)+'\n', encoding='utf-8')
         finally:
             if started:

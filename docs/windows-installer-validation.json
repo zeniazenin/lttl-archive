@@ -17,8 +17,8 @@
     "Existing installation refused",
     "Uninstall removes owned files/registration/shortcut and preserves user-added file"
   ],
-  "installer": "lttl-0.1.0-alpha.1-windows-x64-setup.exe",
-  "sha256": "014e65aa9d08bd0016570186a20f461fe95f6efb36cb616a40d54f3c52871399",
+  "installer": "lttl-0.1.0-alpha.2-windows-x64-setup.exe",
+  "sha256": "f2a67df11cf83864a54cd1f8b40b1f691521bce1c3ddcfb612c912e519d525ba",
   "nvidia_doctor": {
     "codecs": [
       "ZIP / Deflate (serial)",
@@ -29,7 +29,7 @@
       "available": true,
       "codec": "nvCOMP Zstd, fixed setting",
       "device": "NVIDIA GeForce RTX 4070 Laptop GPU",
-      "initialize_seconds": 2.0256684
+      "initialize_seconds": 2.1035905
     },
     "logical_processors": 22,
     "rar_creation": false

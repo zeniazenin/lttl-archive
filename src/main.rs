@@ -24,6 +24,10 @@ enum Command {
         #[arg(long)] identity_profile: Option<PathBuf>,
         /// Enrolled recipient ID; repeat for each recipient. Requires identity profile.
         #[arg(long, requires="identity_profile")] recipient: Vec<String>,
+        /// Record access attempts and send signed organization security webhooks for this archive.
+        #[arg(long, requires="identity_profile")] track_access: bool,
+        /// Country watchlist (IP estimates), e.g. KP. Repeat or use commas.
+        #[arg(long, requires="track_access", value_delimiter=',')] alert_country:Vec<String>,
         #[arg(short, long, value_enum, default_value = "tar-zstd")] format: Format,
         /// ZIP/Zstd compression goal or preset. LZ4 uses a fixed fast setting.
         #[arg(short, long, value_enum, default_value = "balanced")] preset: Preset,
@@ -86,6 +90,7 @@ enum IdentityCommand {
     Guide {#[arg(long,value_enum,default_value="entra")] provider:lttl::identity::guides::Provider,#[arg(long,value_enum,default_value="azure")] hosting:lttl::identity::hosting::Hosting,#[arg(long)] broker_url:String,#[arg(long,default_value="")] tenant:String,#[arg(long,default_value="")] client_id:String,#[arg(short,long)] output:Option<PathBuf>},
     Configure {#[arg(long)] broker_url:String,#[arg(long,value_enum,default_value="entra")] provider:lttl::identity::guides::Provider,#[arg(short,long)] output:Option<PathBuf>},
     Users {#[arg(long)] profile:Option<PathBuf>},
+    Events {archive:PathBuf,#[arg(long)] profile:Option<PathBuf>},
     Revoke {archive:PathBuf,#[arg(long)] profile:Option<PathBuf>},
 }
 fn profile(path:Option<PathBuf>)->Result<lttl::identity::Profile> {lttl::identity::Profile::load(&path.unwrap_or_else(lttl::identity::default_profile_path))}
@@ -118,7 +123,7 @@ fn run() -> Result<()> {
     let cancel = AtomicBool::new(false);
     let mut progress = progress_printer();
     match cli.command {
-        Some(Command::Create { inputs, output, format, preset, threads, backend, chunk_mib, chunk_kib, batch_mib, adapter, identity_profile, recipient }) => {
+        Some(Command::Create { inputs, output, format, preset, threads, backend, chunk_mib, chunk_kib, batch_mib, adapter, identity_profile, recipient, track_access, alert_country }) => {
             anyhow::ensure!(format != Format::TarLz4 || chunk_mib.is_none(), "Use --chunk-kib for TAR.LZ4");
             anyhow::ensure!(adapter.is_none() || (format == Format::TarLz4 && backend == Backend::Wgpu), "--adapter requires --format tar-lz4 --backend wgpu");
             let options=CreateOptions{inputs,output,format,preset,threads};
@@ -127,7 +132,7 @@ fn run() -> Result<()> {
             let stats=if let Some(path)=identity_profile {
                 anyhow::ensure!(!recipient.is_empty(),"Protected archives require at least one --recipient ID");
                 let session=lttl::identity::login(&profile(Some(path))?,None,&cancel,&mut sign_in_notice)?;
-                lttl::identity::create(&options,backend,&gpu,&portable,&session,&recipient,&cancel,&mut progress)?
+                lttl::identity::create_tracked(&options,backend,&gpu,&portable,&session,&recipient,&lttl::identity::crypto::TrackingPolicy{enabled:track_access,alert_countries:alert_country},&cancel,&mut progress)?
             } else {lttl::create_with_provider(&options,backend,&gpu,&portable,&cancel,&mut progress)?};
             eprintln!();print_json(&stats)
         }
@@ -153,6 +158,11 @@ fn run() -> Result<()> {
             }
             IdentityCommand::Users{profile:path}=> {
                 let session=lttl::identity::login(&profile(path)?,None,&cancel,&mut sign_in_notice)?;print_json(&session.users()?)
+            }
+            IdentityCommand::Events{archive,profile:path}=> {
+                let mut file=std::fs::File::open(archive)?;let (header,_)=lttl::identity::crypto::read_header(&mut file)?;let profile=profile(path)?;
+                anyhow::ensure!(lttl::identity::broker_url(&header.broker)?==profile.broker_url,"Archive and configured service differ");
+                let session=lttl::identity::login(&profile,None,&cancel,&mut sign_in_notice)?;print_json(&session.events(&header.archive_id)?)
             }
             IdentityCommand::Revoke{archive,profile:path}=> {
                 let mut file=std::fs::File::open(archive)?;let (header,_)=lttl::identity::crypto::read_header(&mut file)?;let profile=profile(path)?;

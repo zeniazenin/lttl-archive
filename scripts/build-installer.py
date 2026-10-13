@@ -14,7 +14,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--nsis', type=Path, default=ROOT/'tools/nsis-3.12/makensis.exe')
     p.add_argument('--crt', type=Path, help='Visual Studio x64 Microsoft.VC143.CRT redistributable directory')
-    p.add_argument('--version', default='0.1.0-alpha.1')
+    p.add_argument('--version', default='0.1.0-alpha.2')
     args = p.parse_args()
     if not all(c.isalnum() or c in '.-' for c in args.version):
         raise SystemExit('Invalid version')

@@ -10,6 +10,7 @@
 
 ## Organization sharing
 
+- [Archive access tracking](archive-tracking.md): per-archive policies, signed security webhooks, country estimates and serverless retries.
 - [Identity sharing](identity-sharing.md): recipient enrollment, encrypted archives and revocation.
 - [Entra + cloud test setup](../identity-broker/deploy/test-environment.md).
 - [Serverless deployment](../identity-broker/deploy/README.md): [Azure](../identity-broker/deploy/azure.md), [AWS](../identity-broker/deploy/aws.md), [Google Cloud](../identity-broker/deploy/gcp.md).

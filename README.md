@@ -4,7 +4,7 @@ A Rust archiver for Windows with a desktop interface, CLI, CPU/GPU compression, 
 
 **Alpha software.** ZIP, TAR.ZST and TAR.LZ4 work locally. GPU paths have been tested on Intel Arc and an RTX 4070 Laptop GPU. Identity sharing has local integration coverage; live cloud/IDP deployment is still awaiting pilot validation.
 
-[Download Windows installer](https://github.com/zeniazenin/lttl-archive/releases/tag/v0.1.0-alpha.1) · [Documentation](docs/README.md) · [Build from source](docs/development.md) · [Identity setup](identity-broker/deploy/test-environment.md)
+[Download Windows installer](https://github.com/zeniazenin/lttl-archive/releases/tag/v0.1.0-alpha.2) · [Documentation](docs/README.md) · [Build from source](docs/development.md) · [Identity setup](identity-broker/deploy/test-environment.md)
 
 ## Features
 
@@ -15,12 +15,13 @@ A Rust archiver for Windows with a desktop interface, CLI, CPU/GPU compression, 
 - Optional Explorer actions: **Create archive**, **Extract here**, **Extract to named folder**.
 - Encrypted `.lttl` envelopes for selected enrolled organization users, with fresh IDP authentication on opening.
 - Native Azure Key Vault, AWS KMS and Google Cloud KMS wrapping, plus serverless broker templates.
+- Optional per-archive access tracking with signed organization security webhooks, durable retries and country-watchlist alerts. [Setup and limits](docs/archive-tracking.md).
 
 lttl uses open archive formats and independent compression libraries. It does **not** implement RAR/7z or full WinRAR compatibility. Historical RAR research is included as evidence, not as a reconstructed proprietary codec.
 
 ## Install on Windows
 
-Download `lttl-0.1.0-alpha.1-windows-x64-setup.exe` and its `.sha256` file from the [release page](https://github.com/zeniazenin/lttl-archive/releases/tag/v0.1.0-alpha.1). The installer targets Windows 10/11 x64 and installs for the current user without elevation. It provides Start Menu shortcuts and an uninstaller. Explorer integration and NVIDIA Zstandard runtime components are optional. CPU and portable GPU LZ4 are included by default.
+Download `lttl-0.1.0-alpha.2-windows-x64-setup.exe` and its `.sha256` file from the [release page](https://github.com/zeniazenin/lttl-archive/releases/tag/v0.1.0-alpha.2). The installer targets Windows 10/11 x64 and installs for the current user without elevation. It provides Start Menu shortcuts and an uninstaller. Explorer integration and NVIDIA Zstandard runtime components are optional. CPU and portable GPU LZ4 are included by default.
 
 This initial installer is **unsigned**; Windows may display a publisher/SmartScreen warning. Verify the downloaded artifact's SHA-256 against the release checksum. No signing certificate was available for this release. See [installation, verification and removal](docs/windows-installer.md).
 

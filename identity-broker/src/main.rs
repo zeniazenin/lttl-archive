@@ -16,6 +16,7 @@ use openidconnect::{
 };
 mod kms;
 mod store;
+mod tracking;
 use serde::{Deserialize, Serialize};
 use std::{
     net::SocketAddr,
@@ -49,6 +50,8 @@ struct Config {
     wrapping: kms::Config,
     #[serde(default)]
     serverless: bool,
+    #[serde(default)]
+    tracking: tracking::Config,
 }
 fn listen() -> String {
     "127.0.0.1:8787".into()
@@ -109,6 +112,7 @@ struct App {
     http: reqwest::Client,
     oidc: Oidc,
     db: store::Store,
+    tracking: tracking::Service,
 }
 
 type Shared = Arc<App>;
@@ -209,6 +213,7 @@ async fn oidc(config: &Config, secret: &str, http: &reqwest::Client) -> Result<O
     ))?))
 }
 async fn app(config: Config, secret: String, kms: kms::Kms) -> Result<Shared> {
+    let tracking = tracking::Service::new(config.tracking.clone())?;
     let u = safe_url(&config.public_url)?;
     ensure!(
         u.path() == "/" && u.query().is_none(),
@@ -233,9 +238,11 @@ async fn app(config: Config, secret: String, kms: kms::Kms) -> Result<Shared> {
         .build()?;
     let oidc = oidc(&config, &secret, &http).await?;
     let db = store::Store::connect(&config.database, config.serverless, false).await?;
+    db.tracking_policy("schema-check").await.context("Tracking schema missing; run --init-db before starting the upgraded broker")?;
     verify_wrapping(&db, &kms).await?;
     Ok(Arc::new(App {
         config,
+        tracking,
         secret: Zeroizing::new(secret),
         kms,
         http,
@@ -300,6 +307,7 @@ fn validate_start(r: &StartRequest) -> Result<()> {
 }
 async fn start(
     State(app): State<Shared>,
+    axum::Extension(location): axum::Extension<tracking::Location>,
     Json(r): Json<StartRequest>,
 ) -> Api<Json<serde_json::Value>> {
     validate_start(&r).map_err(|_| bad())?;
@@ -325,6 +333,7 @@ async fn start(
             "Too many sign-in requests",
         ));
     }
+    if let Some(archive)=&r.archive_id {app.tracking.record(&app.db,archive,None,"open_attempt",&location).await?;}
     app.db
         .put(
             "login_flows",
@@ -364,7 +373,13 @@ fn fresh(auth: Option<i64>, issued: i64, started: i64, time: i64) -> Result<()> 
     );
     Ok(())
 }
-async fn callback(State(app): State<Shared>, Query(r): Query<Callback>) -> Api<Redirect> {
+async fn callback(State(app): State<Shared>, axum::Extension(location):axum::Extension<tracking::Location>, Query(r): Query<Callback>) -> Api<Redirect> {
+    let archive=app.db.state::<Flow>("login_flows",&r.state,false).await?.and_then(|f|f.archive);
+    let result=callback_inner(app.clone(),r,&location).await;
+    if result.is_err() {if let Some(id)=archive {app.tracking.record(&app.db,&id,None,"authentication_failed",&location).await?;}}
+    result
+}
+async fn callback_inner(app:Shared,r:Callback,location:&tracking::Location)->Api<Redirect> {
     let f: Flow = app
         .db
         .state("login_flows", &r.state, true)
@@ -426,6 +441,7 @@ async fn callback(State(app): State<Shared>, Query(r): Query<Callback>) -> Api<R
         .enroll(&app.config.issuer, subject, &name, &email)
         .await
         .map_err(|_| forbidden())?;
+    if let Some(id)=&f.archive {app.tracking.record(&app.db,id,Some(&user.id),"authenticated",location).await?;}
     let code = crypto::identifier();
     let mut redirect = url::Url::parse(&f.redirect).map_err(|_| bad())?;
     redirect
@@ -486,6 +502,7 @@ async fn users(State(app): State<Shared>, headers: HeaderMap) -> Api<Json<Vec<Us
 #[serde(deny_unknown_fields)]
 struct Create {
     recipients: Vec<String>,
+    #[serde(default)] tracking: crypto::TrackingPolicy,
 }
 async fn create_archive(
     State(app): State<Shared>,
@@ -504,40 +521,59 @@ async fn create_archive(
             return Err(forbidden());
         }
     }
+    let policy=app.tracking.policy(r.tracking).map_err(|_|Error(StatusCode::BAD_REQUEST,"Tracking policy invalid or organization webhook not configured"))?;
     let id = crypto::identifier();
     let key = crypto::key();
     let wrapped = app.kms.wrap(&id, &key).await?;
     app.db
-        .create_archive(&id, &grant.user.id, &r.recipients, &wrapped)
+        .create_archive_tracked(&id, &grant.user.id, &r.recipients, &wrapped, &policy)
         .await?;
     Ok(Json(
-        serde_json::json!({"archive_id":id,"key":crypto::encode(&*key)}),
+        serde_json::json!({"archive_id":id,"key":crypto::encode(&*key),"tracking":policy}),
     ))
 }
 async fn release_key(
-    State(app): State<Shared>,
-    Path(id): Path<String>,
-    headers: HeaderMap,
+    State(app): State<Shared>, Path(id): Path<String>,
+    axum::Extension(location):axum::Extension<tracking::Location>, headers: HeaderMap,
 ) -> Api<Json<serde_json::Value>> {
-    let grant = authorize(&app, &headers, true).await?;
-    if grant.archive.as_deref() != Some(&id) {
-        return Err(forbidden());
-    }
-    let Some(wrapped) = app.db.allowed_key(&id, &grant.user.id).await? else {
-        app.db
-            .audit(Some(&grant.user.id), Some(&id), "key-denied")
-            .await?;
-        return Err(forbidden());
+    if !crypto::valid_id(&id) {return Err(bad());}
+    let grant=match authorize(&app,&headers,true).await {
+        Ok(grant)=>grant,
+        Err(error)=>{app.tracking.record(&app.db,&id,None,"key_denied",&location).await?;return Err(error)}
     };
-    let key = app.kms.unwrap(&id, &wrapped).await?;
-    // KMS adds network latency: recheck revocation and account state after it.
-    if app.db.allowed_key(&id, &grant.user.id).await?.as_deref() != Some(wrapped.as_slice()) {
-        return Err(forbidden());
-    }
-    app.db
-        .audit(Some(&grant.user.id), Some(&id), "key-release")
-        .await?;
+    let result=release_authorized(&app,&id,&grant).await;
+    let kind=if result.is_ok(){"key_released"}else{"key_denied"};
+    app.tracking.record(&app.db,&id,Some(&grant.user.id),kind,&location).await?;
+    result
+}
+async fn release_authorized(app:&App,id:&str,grant:&Grant)->Api<Json<serde_json::Value>> {
+    if grant.archive.as_deref()!=Some(id) {return Err(forbidden());}
+    let Some(wrapped)=app.db.allowed_key(id,&grant.user.id).await? else {
+        app.db.audit(Some(&grant.user.id),Some(id),"key-denied").await?;return Err(forbidden());
+    };
+    let key=app.kms.unwrap(id,&wrapped).await?;
+    if app.db.allowed_key(id,&grant.user.id).await?.as_deref()!=Some(wrapped.as_slice()) {return Err(forbidden());}
+    app.db.audit(Some(&grant.user.id),Some(id),"key-release").await?;
     Ok(Json(serde_json::json!({"key":crypto::encode(&*key)})))
+}
+async fn tracking_events(State(app):State<Shared>,Path(id):Path<String>,headers:HeaderMap)->Api<Json<serde_json::Value>> {
+    let grant=manage(&app,&headers).await?;
+    let events=app.db.tracking_events(&id,&grant.user.id).await?.ok_or(forbidden())?;
+    Ok(Json(serde_json::json!({"events":events,"limit":200,"retention_days":90})))
+}
+async fn dispatch_tracking(State(app):State<Shared>,headers:HeaderMap)->Api<Json<serde_json::Value>> {
+    if !app.tracking.dispatch_allowed(&headers) {return Err(forbidden());}
+    app.db.prune_tracking().await?;
+    let delivered=app.tracking.deliver(&app.db,10).await?;
+    use sqlx::Row;
+    let row=sqlx::query("SELECT COUNT(*) FROM tracking_outbox").fetch_one(&app.db.pool).await?;
+    Ok(Json(serde_json::json!({"delivered":delivered,"pending":row.get::<i64,_>(0)})))
+}
+async fn tracking_context(State(app):State<Shared>,mut request:Request,next:Next)->Response {
+    let peer=request.extensions().get::<axum::extract::ConnectInfo<SocketAddr>>().map(|c|c.0.ip());
+    let location=app.tracking.location(request.headers(),peer,request.method().as_str(),request.uri().path());
+    request.extensions_mut().insert(location);
+    next.run(request).await
 }
 async fn revoke(
     State(app): State<Shared>,
@@ -575,6 +611,9 @@ fn router(app: Shared) -> Router {
         .route("/v1/archives", post(create_archive))
         .route("/v1/archives/{id}/key", post(release_key))
         .route("/v1/archives/{id}/revoke", post(revoke))
+        .route("/v1/archives/{id}/events", get(tracking_events))
+        .route("/v1/tracking/dispatch", post(dispatch_tracking))
+        .layer(middleware::from_fn_with_state(app.clone(),tracking_context))
         .layer(DefaultBodyLimit::max(131072))
         .layer(middleware::from_fn(security_headers))
         .with_state(app)
@@ -634,6 +673,6 @@ async fn main() -> Result<()> {
         "lttl key broker listening on {} behind {}",
         app.config.listen, app.config.public_url
     );
-    axum::serve(listener, router(app)).await?;
+    axum::serve(listener, router(app).into_make_service_with_connect_info::<SocketAddr>()).await?;
     Ok(())
 }

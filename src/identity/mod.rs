@@ -31,7 +31,7 @@ pub fn default_profile_path()->PathBuf {std::env::var_os("LOCALAPPDATA").map(Pat
 pub struct User {pub id:String,pub name:String,pub email:String}
 #[derive(Deserialize)] struct Start {browser_url:String}
 #[derive(Deserialize)] struct SignedIn {token:String,user:User}
-#[derive(Deserialize)] struct NewArchive {archive_id:String,key:String}
+#[derive(Deserialize)] struct NewArchive {archive_id:String,key:String,#[serde(default)] tracking:crypto::TrackingPolicy}
 pub struct Session {profile:Profile,token:Zeroizing<String>,pub user:User}
 fn http()->Result<reqwest::blocking::Client> {Ok(reqwest::blocking::Client::builder().redirect(reqwest::redirect::Policy::none()).timeout(Duration::from_secs(30)).build()?)}
 fn json<T:serde::de::DeserializeOwned>(response:reqwest::blocking::Response)->Result<T> {
@@ -39,6 +39,7 @@ fn json<T:serde::de::DeserializeOwned>(response:reqwest::blocking::Response)->Re
     let mut bytes=Vec::new();response.take(1048577).read_to_end(&mut bytes)?;ensure!(bytes.len()<=1048576,"Identity service response too large");Ok(serde_json::from_slice(&bytes)?)
 }
 pub fn login(profile:&Profile,archive_id:Option<&str>,cancel:&AtomicBool,notice:&mut dyn FnMut(String))->Result<Session> {
+    if archive_id.is_some() {eprintln!("Opening contacts the configured organization service. Archive policy may report this attempt, authenticated identity, time and estimated network location to its security system.");}
     let profile=Profile{broker_url:broker_url(&profile.broker_url)?,provider:profile.provider};let client=http()?;
     if let Some(id)=archive_id {ensure!(crypto::valid_id(id),"Invalid archive ID");}
     // A loopback code callback with PKCE keeps a copied browser sign-in URL
@@ -90,17 +91,24 @@ pub fn login(profile:&Profile,archive_id:Option<&str>,cancel:&AtomicBool,notice:
 }
 
 impl Session {
+    pub fn events(&self,id:&str)->Result<serde_json::Value> {ensure!(crypto::valid_id(id),"Invalid archive ID");json(http()?.get(format!("{}/v1/archives/{id}/events",self.profile.broker_url)).bearer_auth(&*self.token).send()?)}
     pub fn users(&self)->Result<Vec<User>> {let users:Vec<User>=json(http()?.get(format!("{}/v1/users",self.profile.broker_url)).bearer_auth(&*self.token).send()?)?;ensure!(users.len()<=1000 && users.iter().all(|u|crypto::valid_id(&u.id)),"Invalid recipient directory");Ok(users)}
     pub fn revoke(&self,id:&str)->Result<()> {ensure!(crypto::valid_id(id),"Invalid archive ID");let _:serde_json::Value=json(http()?.post(format!("{}/v1/archives/{id}/revoke",self.profile.broker_url)).bearer_auth(&*self.token).send()?)?;Ok(())}
 }
 pub fn is_protected(path:&Path)->Result<bool> {let mut file=crate::input_file(path)?;let mut bytes=[0;8];let n=file.read(&mut bytes)?;Ok(n==8 && &bytes==crypto::MAGIC)}
 pub fn create(options:&CreateOptions,backend:Backend,gpu:&GpuOptions,portable:&PortableOptions,session:&Session,recipients:&[String],cancel:&AtomicBool,progress:&mut dyn FnMut(Progress))->Result<Stats> {
+    create_tracked(options,backend,gpu,portable,session,recipients,&crypto::TrackingPolicy::default(),cancel,progress)
+}
+pub fn create_tracked(options:&CreateOptions,backend:Backend,gpu:&GpuOptions,portable:&PortableOptions,session:&Session,recipients:&[String],tracking:&crypto::TrackingPolicy,cancel:&AtomicBool,progress:&mut dyn FnMut(Progress))->Result<Stats> {
+    tracking.validate()?;
     let started=Instant::now();crate::check_path(&options.output)?;crate::absent(&options.output)?;crate::cancelled(cancel)?;
     ensure!(!recipients.is_empty() && recipients.len()<=1000 && recipients.iter().all(|id|crypto::valid_id(id)),"Select between 1 and 1000 enrolled recipients");
     let temp=tempfile::tempdir()?;let mut inner=options.clone();inner.output=temp.path().join(format!("archive.{}",options.format.extension()));
-    let issued:NewArchive=json(http()?.post(format!("{}/v1/archives",session.profile.broker_url)).bearer_auth(&*session.token).json(&serde_json::json!({"recipients":recipients})).send()?)?;
+    let issued:NewArchive=json(http()?.post(format!("{}/v1/archives",session.profile.broker_url)).bearer_auth(&*session.token).json(&serde_json::json!({"recipients":recipients,"tracking":tracking})).send()?)?;
     let text=Zeroizing::new(issued.key);let key=crypto::decode_key(&text)?;
-    let header=crypto::Header::new(session.profile.broker_url.clone(),issued.archive_id.clone(),options.format.extension().into());
+    let mut header=crypto::Header::new(session.profile.broker_url.clone(),issued.archive_id.clone(),options.format.extension().into());
+    ensure!(!tracking.enabled || issued.tracking.enabled,"Broker did not enable requested archive tracking");
+    if issued.tracking.enabled {issued.tracking.validate()?;header.tracking=Some(issued.tracking);}
     let result=(||->Result<Stats> {
         let mut stats=crate::create_with_provider(&inner,backend,gpu,portable,cancel,progress)?;
         let mut output=tempfile::NamedTempFile::new_in(crate::parent_dir(&options.output))?;

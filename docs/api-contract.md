@@ -41,3 +41,6 @@ GUI module `src/gui.rs`: export `pub fn run(initial: Option<GuiAction>) -> anyho
 `create_with_provider` additionally takes `&PortableOptions { adapter, chunk_kib, batch_mib }`. `Backend::Wgpu` is TAR.LZ4-only; `portable_adapters()` enumerates available adapters and `clear_portable_sessions()` discards cached idle sessions. TAR.LZ4 Auto currently uses CPU. The CLI and GUI use the provider-aware entry point.
 
 `identity` exposes profile validation, login/enrollment and protected create/list/test/extract. These operations use the same compression engine within the authenticated envelope. See [architecture](architecture.md) and [identity sharing](identity-sharing.md). Public APIs are alpha and may change; src/lib.rs and src/identity/mod.rs are authoritative.
+# Archive tracking extension
+
+`identity::create_tracked` adds an `identity::crypto::TrackingPolicy` to protected creation. `identity::create` keeps its existing signature and requests the default policy; organization policy can still require tracking. `Session::events` retrieves owner-only activity. The encrypted header has an optional authenticated `tracking` field; old untracked headers remain readable. See [policy, webhook and HTTP contracts](archive-tracking.md).

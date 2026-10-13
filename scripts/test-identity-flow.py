@@ -7,6 +7,7 @@ import argparse
 import base64
 import contextlib
 import hashlib
+import hmac
 import http.server
 import json
 import os
@@ -158,10 +159,25 @@ def browser(url, finish=False):
     raise AssertionError('Redirect loop')
 
 
+class TrackingReceiver(http.server.BaseHTTPRequestHandler):
+    packets = []
+    secret = ''
+    fail = False
+    def log_message(self,*args): pass
+    def do_POST(self):
+        body=self.rfile.read(int(self.headers['Content-Length']))
+        event=self.headers['X-Lttl-Event-Id']; timestamp=self.headers['X-Lttl-Timestamp']
+        signed=event.encode()+b'.'+timestamp.encode()+b'.'+body
+        assert hmac.compare_digest(b64(hmac.digest(self.secret.encode(),signed,'sha256')),self.headers['X-Lttl-Signature'])
+        self.packets.append(json.loads(body))
+        self.send_response(503 if self.fail else 204);self.end_headers()
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--cli', type=Path, default=ROOT / 'target/debug/lttl.exe')
     parser.add_argument('--broker', type=Path, default=ROOT / 'identity-broker/target/debug/lttl-key-broker.exe')
+    parser.add_argument('--tracking',action='store_true')
     args = parser.parse_args()
     server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), Provider)
     Provider.origin = 'http://127.0.0.1:' + str(server.server_port)
@@ -181,6 +197,13 @@ def main():
         profile.write_text(json.dumps({'broker_url': origin, 'provider': 'entra'}))
         env = dict(os.environ, LTTL_OIDC_CLIENT_SECRET='local-secret', LTTL_BROKER_MASTER_KEY=identifier(),
                    LTTL_MANUAL_SIGN_IN='1', TEMP=str(work), TMP=str(work))
+        receiver=None
+        if args.tracking:
+            receiver=http.server.ThreadingHTTPServer(('127.0.0.1',0),TrackingReceiver)
+            threading.Thread(target=receiver.serve_forever,daemon=True).start()
+            TrackingReceiver.secret=identifier()
+            env.update(LTTL_TRACKING_WEBHOOK_SECRET=TrackingReceiver.secret,LTTL_TRACKING_DISPATCH_TOKEN=identifier(),LTTL_TRACKING_GEO_SECRET=identifier())
+            cfg=json.loads(config.read_text());cfg['tracking']={'webhook_url':f'http://127.0.0.1:{receiver.server_port}/events','signed_geo_headers':True};config.write_text(json.dumps(cfg))
         process = subprocess.Popen([str(args.broker), str(config)], env=env, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
         try:
             for _ in range(100):
@@ -311,18 +334,72 @@ def main():
                                 errors.append(error)
                 reader = threading.Thread(target=read_stderr, daemon=True)
                 reader.start()
+                # Activity JSON can exceed a Windows pipe buffer. Drain stdout
+                # while the process runs instead of waiting with a full pipe.
+                output_parts=[]
+                output_reader=threading.Thread(target=lambda:output_parts.append(child.stdout.read()),daemon=True)
+                output_reader.start()
                 try:
                     child.wait(timeout=90)
                 except subprocess.TimeoutExpired:
                     child.kill()
+                    child.wait(timeout=10)
                     raise AssertionError('CLI timed out')
                 reader.join(timeout=5)
-                output = child.stdout.read()
+                output_reader.join(timeout=5)
+                assert not output_reader.is_alive(), 'CLI stdout reader did not finish'
+                output = ''.join(output_parts)
                 child.stdout.close(); child.stderr.close()
                 assert not errors, str(errors) + ' CLI exit=' + str(child.returncode) + ' log=' + ''.join(l for l in log if 'your browser:' not in l)
                 assert (child.returncode == 0) == success, ''.join(log)
                 assert bool(signs) == signin
                 return output
+
+            if args.tracking:
+                check(not TrackingReceiver.packets,'tracking disabled archives produce no webhook events')
+                cfg=json.loads(config.read_text());cfg['tracking'].update(require_tracking=True,alert_countries=['KP'],organization_member_ids=[alice['user']['id'],bob['user']['id']]);config.write_text(json.dumps(cfg));restart_broker()
+                status,_,tracked=api('/v1/archives',alice,{'recipients':[bob['user']['id']]})
+                check(status==200 and tracked['tracking']['enabled'] and tracked['tracking']['alert_countries']==['KP'],'organization policy is saved on each new archive')
+                tid=tracked['archive_id'];te='/v1/archives/'+tid
+                check(api(te+'/key',login('eve',tid),method='POST')[0]==403,'tracked external recipient denied')
+                events=api(te+'/events',alice)[2]['events']
+                check(any(e['identity_verified'] and 'outside_organization' in e['alerts'] and 'access_denied' in e['alerts'] for e in events),'verified outsider webhook alert')
+                check(api(te+'/events',bob)[0]==403 and api(te+'/events')[0]==401,'tracking events are owner-only')
+                begin('bob',tid,'policy-denied')
+                events=api(te+'/events',alice)[2]['events']
+                check(any(e['event']=='authentication_failed' and e['user_id'] is None for e in events),'IDP refusal records unknown identity')
+                body={'archive_id':tid,'redirect_uri':'http://127.0.0.1:19999/callback','state':identifier(),'challenge':identifier()}
+                headers={'Content-Type':'application/json','X-Lttl-Client-Ip':'203.0.113.7','X-Lttl-Country':'KP','X-Lttl-Geo-Timestamp':str(int(time.time()))}
+                raw=json.dumps(body).encode()
+                req=urllib.request.Request(origin+'/v1/auth/start',raw,headers)
+                with HTTP.open(req) as response: assert response.status==200
+                events=api(te+'/events',alice)[2]['events']
+                check(not any('country_watchlist' in e['alerts'] for e in events),'forged country header is ignored')
+                message=f"{headers['X-Lttl-Geo-Timestamp']}\nPOST\n/v1/auth/start\n203.0.113.7\nKP".encode()
+                headers['X-Lttl-Geo-Signature']=b64(hmac.digest(env['LTTL_TRACKING_GEO_SECRET'].encode(),message,'sha256'))
+                with HTTP.open(urllib.request.Request(origin+'/v1/auth/start',raw,headers)) as response: assert response.status==200
+                events=api(te+'/events',alice)[2]['events']
+                check(any(e['location']['country']=='KP' and 'country_watchlist' in e['alerts'] and not e['identity_verified'] for e in events),'trusted country estimate alerts before sign-in')
+                TrackingReceiver.fail=True
+                allowed=api(te+'/key',login('bob',tid),method='POST')
+                check(allowed[0]==200,'webhook outage does not lose authorized access once events are durable')
+                with contextlib.closing(sqlite3.connect(database)) as db:
+                    check(db.execute('SELECT count(*) FROM tracking_outbox').fetchone()[0]>0,'failed delivery persists in outbox')
+                    db.execute('UPDATE tracking_outbox SET next_at=0');db.commit()
+                restart_broker();TrackingReceiver.fail=False
+                check(api('/v1/tracking/dispatch',alice,method='POST')[0]==403,'user cannot trigger privileged dispatch')
+                status,_,delivery=request(origin+'/v1/tracking/dispatch',{},env['LTTL_TRACKING_DISPATCH_TOKEN'])
+                check(status==200 and delivery['pending']==0,'scheduled webhook retry survives broker restart')
+                opening=login('bob',tid)
+                with contextlib.closing(sqlite3.connect(database)) as db:
+                    db.execute("CREATE TRIGGER tracking_unavailable BEFORE INSERT ON tracking_events BEGIN SELECT RAISE(ABORT,'test storage outage'); END")
+                    db.commit()
+                try:
+                    status,_,denied=api(te+'/key',opening,method='POST')
+                    check(status==500 and 'key' not in denied,'tracking storage failure prevents key response')
+                finally:
+                    with contextlib.closing(sqlite3.connect(database)) as db:
+                        db.execute('DROP TRIGGER tracking_unavailable');db.commit()
 
             source = work / 'source'
             source.mkdir()
@@ -335,6 +412,9 @@ def main():
                 cli('alice', ['create', source, '-o', output, '--format', fmt, '--backend', 'cpu',
                               '--identity-profile', profile, '--recipient', bob['user']['id']])
                 check(output.read_bytes()[:8] == b'LTTLID01', fmt + ' encrypted envelope')
+                if args.tracking:
+                    data=output.read_bytes();h=json.loads(data[12:12+int.from_bytes(data[8:12],'little')])
+                    check(h['tracking']['enabled'] and h['tracking']['alert_countries']==['KP'],fmt+' saves broker-enforced policy in authenticated header')
                 dest = work / ('extracted-' + fmt)
                 cli('bob', ['extract', output, '-d', dest, '--identity-profile', profile])
                 extracted = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in dest.rglob('*') if p.is_file()}
@@ -345,6 +425,13 @@ def main():
                 denied = work / ('denied-' + fmt)
                 cli('eve', ['extract', output, '-d', denied, '--identity-profile', profile], success=False)
                 check(not denied.exists(), fmt + ' unauthorized extraction publishes nothing')
+            if args.tracking:
+                activity=json.loads(cli('alice',['identity','events',work/'zip.lttl','--profile',profile]))
+                check(any(e['event']=='key_released' for e in activity['events']),'actual CLI owner activity retrieval')
+                enabled=work/'user-tracked.lttl'
+                cfg=json.loads(config.read_text());cfg['tracking']['require_tracking']=False;config.write_text(json.dumps(cfg));restart_broker()
+                cli('alice',['create',source,'-o',enabled,'--identity-profile',profile,'--recipient',bob['user']['id'],'--track-access','--alert-country','US'])
+                data=enabled.read_bytes();header=json.loads(data[12:12+int.from_bytes(data[8:12],'little')]);check(set(header['tracking']['alert_countries'])=={'US','KP'},'user-enabled tracking merges organization country list')
             output = work / 'tar-zstd.lttl'
             for kind in ['tampered', 'truncated', 'trailing']:
                 data = bytearray(output.read_bytes())
@@ -372,7 +459,8 @@ def main():
             report = {'scope': 'Local RSA-signed mock OIDC and real broker/CLI; no real tenant',
                       'live_entra_validated': False, 'checks_passed': len(CHECKS), 'checks': CHECKS,
                       'authentications': Provider.authentications, 'audit_event_counts': events}
-            (ROOT / 'docs/identity-validation.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
+            if args.tracking: report.update(webhook_packets=len(TrackingReceiver.packets),live_webhook_validated=False)
+            (ROOT / ('docs/tracking-validation.json' if args.tracking else 'docs/identity-validation.json')).write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
             print(f'PASS: {len(CHECKS)} checks; {Provider.authentications} fresh OIDC flows; all 3 formats hash verified.')
         finally:
             process.terminate()
@@ -380,6 +468,7 @@ def main():
             process.stderr.close()
             server.shutdown()
             server.server_close()
+            if receiver: receiver.shutdown();receiver.server_close()
 
 
 if __name__ == '__main__':

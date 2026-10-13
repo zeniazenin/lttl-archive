@@ -32,10 +32,24 @@ pub fn unseal(key:&[u8;32],bytes:&[u8],aad:&[u8])->Result<Zeroizing<Vec<u8>>> {
 }
 #[derive(Clone,Serialize,Deserialize)]
 #[serde(deny_unknown_fields)]
-pub struct Header {pub broker:String,pub archive_id:String,pub format:String,pub nonce:String}
+pub struct Header {pub broker:String,pub archive_id:String,pub format:String,pub nonce:String,#[serde(default,skip_serializing_if="Option::is_none")] pub tracking:Option<TrackingPolicy>}
+/// Immutable archive policy, authenticated with the rest of the envelope header.
+#[derive(Clone,Debug,Default,PartialEq,Eq,Serialize,Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct TrackingPolicy {
+    #[serde(default)] pub enabled:bool,
+    #[serde(default)] pub alert_countries:Vec<String>,
+}
+impl TrackingPolicy {
+    pub fn validate(&self)->Result<()> {
+        ensure!(self.alert_countries.len()<=250 && self.alert_countries.iter().all(|c|c.len()==2 && c.bytes().all(|b|b.is_ascii_uppercase())),"Use two-letter uppercase country codes (for example KP)");
+        ensure!(self.enabled || self.alert_countries.is_empty(),"Country alerts require archive tracking");Ok(())
+    }
+}
 impl Header {
-    pub fn new(broker:String,archive_id:String,format:String)->Self {Self{broker,archive_id,format,nonce:B64.encode(random::<16>())}}
+    pub fn new(broker:String,archive_id:String,format:String)->Self {Self{broker,archive_id,format,nonce:B64.encode(random::<16>()),tracking:None}}
     fn validate(&self)->Result<[u8;16]> {
+        if let Some(policy)=&self.tracking {policy.validate()?;}
         ensure!(valid_id(&self.archive_id),"Invalid archive ID");
         ensure!(matches!(self.format.as_str(),"zip"|"tar.zst"|"tar.lz4"),"Unsupported inner archive");
         B64.decode(&self.nonce)?.try_into().map_err(|_|anyhow::anyhow!("Invalid archive nonce"))

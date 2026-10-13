@@ -13,6 +13,9 @@
     "recipient authorization",
     "owner-only revocation",
     "disabled recipient rejection",
-    "audit writes"
+    "audit writes",
+    "archive tracking policy and events across pools",
+    "owner-only tracking access",
+    "webhook outbox lease claim"
   ]
 }

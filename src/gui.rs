@@ -50,7 +50,7 @@ enum View { Create, Extract, Inspect, Identity }
 
 enum Job {
     Create(CreateOptions, Backend, GpuOptions, lttl::PortableOptions),
-    SharedCreate(CreateOptions, Backend, GpuOptions, lttl::PortableOptions, lttl::identity::Profile, Vec<String>),
+    SharedCreate(CreateOptions, Backend, GpuOptions, lttl::PortableOptions, lttl::identity::Profile, Vec<String>, lttl::identity::crypto::TrackingPolicy),
     SignIn(lttl::identity::Profile),
     Extract(PathBuf, PathBuf),
     Inspect(PathBuf),
@@ -91,6 +91,8 @@ struct LttlApp {
     identity_profile: lttl::identity::Profile,
     identity_hosting: lttl::identity::hosting::Hosting,
     share_identity: bool,
+    track_access:bool,
+    alert_countries:String,
     recipients: Vec<lttl::identity::User>, selected_recipients: Vec<String>, recipient_filter: String,
     identity_user: String, sign_in_url: String, guide: String, idp_tenant: String, idp_client_id: String,
 
@@ -105,7 +107,7 @@ impl LttlApp {
             archive: String::new(), destination: String::new(), worker: None,
             progress: None, status: "Ready when you are".into(), error: None,
             stats: None, entries: Vec::new(), inspected_archive: String::new(), filter: String::new(), close_after_work: false,
-            identity_profile: lttl::identity::Profile::default(),share_identity:false,
+            identity_profile: lttl::identity::Profile::default(),share_identity:false,track_access:false,alert_countries:String::new(),
             identity_hosting:lttl::identity::hosting::Hosting::default(),
             recipients:Vec::new(),selected_recipients:Vec::new(),recipient_filter:String::new(),identity_user:String::new(),
             sign_in_url:String::new(),guide:String::new(),idp_tenant:String::new(),idp_client_id:String::new(),
@@ -187,7 +189,7 @@ impl LttlApp {
             let mut notice=|url:String| {let _=sender.send(Event::Browser(url));repaint.request_repaint();};
             let result = match job {
                 Job::Create(options, backend, gpu, portable) => lttl::create_with_provider(&options, backend, &gpu, &portable, &worker_cancel, &mut progress).map(JobOutput::Archive),
-                Job::SharedCreate(options,backend,gpu,portable,profile,recipients) => lttl::identity::login(&profile,None,&worker_cancel,&mut notice).and_then(|session|lttl::identity::create(&options,backend,&gpu,&portable,&session,&recipients,&worker_cancel,&mut progress)).map(JobOutput::Archive),
+                Job::SharedCreate(options,backend,gpu,portable,profile,recipients,tracking) => lttl::identity::login(&profile,None,&worker_cancel,&mut notice).and_then(|session|lttl::identity::create_tracked(&options,backend,&gpu,&portable,&session,&recipients,&tracking,&worker_cancel,&mut progress)).map(JobOutput::Archive),
                 Job::SignIn(profile) => lttl::identity::login(&profile,None,&worker_cancel,&mut notice).and_then(|session|Ok(JobOutput::Identity(session.users()?,session.user.clone()))),
                 Job::Extract(archive,dest) => lttl::identity::is_protected(&archive).and_then(|protected|if protected {lttl::identity::extract(&archive,&dest,&identity_profile,&worker_cancel,&mut progress,&mut notice)} else {lttl::extract(&archive,&dest,&worker_cancel,&mut progress)}).map(JobOutput::Archive),
                 Job::Inspect(archive) => lttl::identity::is_protected(&archive).and_then(|protected|if protected {lttl::identity::list(&archive,&identity_profile,&worker_cancel,&mut notice)} else {lttl::list(&archive)}).map(JobOutput::Entries),
@@ -381,6 +383,12 @@ impl LttlApp {
         }
         if self.share_identity {
             ui.label("Recipients must sign in to the configured organization key service to open this archive.");
+            ui.checkbox(&mut self.track_access,"Track access attempts for this archive");
+            if self.track_access {
+                ui.label("Reports identity, time and estimated network country to the organization's security webhook.");
+                ui.add(egui::TextEdit::singleline(&mut self.alert_countries).hint_text("Alert country codes, comma separated (e.g. KP)"));
+            }
+            ui.label(RichText::new("Your organization may require tracking. The saved archive carries the policy; recipients cannot switch it off.").small().color(MUTED));
             ui.horizontal(|ui| {
                 if ui.button("Identity settings").clicked() {self.view=View::Identity;}
                 if ui.add_enabled(!self.identity_profile.broker_url.is_empty(),egui::Button::new("Sign in / refresh recipients")).clicked() {self.start(ctx,Job::SignIn(self.identity_profile.clone()));}
@@ -405,7 +413,7 @@ impl LttlApp {
             let backend=if self.format==Format::Zip {Backend::Cpu}else{self.backend};
             let gpu=GpuOptions{chunk_kib:self.gpu_chunk_kib,batch_mib:self.gpu_batch_mib};
             let portable=lttl::PortableOptions{adapter:if self.portable_adapter.trim().is_empty(){None}else{Some(self.portable_adapter.trim().into())},..Default::default()};
-            let job=if self.share_identity {Job::SharedCreate(options,backend,gpu,portable,self.identity_profile.clone(),self.selected_recipients.clone())}else{Job::Create(options,backend,gpu,portable)};
+            let job=if self.share_identity {Job::SharedCreate(options,backend,gpu,portable,self.identity_profile.clone(),self.selected_recipients.clone(),lttl::identity::crypto::TrackingPolicy{enabled:self.track_access,alert_countries:if self.track_access {self.alert_countries.split(',').map(str::trim).filter(|s|!s.is_empty()).map(|s|s.to_uppercase()).collect()}else{Vec::new()}})}else{Job::Create(options,backend,gpu,portable)};
             self.start(ctx,job);
         }
     }
@@ -451,6 +459,7 @@ impl LttlApp {
     }
 
     fn archive_picker(&mut self, ui: &mut egui::Ui) {
+        ui.label(RichText::new("Protected archives contact the organization service when opened. Access attempts, identity, time and network location may be reported to its security system.").small().color(MUTED));
         ui.label(RichText::new("ARCHIVE").small().color(MUTED));
         ui.horizontal(|ui| {
             ui.add(egui::TextEdit::singleline(&mut self.archive).desired_width(ui.available_width() - 110.0).hint_text("Select a .zip, .tar.zst, .tar.lz4 or protected .lttl archive"));

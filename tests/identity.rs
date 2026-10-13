@@ -6,6 +6,20 @@ fn encoded(data:&[u8])->Result<(Vec<u8>,crypto::Key)> {
     let key=crypto::key();let h=crypto::Header::new("https://keys.example".into(),crypto::identifier(),"tar.zst".into());
     let mut bytes=Vec::new();crypto::encrypt(&mut &*data,&mut bytes,&h,&key,&AtomicBool::new(false))?;Ok((bytes,key))
 }
+#[test]fn archive_tracking_is_authenticated_and_legacy_headers_stay_readable()->Result<()> {
+    let cancel=AtomicBool::new(false);let key=crypto::key();
+    let mut h=crypto::Header::new("https://keys.example".into(),crypto::identifier(),"zip".into());
+    assert!(!serde_json::to_string(&h)?.contains("tracking"));
+    h.tracking=Some(crypto::TrackingPolicy{enabled:true,alert_countries:vec!["KP".into()]});
+    let mut bytes=Vec::new();crypto::encrypt(&mut &b"payload"[..],&mut bytes,&h,&key,&cancel)?;
+    let mut restored=Vec::new();let read=crypto::decrypt(&mut bytes.as_slice(),&mut restored,&key,&cancel)?;
+    assert_eq!(read.tracking,h.tracking);assert_eq!(restored,b"payload");
+    let n=u32::from_le_bytes(bytes[8..12].try_into()?)as usize;
+    let mut value:serde_json::Value=serde_json::from_slice(&bytes[12..12+n])?;value.as_object_mut().unwrap().remove("tracking");
+    let header=serde_json::to_vec(&value)?;let mut changed=b"LTTLID01".to_vec();changed.extend((header.len()as u32).to_le_bytes());changed.extend(header);changed.extend(&bytes[12+n..]);
+    assert!(crypto::decrypt(&mut changed.as_slice(),&mut Vec::new(),&key,&cancel).is_err());
+    assert!(crypto::TrackingPolicy{enabled:false,alert_countries:vec!["KP".into()]}.validate().is_err());Ok(())
+}
 #[test]fn encrypted_stream_roundtrips_and_requires_authenticated_end()->Result<()> {
     for size in [0,1,15,1048576,2*1048576+13] {
         let data=(0..size).map(|i|(i%251) as u8).collect::<Vec<_>>();let (bytes,key)=encoded(&data)?;let mut out=Vec::new();

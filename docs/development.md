@@ -31,7 +31,7 @@ The protocol harness runs a mock RSA-signed OIDC provider and actual executables
 Build the GUI release and NVIDIA bridge first. Download the portable **NSIS 3.12** ZIP from its [official download page](https://nsis.sourceforge.io/Download) and extract it to `tools/nsis-3.12`. The packaging script discovers the installed Visual Studio x64 CRT redistributables; override with `--crt` if needed. It collects Rust dependency licenses and includes NVIDIA notices.
 
 ```powershell
-python scripts/build-installer.py --version 0.1.0-alpha.1
+python scripts/build-installer.py --version 0.1.0-alpha.2
 ```
 
 Outputs under ignored `dist/` are the setup executable, its SHA-256 text file and a payload hash manifest. Packaging refuses to overwrite an existing setup executable. It does not sign or publish automatically. For another build, choose a new version or explicitly move the previous local artifact. The current installer requires removal of an existing installation before upgrading.
@@ -41,10 +41,10 @@ Verify installation into a disposable directory, archive round trips, payload ha
 The automated smoke test temporarily creates current-user install registration and Start Menu shortcuts, tests both component configurations, and uninstalls them. It refuses to run when lttl is already installed:
 
 ```powershell
-python scripts/test-windows-installer.py dist/lttl-0.1.0-alpha.1-windows-x64-setup.exe --manifest dist/lttl-0.1.0-alpha.1-payload-sha256.json
+python scripts/test-windows-installer.py dist/lttl-0.1.0-alpha.2-windows-x64-setup.exe --manifest dist/lttl-0.1.0-alpha.2-payload-sha256.json
 ```
 
-The initial release passed 14 installer checks, including installed ZIP/TAR.ZST/TAR.LZ4 round trips in both configurations. The optional NVIDIA component detected the RTX 4070 Laptop GPU. This is not a visual installer or Explorer integration acceptance test.
+The installer smoke test covers 14 checks, including installed ZIP/TAR.ZST/TAR.LZ4 round trips in both configurations. The optional NVIDIA component detected the RTX 4070 Laptop GPU. This is not a visual installer or Explorer integration acceptance test.
 
 ## Contributing
 

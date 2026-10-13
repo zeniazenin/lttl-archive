@@ -1,5 +1,7 @@
 # Identity-protected sharing
 
+Optional [archive access tracking](archive-tracking.md) adds an authenticated per-file policy, signed organization security webhooks and country-watchlist alerts. It requires the upgraded broker schema and explicit webhook setup.
+
 lttl can wrap ZIP, TAR.ZST or TAR.LZ4 in an authenticated encrypted `.lttl` envelope. The company runs a small Rust key service. Recipients authenticate through the existing IDP before listing, testing or extracting an archive. The compression backends remain available inside the encrypted envelope.
 
 ## Two independent choices

@@ -19,6 +19,12 @@ CREATE TABLE IF NOT EXISTS broker_metadata(name TEXT PRIMARY KEY,value BYTEA NOT
 CREATE TABLE IF NOT EXISTS login_flows(id TEXT PRIMARY KEY,payload TEXT NOT NULL,expires BIGINT NOT NULL,launched BIGINT NOT NULL DEFAULT 0);
 CREATE TABLE IF NOT EXISTS auth_codes(id TEXT PRIMARY KEY,payload TEXT NOT NULL,expires BIGINT NOT NULL);
 CREATE TABLE IF NOT EXISTS sessions(id TEXT PRIMARY KEY,payload TEXT NOT NULL,expires BIGINT NOT NULL);
+CREATE TABLE IF NOT EXISTS archive_tracking(archive_id TEXT PRIMARY KEY REFERENCES archives(id),policy TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS tracking_events(id TEXT PRIMARY KEY,archive_id TEXT NOT NULL REFERENCES archives(id),at BIGINT NOT NULL,payload TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS tracking_by_archive ON tracking_events(archive_id,at);
+CREATE INDEX IF NOT EXISTS tracking_expiry ON tracking_events(at);
+CREATE TABLE IF NOT EXISTS tracking_outbox(id TEXT PRIMARY KEY REFERENCES tracking_events(id) ON DELETE CASCADE,next_at BIGINT NOT NULL,attempts BIGINT NOT NULL,lease TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS tracking_due ON tracking_outbox(next_at);
 CREATE INDEX IF NOT EXISTS flows_expiry ON login_flows(expires);
 CREATE INDEX IF NOT EXISTS codes_expiry ON auth_codes(expires);
 CREATE INDEX IF NOT EXISTS sessions_expiry ON sessions(expires);
@@ -201,6 +207,7 @@ impl Store {
             })
             .collect())
     }
+    #[cfg(test)]
     pub async fn create_archive(
         &self,
         id: &str,
@@ -208,6 +215,10 @@ impl Store {
         recipients: &[String],
         wrapped: &[u8],
     ) -> Result<()> {
+        self.create_archive_tracked(id,owner,recipients,wrapped,&crypto::TrackingPolicy::default()).await
+    }
+    pub async fn create_archive_tracked(&self,id:&str,owner:&str,recipients:&[String],wrapped:&[u8],policy:&crypto::TrackingPolicy)->Result<()> {
+        policy.validate()?;
         let mut tx = self.pool.begin().await?;
         // Recheck recipient state after the remote wrapping call.
         for recipient in recipients {
@@ -230,6 +241,7 @@ impl Store {
         .bind(now())
         .execute(&mut *tx)
         .await?;
+        sqlx::query("INSERT INTO archive_tracking(archive_id,policy) VALUES($1,$2)").bind(id).bind(serde_json::to_string(policy)?).execute(&mut *tx).await?;
         sqlx::query("INSERT INTO audit VALUES($1,$2,$3,'create')")
             .bind(now())
             .bind(owner)
@@ -428,9 +440,17 @@ mod tests {
             owner.id
         );
         let id = crypto::identifier();
-        a.create_archive(&id, &owner.id, &[recipient.id.clone()], b"wrapped")
+        a.create_archive_tracked(&id, &owner.id, &[recipient.id.clone()], b"wrapped", &crypto::TrackingPolicy{enabled:true,alert_countries:vec!["KP".into()]})
             .await
             .unwrap();
+        let tracking=crate::tracking::Service::new(crate::tracking::Config::default()).unwrap();
+        tracking.record(a,&id,Some(&recipient.id),"key_denied",&crate::tracking::Location::default()).await.unwrap();
+        assert!(b.tracking_policy(&id).await.unwrap().unwrap().enabled);
+        assert_eq!(b.tracking_events(&id,&owner.id).await.unwrap().unwrap().len(),1);
+        assert!(b.tracking_events(&id,&recipient.id).await.unwrap().is_none());
+        let row=sqlx::query("UPDATE tracking_outbox SET lease=$1,next_at=$2,attempts=attempts+1 WHERE id=(SELECT id FROM tracking_outbox WHERE next_at<=$3 ORDER BY next_at,id LIMIT 1) AND next_at<=$3 RETURNING id,attempts")
+            .bind(crypto::identifier()).bind(now()+60).bind(now()).fetch_optional(&b.pool).await.unwrap();
+        assert!(row.is_some());
         assert!(b.allowed_key(&id, &owner.id).await.unwrap().is_none());
         assert_eq!(
             b.allowed_key(&id, &recipient.id).await.unwrap().unwrap(),
