@@ -1,9 +1,9 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-Adds lttl's single-selection commands to the current user's Explorer menu.
+Adds lttl's single-selection commands to the selected scope's Explorer menu.
 .DESCRIPTION
-Creates ten unique HKCU Software\Classes verb keys, without changing default
+Creates ten unique HKCU (default) or HKLM (AllUsers) Software\Classes verb keys, without changing default
 file associations. Existing verb keys cause the entire installation to stop.
 On Windows 11 these legacy static verbs appear under Show more options.
 The .zst verbs are filtered to filenames ending in .tar.zst; standalone .zst
@@ -18,7 +18,9 @@ Path to the built lttl.exe. Keep it at this location after installation.
 param(
     [Parameter(Mandatory = $true)]
     [ValidateNotNullOrEmpty()]
-    [string] $ExecutablePath
+    [string] $ExecutablePath,
+    [ValidateSet("CurrentUser", "AllUsers")]
+    [string] $Scope = "CurrentUser"
 )
 
 Set-StrictMode -Version Latest
@@ -29,6 +31,9 @@ if ($executable.PSIsContainer -or $executable.Extension -ine '.exe') {
     throw 'ExecutablePath must identify an existing .exe file.'
 }
 $exePath = $executable.FullName
+# Prefer the Windows-subsystem desktop entry point; the CLI remains scriptable.
+$desktop = Join-Path $executable.DirectoryName 'lttl-gui.exe'
+if (Test-Path -LiteralPath $desktop -PathType Leaf) { $exePath = $desktop }
 if ($exePath.Contains('"') -or $exePath.Contains('%')) {
     throw 'The executable path cannot contain quotation marks or percent signs in an Explorer command.'
 }
@@ -42,26 +47,27 @@ $verbs = @(
     @{ Path = 'Software\Classes\SystemFileAssociations\.zst\shell\lttl.ExtractFolder'; Label = 'Extract to named folder with lttl'; Action = 'gui-extract-folder'; Filter = 'System.FileName:~>".tar.zst"' },
     @{ Path = 'Software\Classes\SystemFileAssociations\.lz4\shell\lttl.ExtractHere'; Label = 'Extract here with lttl'; Action = 'gui-extract-here'; Filter = 'System.FileName:~>".tar.lz4"' },
     @{ Path = 'Software\Classes\SystemFileAssociations\.lz4\shell\lttl.ExtractFolder'; Label = 'Extract to named folder with lttl'; Action = 'gui-extract-folder'; Filter = 'System.FileName:~>".tar.lz4"' },
-    @{ Path = 'Software\Classes\SystemFileAssociations\.lttl\shell\lttl.ExtractHere'; Label = 'Sign in and extract here with lttl'; Action = 'gui-extract-here'; Filter = '' },
-    @{ Path = 'Software\Classes\SystemFileAssociations\.lttl\shell\lttl.ExtractFolder'; Label = 'Sign in and extract to folder with lttl'; Action = 'gui-extract-folder'; Filter = '' }
+    @{ Path = 'Software\Classes\SystemFileAssociations\.lttl\shell\lttl.ExtractHere'; Label = 'Extract here with lttl'; Action = 'gui-extract-here'; Filter = '' },
+    @{ Path = 'Software\Classes\SystemFileAssociations\.lttl\shell\lttl.ExtractFolder'; Label = 'Extract to named folder with lttl'; Action = 'gui-extract-folder'; Filter = '' }
 )
 
 # RegistryKey treats '*' literally; PowerShell registry provider wildcard paths
 # must not be used for these registrations.
-$hive = [Microsoft.Win32.Registry]::CurrentUser
+$hive = if ($Scope -eq "AllUsers") { [Microsoft.Win32.Registry]::LocalMachine } else { [Microsoft.Win32.Registry]::CurrentUser }
+$hiveLabel = if ($Scope -eq "AllUsers") { "HKLM" } else { "HKCU" }
 try {
     foreach ($verb in $verbs) {
         $existing = $hive.OpenSubKey($verb.Path)
         if ($null -ne $existing) {
             $existing.Dispose()
-            throw "Registry key HKCU\$($verb.Path) already exists. Nothing was changed. Uninstall a prior lttl registration before reinstalling; inspect any conflicting key manually."
+            throw "Registry key ${hiveLabel}\$($verb.Path) already exists. Nothing was changed. Uninstall a prior lttl registration before reinstalling; inspect any conflicting key manually."
         }
     }
     foreach ($verb in $verbs) {
         $command = '"{0}" {1} "%1"' -f $exePath, $verb.Action
-        Write-Output ("HKCU\{0}: {1}" -f $verb.Path, $command)
+        Write-Output ("${hiveLabel}\{0}: {1}" -f $verb.Path, $command)
     }
-    if (-not $PSCmdlet.ShouldProcess('HKCU\Software\Classes (ten lttl verb keys)', 'Install single-selection Explorer commands')) {
+    if (-not $PSCmdlet.ShouldProcess("${hiveLabel}\Software\Classes (ten lttl verb keys)", 'Install single-selection Explorer commands')) {
         return
     }
     $created = [System.Collections.Generic.List[string]]::new()
@@ -87,9 +93,9 @@ try {
         $installError = $_
         foreach ($keyPath in $created) {
             try { $hive.DeleteSubKeyTree($keyPath, $false) }
-            catch { Write-Warning "Could not roll back HKCU\${keyPath}: $_" }
+            catch { Write-Warning "Could not roll back ${hiveLabel}\${keyPath}: $_" }
         }
         throw $installError
     }
-    Write-Output 'Installed for the current user. On Windows 11, open Show more options. Reopen Explorer if its menu is cached.'
+    Write-Output "Installed for $Scope. On Windows 11, open Show more options. Reopen Explorer if its menu is cached."
 } finally { $hive.Dispose() }

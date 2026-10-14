@@ -1,28 +1,35 @@
 # Windows installer
 
-Download the setup executable and checksum from [v0.1.0-alpha.3](https://github.com/zeniazenin/lttl-archive/releases/tag/v0.1.0-alpha.3). Windows 10/11 x64 is required. This is an unsigned alpha build; publisher/SmartScreen warnings are possible. The release checksum verifies the file against the published artifact; it is not an Authenticode signature.
+Download `lttl-0.1.0-alpha.6-windows-x64-setup.exe` and its adjacent `.sha256` file from the [alpha.6 release](https://github.com/zeniazenin/lttl-archive/releases/tag/v0.1.0-alpha.6). This version adds a console-free desktop launcher and the lttl.info logo, alongside native compression and administrator controls.
 
-```powershell
-Get-FileHash .\lttl-0.1.0-alpha.3-windows-x64-setup.exe -Algorithm SHA256
-Get-Content .\lttl-0.1.0-alpha.3-windows-x64-setup.exe.sha256
-```
+Setup defaults to **`C:\Program Files\lttl`** on Windows 10/11 x64 and requests Windows administrator elevation. The application, Start Menu shortcuts and Installed Apps registration are available to all users. PATH and default file associations are not changed.
 
-The default directory is `%LOCALAPPDATA%\Programs\lttl`. Installation is per user without administrator elevation. Start Menu shortcuts and a Windows Installed Apps uninstall entry are created. The executable is not added to PATH; file associations are not changed.
+## Install, repair and upgrade
+
+1. Close lttl before installing an update.
+2. For alpha.4 or earlier installed under AppData, uninstall that per-user copy through Installed Apps first. Archives, identity profiles and unrelated user-added files are preserved. Setup does not run a user-writable legacy uninstaller with administrator privileges.
+3. Run the new setup and approve Windows UAC.
+4. Keep the Program Files default, or choose another folder. A registered machine installation is selected automatically for repair/upgrade.
+
+Running setup again repairs/replaces packaged files while preserving unrelated files. The directory page no longer disables Install merely because `lttl.exe` exists. An unregistered executable in the destination produces an explicit message when installation is attempted, instead of being overwritten. A locked executable produces a close-and-retry message before replacement. To change the location of a registered machine installation, uninstall it first.
 
 | Component | Default | Contents |
 |---|---|---|
-| lttl | Required | GUI, CLI including retention administration, CPU codecs, portable wgpu LZ4, app-local MSVC runtime, documentation, audit-vault deployment sources and license notices |
-| NVIDIA acceleration | Off | nvCOMP/CUDA runtime DLLs for Zstandard on compatible NVIDIA GPUs; NVIDIA terms apply |
-| Explorer menu | Off | Current-user create/extract actions, including authenticated `.lttl` extraction |
+| lttl | Required | GUI, CLI, native Fast/Dense and Auto, audit/retention controls, CPU codecs, portable wgpu LZ4, MSVC runtime, docs and notices |
+| NVIDIA acceleration | Off for new installs | Optional nvCOMP/CUDA runtime for supported NVIDIA GPUs |
+| Explorer menu | Off for new installs | All-users create/extract actions; Windows 11 uses Show more options |
 
-GPU drivers are not installed. Portable LZ4 remains experimental and Auto uses CPU to preserve compression ratio. Selecting NVIDIA acceleration does not guarantee faster archive creation. No broker, database, cloud key or IDP application is created by installation; follow the [organization setup guide](../identity-broker/deploy/test-environment.md) separately.
+Existing optional components are preselected during repair/upgrade. Deselecting them removes only known files or owned registry commands. Standalone Explorer scripts still default to the current user; `-Scope AllUsers` selects the elevated machine scope.
 
-For audit/retention, also upgrade the broker, migrate its schema and deploy the independent vault. Follow the [audit setup guide](audit-retention.md) before enabling signing. Use `lttl identity retention ARCHIVE --profile company.json` to inspect preservation state after administrator IDP sign-in; use `--action action.json` for a documented administrator action. These controls are CLI/API features; the GUI does not have a retention panel.
+The installer is unsigned. The SHA-256 file verifies artifact integrity but is not an Authenticode signature. GPU drivers, identity providers, brokers and cloud key stores are not installed.
 
-Use **Installed Apps → lttl → Uninstall** or the Start Menu uninstall shortcut. The uninstaller removes known installed files and its owned menu/registration entries, preserving archives, identity profiles and unrelated user-added files. Existing installations must be uninstalled before installing another version. Conflicting Explorer registrations cause that optional step to fail safely.
+```powershell
+Get-FileHash .\lttl-0.1.0-alpha.6-windows-x64-setup.exe -Algorithm SHA256
+Get-Content .\lttl-0.1.0-alpha.6-windows-x64-setup.exe.sha256
+```
 
-For automation, NSIS supports `/S` and a final `/D=ABSOLUTE_PATH`; `/NVIDIA` selects the optional NVIDIA component. Explorer registration remains unselected in a silent installation. A nonzero exit code indicates failure (including refused upgrades or optional integration conflicts). Do not run an unsigned installer obtained from an unverified mirror.
+For automation, launch from an elevated process with `/S`. `/NVIDIA` and `/EXPLORER` select optional components. A custom `/D=ABSOLUTE_PATH` must be last. A nonzero exit code indicates failure. Uninstall through Installed Apps or the Start Menu shortcut; removal checks ownership and preserves unrelated files.
 
-[Build the installer from source](development.md). The final artifact's install/uninstall and payload validation results are recorded in the [online installer report](https://github.com/zeniazenin/lttl-archive/blob/v0.1.0-alpha.3/docs/windows-installer-validation.json). This report is not embedded in the installer because it contains the final installer's own hash.
+[Build instructions](development.md), [installer validation](windows-installer-validation.json), [payload smoke checks](native-installer-validation.json), and [alpha.6 notes](releases/v0.1.0-alpha.6.md). Validation reports remain outside the payload because they contain the final setup executable's own hash.
 
-Verification covers payload hashes, CPU-only and optional NVIDIA installations, the retention command and packaged vault files, installed-client IDP/audit/retention integration, all three archive formats, refusal of an existing installation, and uninstall cleanup while preserving a user-added file. See the report for exact counts and GPU detection. Interactive wizard appearance and the optional Explorer installation step are outside this smoke test.
+The Start Menu and Explorer commands launch `lttl-gui.exe`, which uses the Windows GUI subsystem and never allocates a console. `lttl.exe` remains the console executable for scripts and terminal use. Both executables embed the website logo; the desktop window sets the same icon explicitly.

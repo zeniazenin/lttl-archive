@@ -1,13 +1,13 @@
 # Validation — 2026-10-12
 
-This is an early working lttl archiver, not a full WinRAR replacement. The original CPU-only pass below is superseded where noted by the GPU implementation and benchmark pass.
+This records early lttl validation. The original CPU-only pass below is superseded where noted by the GPU implementation and benchmark pass.
 
 ## Auto sampling optimization pass
 
 - Policy version 2 removes Fast sampling, reduces Balanced regions to 64 KiB, returns related-file choices without codec probes, and reuses independent CPU compression contexts/output buffers. Small's sample sizes and GPU thresholds are unchanged.
 - All **26 ordinary tests pass**. New checks prove Fast bypasses sampling and produces bytes identical to explicit CPU Fast, reduced Balanced sampling detects a compressible tail despite a misleading extension, and reused probe contexts match independent fresh-context ratios at levels 1/3/9. The related-file test also checks that no redundant CPU probes run.
 - Release build succeeds. Current executable and benchmark SHA256: `BFA3ECC1F79BD550D7C9091D591A08819717FCABACCD538377CACAAE19CC2A5B`. Preserved v1 executable SHA256: `59887D30DFDB846828EAA29E22387B49B3D86D0E356793B93749FB2904F5A929`; both binaries used the same NVIDIA DLL folder.
-- Nine datasets × three goals × three implementations × four repetitions completed **324 creation/integrity checks, 324 timed extractions, and 2,988 matching SHA256 hashes**. Repetitions 1–3 and an additional reversed-order fourth pass were merged only after verifying build/runtime/corpus identity and complete, nonduplicate cases. Original source-result paths/hashes and every timing remain in the [raw report](auto-v2-benchmark-results.json).
+- Nine datasets × three goals × three implementations × four repetitions completed **324 creation/integrity checks, 324 timed extractions, and 2,988 matching SHA256 hashes**. Repetitions 1–3 and an additional reversed-order fourth pass were merged only after verifying build/runtime/corpus identity and complete, nonduplicate cases. Original source-result paths/hashes and every timing remain in the [raw report](../research/legacy/auto-v2-benchmark-results.json).
 - All 18 Balanced/Small dataset-goal combinations retained their v1 archive byte counts. Fast uses zero sample bytes; Balanced selection time fell 62.7–87.4% across sampled datasets. The [full results](auto-optimization.md) retain regressions, extraction times, and GPU startup variability instead of claiming universal speedups.
 - The final v2 release passed all four independent format/fallback checks in `scripts/verify-auto.py`: bsdtar extraction/hash equality for raw and GPU output, CPU fallback/test/extraction without NVIDIA DLLs, and explicit-GPU failure without output. Evidence: [auto-v2-validation-results.json](auto-v2-validation-results.json).
 - No archive-format, GPU-kernel, decoder, UI-layout, or registry change was needed. The GUI-enabled release uses the updated selector.
@@ -40,24 +40,20 @@ This is an early working lttl archiver, not a full WinRAR replacement. The origi
 - Tests cover ZIP/TAR.ZST round trips, Unicode and empty entries, unsafe paths and case collisions, no overwrite, cancellation cleanup, source size changes, ZIP CRC and Zstd frame corruption, truncated input, large metadata, decoder window limits, and content-sampling behavior.
 - The Windows GUI was opened and visually checked in Create, Extract, and Inspect views. A real ZIP was listed and tested successfully from the GUI. This found a Windows extended-path prefix bug, which was fixed and rebuilt.
 - Final release TAR.ZST creation/extraction of `docs/api-contract.md` passed an independent SHA-256 comparison.
-- RAR baseline: 63 creation and integrity-test cases on synthetic data.
-- Rust release comparison: 84 creation and integrity-test cases, plus eight extractions and 70 matching file hashes. Raw results and executable SHA-256 are in `rust-benchmark-results.json`.
+- Rust release comparison: 84 creation and integrity-test cases, plus eight extractions and 70 matching file hashes. Raw results and executable SHA-256 are in the [historical benchmark record](../research/legacy/rust-benchmark-results.json).
 - Explorer installer/uninstaller PowerShell syntax and dry runs passed. The final installer dry run resolves all six commands to the release executable. **Registry installation and actual Explorer menu dispatch have not been performed.**
-- Ghidra 12.1.4 + Temurin JDK 25 were checksum verified, configured, and used successfully through REA. The native analysis session was closed after saving 32 evidence records in `native/analysis.snapshot.json`.
 
 ## Coverage limits
 
 - The GPU compression backend and bounded Auto selection are implemented and measured. GPU decoding in the app, cross-batch overlap, persistent contexts across archive jobs, per-file mixed-codec routing, and learned device calibration are not implemented.
 - Synthetic warm-cache benchmarks are not representative of every workload. No equal-memory, cold-cache, energy, sustained thermal, or controlled real-world corpus comparison was performed.
-- The app handles ZIP Store/Deflate and a restricted TAR.ZST subset. RAR/7z, encryption, volumes, recovery records, updates, and full filesystem metadata are not implemented.
+- The app handles ZIP Store/Deflate and a restricted TAR.ZST subset. Encryption, volumes, recovery records, updates, and full filesystem metadata are not implemented.
 - Creation/extraction are not backed by a filesystem snapshot. See README for source-mutation, staging-space, and partial-publication limits.
-- Native REA findings establish selected static code behavior. They are not complete recovery of the RAR encoder, runtime profiling, or proof of an exploitable GPU bottleneck.
 
 ## Investigation checklist
 
 | Question | State |
 |---|---|
-| Identify installed target and retain artifact evidence | Answered: WinRAR/RAR 7.20.3, hashes retained |
 | Obtain and configure native decompiler | Answered: Ghidra/JDK installed and exercised |
 | Examine thread scheduling and selected compression-related paths | Partially answered: bounded native evidence; full codec and runtime hot paths remain open |
 | Compare file-content and CPU tuning behavior | Answered for the documented synthetic corpora |

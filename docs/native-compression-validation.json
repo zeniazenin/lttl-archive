@@ -1,0 +1,13 @@
+{
+  "version": "0.1.0-alpha.4",
+  "binary_sha256": "dfd6c0efde8ad1f5b1fc3469e8e1830214e02700268fa67f30ab66712462cb89",
+  "rust_tests_passed": 49,
+  "hardware_tests_skipped": 7,
+  "benchmark_round_trips": 336,
+  "benchmark_sha256_recovery": true,
+  "identity_checks": 171,
+  "fresh_mock_oidc_flows": 62,
+  "live_cloud_idp_tested": false,
+  "gui_visual_tested": false,
+  "scope": "Release library, CLI and GUI test targets; production numeric corpus; local mock IDP/broker integration."
+}

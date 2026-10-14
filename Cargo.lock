@@ -609,6 +609,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "chrono"
+version = "0.4.45"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1aa79e62e7697b8e29b513a68abacf485adcd1fe8284a4316c5ae868e6633327"
+dependencies = [
+ "num-traits",
+]
+
+[[package]]
 name = "cipher"
 version = "0.4.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2010,11 +2019,12 @@ checksum = "4050469837a6ff301cd14c1f8f24f88549e6d548f24f64e2148eb0f72cebc51f"
 
 [[package]]
 name = "lttl"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.6"
 dependencies = [
  "anyhow",
  "base64 0.22.1",
  "chacha20poly1305",
+ "chrono",
  "clap",
  "eframe",
  "libloading 0.8.9",

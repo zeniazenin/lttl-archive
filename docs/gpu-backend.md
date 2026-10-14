@@ -26,7 +26,7 @@ Chunk size is 64–16384 KiB (`--chunk-kib`), batch size 16–128 MiB; defaults 
 
 The [same-run tuning comparison](gpu-tuning.md) measured useful, data-dependent improvements. For the synthetic CSV corpus, `--chunk-kib 64 --batch-mib 32` reduced complete GPU creation time by about 28% and output size by about 2.5% relative to the original GPU setting. For enwik8, `--chunk-mib 1 --batch-mib 128` reduced time by about 17% with identical output size. These settings still lost to CPU Balanced. The later Auto policy uses a real 64 KiB GPU sample only for sufficiently large structured text with the Small goal; it does not assume a universally faster GPU preset.
 
-The current pipeline is sequential between batches. Host staging copies, device transfers, GPU computation, checksums, and file writing are not overlapped. Independent chunks reset history, and nvCOMP's own match-search choices may limit ratio even when chunks are enlarged. GPU is therefore an experimental choice, not a universal speed upgrade. See [measured comparisons](gpu-performance.md) and [RAR-informed improvement priorities](gpu-improvements.md).
+The current pipeline is sequential between batches. Host staging copies, device transfers, GPU computation, checksums, and file writing are not overlapped. Independent chunks reset history, and nvCOMP's own match-search choices may limit ratio even when chunks are enlarged. GPU is therefore an experimental choice, not a universal speed upgrade. See [measured comparisons](gpu-performance.md) and [compression improvement priorities](gpu-improvements.md).
 
 ## Timing definitions
 
@@ -51,4 +51,4 @@ The dedicated GPU integration test exercises multiple batches, a partial chunk, 
 .\scripts\cargo.ps1 -CargoArgs @('test','--locked','--test','gpu','--','--ignored')
 ```
 
-The output is ordinary TAR.ZST, not a new `.lttl` format. RAR reading/writing, archive encryption, solid-group indexes, transform metadata, multi-GPU work, and GPU decompression in the app are not implemented. The separate [codec probe](codec-performance.md) uses GPU decoding only to verify its experimental compressed payloads.
+The output is ordinary TAR.ZST, not a new `.lttl` format. Archive encryption, solid-group indexes, transform metadata, multi-GPU work, and GPU decompression in the app are not implemented. The separate [codec probe](codec-performance.md) uses GPU decoding only to verify its experimental compressed payloads.

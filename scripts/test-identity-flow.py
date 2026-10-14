@@ -434,7 +434,7 @@ def main():
             (source / 'unicode-\u03bb.txt').write_text('Secret project documents.\n' * 5000, encoding='utf-8')
             (source / 'binary.bin').write_bytes(secrets.token_bytes(2 * 1048576 + 13))
             members = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in source.iterdir()}
-            for fmt in ['zip', 'tar-zstd', 'tar-lz4']:
+            for fmt in ['lttl', 'zip', 'tar-zstd', 'tar-lz4']:
                 output = work / (fmt + '.lttl')
                 cli('alice', ['create', source, '-o', output, '--format', fmt, '--backend', 'cpu',
                               '--identity-profile', profile, '--recipient', bob['user']['id']])
@@ -505,6 +505,26 @@ def main():
                 check(action({'action':'approval','reference':'case-001','decision':'approved','reason':'review attestation'})[0]==200,'approval attestation recorded')
                 check(api('/v1/archives/'+aid+'/recipients',bob,{'recipients':[bob['user']['id']]})[0]==403,'recipient cannot change archive audience')
                 check(api('/v1/archives/'+aid+'/recipients',alice,{'recipients':[alice['user']['id'],bob['user']['id']]})[0]==200,'owner audience change is audited')
+                activity_path='/v1/archives/'+aid+'/audit'
+                check(api(activity_path,bob)[0]==403,'ordinary recipient cannot read administrator activity')
+                check(api(activity_path,login('alice',aid))[0]==403,'archive-opening session cannot read administrator activity')
+                check(request(origin+activity_path)[0]==401,'unauthenticated activity read denied')
+                check(api(activity_path+'?before=-1',alice)[0]==400,'invalid activity cursor rejected')
+                check(api('/v1/archives/'+identifier()+'/audit',alice)[0]==404,'unknown archive activity returns not found')
+                status,_,page=api(activity_path,alice)
+                check(status==200 and len(page['events'])==10,'administrator activity page is bounded')
+                first_sequence=page['events'][0]['record']['seq'];seen=[]
+                while True:
+                    seen.extend(page['events'])
+                    if page['next_before'] is None:break
+                    status,_,page=api(activity_path+'?before='+str(page['next_before']),alice)
+                    assert status==200
+                seqs=[e['record']['seq'] for e in seen]
+                check(len(seqs)==len(set(seqs)) and seqs==sorted(seqs,reverse=True),'activity cursor pages are stable across new inspection events')
+                check(all(e['record']['archive']==aid and e['record']['seq']<=first_sequence for e in seen),'activity does not leak other archives or global audit events')
+                check(any(e['record']['event']=='legal_hold_placed' and e['record']['details']['reason']=='case-001' for e in seen),'activity includes administrator reasons and legal holds')
+                check(any(e['actor_name'] and e['record']['actor']==alice['user']['id'] for e in seen),'activity includes directory display name and stable actor ID')
+                check(all(not e['exported'] for e in seen),'activity accurately marks unexported evidence')
                 check(api('/v1/audit/dispatch',alice,{},method='POST')[0]==403,'user session cannot invoke scheduler endpoint')
                 dispatch=lambda:request(origin+'/v1/audit/dispatch',{},env['LTTL_AUDIT_DISPATCH_TOKEN'])
                 check(dispatch()[0]==500,'vault outage does not acknowledge pending evidence')
@@ -555,7 +575,7 @@ def main():
             if args.tracking: report.update(webhook_packets=len(TrackingReceiver.packets),live_webhook_validated=False)
             if args.audit:report.update(signed_audit_batches=len(exported),live_audit_vault_validated=False,cloud_storage_adapters_validated=False)
             (ROOT / ('docs/audit-retention-validation.json' if args.audit else 'docs/tracking-validation.json' if args.tracking else 'docs/identity-validation.json')).write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
-            print(f'PASS: {len(CHECKS)} checks; {Provider.authentications} fresh OIDC flows; all 3 formats hash verified.')
+            print(f'PASS: {len(CHECKS)} checks; {Provider.authentications} fresh OIDC flows; all 4 formats hash verified.')
         finally:
             process.terminate()
             process.wait(timeout=10)

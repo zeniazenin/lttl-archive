@@ -1,0 +1,17 @@
+{
+  "installer": "lttl-0.1.0-alpha.6-windows-x64-setup.exe",
+  "sha256": "03226e01738caa5bef209155c2c43f59f26dcb2dc6de521e2a2bbb8b94adfd7d",
+  "binary_sha256": "7bdca2854e363b238f7ec74aab2a312192ab5a6633f8c23dc536e8ff7206645f",
+  "scope": "Smoke-tested the exact staged payload before NSIS compilation; no install/uninstall or registry changes",
+  "checks": [
+    "lttl/auto: create, list, test, extract and exact-byte recovery",
+    "lttl/lttl-fast: create, list, test, extract and exact-byte recovery",
+    "lttl/lttl-dense: create, list, test, extract and exact-byte recovery",
+    "zip/cpu: create, list, test, extract and exact-byte recovery",
+    "tar-zstd/cpu: create, list, test, extract and exact-byte recovery",
+    "tar-lz4/cpu: create, list, test, extract and exact-byte recovery"
+  ],
+  "signed": false,
+  "interactive_installer_tested": false,
+  "installed_application_replaced": false
+}

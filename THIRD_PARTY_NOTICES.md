@@ -20,6 +20,6 @@ Studio redistributable directory. They remain Microsoft components subject to
 their applicable terms; they are not modified or installed system-wide.
 
 NSIS's installer engine retains its license, included under `licenses/nsis/`.
-Compiler binaries, downloaded SDKs, sample corpora and proprietary WinRAR
+Compiler binaries, downloaded SDKs, sample corpora and third-party application
 executables are excluded from the source repository. Historical REA evidence
 is retained as research material, not as the source of lttl's compression codecs.

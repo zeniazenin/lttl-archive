@@ -4,7 +4,7 @@ use serde::Serialize;
 use std::{io::{self, Write}, sync::atomic::{AtomicBool, Ordering}, time::Instant};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, clap::ValueEnum)]
-pub enum Backend { Auto, Cpu, CpuChunked, Gpu, Wgpu }
+pub enum Backend { Auto, Cpu, CpuChunked, Gpu, Wgpu, LttlFast, LttlDense }
 #[derive(Debug, Clone)]
 pub struct GpuOptions { pub chunk_kib: usize, pub batch_mib: usize }
 impl Default for GpuOptions { fn default() -> Self { Self { chunk_kib: 1024, batch_mib: 32 } } }

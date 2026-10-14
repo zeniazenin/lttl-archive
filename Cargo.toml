@@ -1,11 +1,16 @@
 [package]
 name = "lttl"
-version = "0.1.0-alpha.3"
+version = "0.1.0-alpha.6"
 edition = "2024"
 rust-version = "1.88"
 description = "A Windows archiver with an independent Rust engine"
 license = "MIT"
 default-run = "lttl"
+
+[[bin]]
+name = "lttl-gui"
+path = "src/desktop.rs"
+required-features = ["gui"]
 
 [features]
 default = ["gui"]
@@ -34,6 +39,7 @@ zeroize = { version = "1", features = ["derive"] }
 url = "2"
 reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "rustls-tls"] }
 webbrowser = "1"
+chrono = { version = "0.4", default-features = false, features = ["std"] }
 eframe = { version = "0.31", optional = true, default-features = false, features = ["default_fonts", "glow"] }
 rfd = { version = "0.15", optional = true }
 

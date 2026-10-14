@@ -2,6 +2,10 @@
 
 Updated 2026-10-13. No tenant, cloud key, live security webhook or paid cloud service was created during these tests.
 
+## Current source: Windows administration
+
+The Windows **Audit & retention** screen and administrator activity endpoint are included in alpha.6. The desktop suite passes **53 tests across executable/library/integration targets** (four shared GUI checks run in each of the two executables) (seven hardware tests skipped), including four headless egui interaction tests and UTC/trust-boundary tests. The broker suite passes **17 tests**, with PostgreSQL tested separately. The actual release desktop CLI and broker passed **171 local integration checks** over **62 fresh mock-IDP sign-ins**; [current artifact hashes and results](audit-retention-validation.json) cover activity authorization, archive isolation, exclusive-cursor pagination, display names/stable actor IDs, and export state. The running Windows application's unconfigured administrator screen was visually checked; authenticated interaction coverage uses headless UI tests and mock HTTP/OIDC services. No live cloud or IDP acceptance is implied.
+
 ## Alpha.3: signed audit and retention
 
 | Check | Result and boundary |
@@ -9,7 +13,7 @@ Updated 2026-10-13. No tenant, cloud key, live security webhook or paid cloud se
 | Desktop suite | **33 passed**, seven hardware-only tests skipped; archive integrity, safe extraction, Auto selection and identity envelope coverage |
 | Broker security suite | **16 passed**, plus the separately executed PostgreSQL test; signatures, transaction rollback on audit failure, invalid receipts/outages, configuration downgrade rejection, holds and key disposition |
 | Independent vault protocol | **8 passed**; pinned signatures, replay, missing/tampered evidence, conflicting histories, concurrent delivery, failed/partial storage and authentication; storage is a test double |
-| Windows release/installed client integration | **146 checks**, **56** fresh mock-IDP sign-ins, all three formats restored by hash; [artifact hashes and recorded results](audit-retention-validation.json) |
+| Windows release/installed client integration | **146 checks**, **56** fresh mock-IDP sign-ins, all three formats restored by hash; [alpha.3 artifact hashes and recorded results](https://github.com/zeniazenin/lttl-archive/blob/v0.1.0-alpha.3/docs/audit-retention-validation.json) |
 | PostgreSQL/TLS | Signed batches, holds, retention, access expiry, disposition and cleanup passed with real disposable PostgreSQL; [recorded result](identity-postgres-validation.json) |
 | Windows installer | CPU and optional NVIDIA payload verification, retention command/setup files, installed-client integration, round trips and uninstall preservation; [final report](https://github.com/zeniazenin/lttl-archive/blob/v0.1.0-alpha.3/docs/windows-installer-validation.json) |
 | Live infrastructure | Real cloud storage adapters/IAM/holds, real IDP policies and serverless deployments remain **unvalidated** |

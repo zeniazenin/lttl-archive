@@ -79,6 +79,31 @@ impl Service {
 pub fn until(days: u32, at: i64) -> i64 { if days == 0 { 0 } else { at + i64::from(days) * 86400 } }
 
 impl Store {
+    /// Bounded, archive-scoped activity. Verify the stored exact bytes before displaying them.
+    /// Independent vault verification is still required for completeness and external custody.
+    pub async fn archive_audit(&self, id: &str, before: Option<i64>) -> Result<Value> {
+        let signer = self.signer.as_ref().context("Signed audit is disabled")?;
+        // Actor lookup uses portable SQL on both PostgreSQL and SQLite.
+        let rows = sqlx::query("SELECT seq,payload,hash,signature,exported FROM audit_records WHERE archive_id=$1 AND seq<$2 ORDER BY seq DESC LIMIT 11")
+            .bind(id).bind(before.unwrap_or(i64::MAX)).fetch_all(&self.pool).await?;
+        let more = rows.len() > 10;
+        let mut events = Vec::new();
+        for row in rows.iter().take(10) {
+            let payload: String = row.get(1);
+            ensure!(payload.len() <= 65536, "Oversized audit record");
+            let signed = Signed { payload, signature: row.get(3) };
+            verify(&signed, &signer.public_key)?;
+            let record: Value = serde_json::from_str(&signed.payload)?;
+            ensure!(record["archive"].as_str()==Some(id) && record["seq"]==row.get::<i64,_>(0)
+                && row.get::<String,_>(2)==crypto::digest(signed.payload.as_bytes()), "Altered audit record");
+            let actor_name = if let Some(actor) = record["actor"].as_str() {
+                sqlx::query("SELECT name FROM users WHERE id=$1").bind(actor).fetch_optional(&self.pool).await?.map(|r|r.get::<String,_>(0))
+            } else { None };
+            events.push(json!({"record":record,"exported":row.get::<i64,_>(4)!=0,"actor_name":actor_name}));
+        }
+        let next = if more { events.last().and_then(|e|e["record"]["seq"].as_i64()) } else { None };
+        Ok(json!({"events":events,"next_before":next}))
+    }
     pub async fn configure_audit(&mut self, service: &Service) -> Result<()> {
         let saved = self.metadata("audit-identity-v1").await?;
         if let Some(signer) = &service.signer {
@@ -164,6 +189,25 @@ mod tests {
     pub async fn signed_store()->Store {
         let mut db=Store::connect(":memory:",false,false).await.unwrap();
         db.signer=Some(Arc::new(Signer::from_seed(&[7;32],"test-stream").unwrap())); db
+    }
+    #[tokio::test]
+    async fn archive_activity_is_bounded_scoped_and_verified()->Result<()> {
+        let db=signed_store().await;
+        let a=crypto::identifier();let b=crypto::identifier();
+        for i in 0..23 { db.audit_detail(None,Some(&a),"activity",json!({"index":i})).await?; }
+        db.audit(None,Some(&b),"other archive").await?;
+        let first=db.archive_audit(&a,None).await?;
+        assert_eq!(first["events"].as_array().unwrap().len(),10);
+        assert_eq!(first["events"][0]["record"]["seq"],23);
+        let second=db.archive_audit(&a,first["next_before"].as_i64()).await?;
+        assert_eq!(second["events"][0]["record"]["seq"],13);
+        let last=db.archive_audit(&a,second["next_before"].as_i64()).await?;
+        assert_eq!(last["events"].as_array().unwrap().len(),3);assert!(last["next_before"].is_null());
+        assert!(first["events"].as_array().unwrap().iter().all(|e|e["record"]["archive"]==a));
+        assert!(db.archive_audit(&crypto::identifier(),None).await?["events"].as_array().unwrap().is_empty());
+        sqlx::query("UPDATE audit_records SET payload=payload || ' ' WHERE seq=23").execute(&db.pool).await?;
+        assert!(db.archive_audit(&a,None).await.is_err());
+        Ok(())
     }
     #[tokio::test]
     async fn signed_batches_replay_chain_and_tampering()->Result<()> {

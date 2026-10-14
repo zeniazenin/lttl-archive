@@ -1,6 +1,6 @@
 # CPU and GPU compression research
 
-Research date: 2026-10-12. This document separates documented upstream capabilities, local observations, and proposed engineering work. It does not establish WinRAR's private implementation or claim benchmark results.
+Research date: 2026-10-12. This document separates documented upstream capabilities, local observations, and proposed engineering work. It does not claim measured benchmark results.
 
 **Historical planning record — pre-GPU implementation pass, 2026-10-12.** The availability checks and proposed work below describe the earlier investigation, before project-local NVIDIA packages and the working lttl backend were added. Later on the same date, an experimental nvCOMP Zstandard backend ran on the RTX 4070 Laptop GPU. See [current GPU measurements](gpu-performance.md) and [implementation/improvement review](gpu-improvements.md) for completed validation, timing results, and remaining work. Historical “not implemented” and “no measurements” statements below are not the current app status.
 

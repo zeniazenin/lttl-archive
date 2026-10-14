@@ -4,7 +4,7 @@ from pathlib import Path
 from statistics import median
 
 root = Path(__file__).resolve().parent.parent
-data = json.loads((root / "docs/auto-v2-benchmark-results.json").read_text(encoding="utf-8-sig"))
+data = json.loads((root / "research/legacy/auto-v2-benchmark-results.json").read_text(encoding="utf-8-sig"))
 assert data["Completed"]
 rows = data["Results"]
 assert len(rows) == 9 * 9 * data["Repeats"]
@@ -35,7 +35,7 @@ out = ["# Auto sampling optimization — same-run results", "",
        f"**{retained}/18 Balanced/Small dataset-goal combinations retained exactly the same archive byte count as original Auto.** The table below includes every tested dataset, including regressions. File content was hash-verified after extraction; byte-count equality is not a claim that archive headers are byte-identical.", "",
        f"Completed {data['TotalIntegrityChecks']} creation/integrity checks, {data['TotalRoundTrips']} timed extractions, and {int(data['TotalComparedFileHashes']):,} matching file hashes. {data['Repeats']} fresh-process repetitions per case; medians below. All three versions were interleaved within each repetition on the same source hashes, with rotated order and reversed order on even repetitions. Original Auto was preserved before rebuilding, and both binaries used the same adjacent NVIDIA DLLs.", "",
        "RTX 4070 Laptop GPU, Core Ultra 9 185H, Windows x64, eight requested CPU workers. Full process times include file reads/writes, selection, any GPU trials/initialization/transfers, checksums, and publication. Extraction includes staging/copy publication; verification and SHA256 time are outside the timed creation/extraction. Warm filesystem cache, no controlled thermal/power/background-load isolation. Small differences and overlapping ranges do not prove a speed advantage. The corpus is reused for this optimization, not a new held-out evaluation.", "",
-       "[Raw results](auto-v2-benchmark-results.json) · [Reproduction script](../scripts/benchmark-auto-v2.ps1) · [Original policy measurements](auto-performance.md)", ""]
+       "[Raw results](../research/legacy/auto-v2-benchmark-results.json) · [Reproduction script](../scripts/benchmark-auto-v2.ps1) · [Original policy measurements](auto-performance.md)", ""]
 if "MergeNote" in data:
     out += [data["MergeNote"], ""]
 for goal in ["fast", "balanced", "small"]:
@@ -69,7 +69,7 @@ for name in names:
             events = [median(r["Stats"]["gpu"][k] + r["Stats"]["selection"]["gpu_trial"][k] for r in values) for k in ["host_to_device_ms", "compression_ms", "device_to_host_ms"]]
             init = median(r["Stats"]["selection"]["gpu_trial"]["initialize_seconds"] for r in values)*1000
             out.append(f"| {name} / {backend} | {events[0]:.2f} | {events[1]:.2f} | {events[2]:.2f} | {init:.2f} |")
-out += ["", "## Reproduce", "", "Preserve the policy-v1 release as `target/release/lttl-auto-v1.exe` before rebuilding version 2. Both use the existing `target/release/gpu` runtime folder. Run:", "", "```powershell", "pwsh -NoProfile -File scripts/benchmark-auto-v2.ps1", "```", "", "The harness validates the retained `bench-output/auto-corpus/manifest.json` and every source hash. Copy the completed run's `results.json` to `docs/auto-v2-benchmark-results.json`, then regenerate this report with `python scripts/summarize-auto-v2.py`. No sources are downloaded or changed by the comparison.", "",
+out += ["", "## Reproduce", "", "Preserve the policy-v1 release as `target/release/lttl-auto-v1.exe` before rebuilding version 2. Both use the existing `target/release/gpu` runtime folder. Run:", "", "```powershell", "pwsh -NoProfile -File scripts/benchmark-auto-v2.ps1", "```", "", "The harness validates the retained `bench-output/auto-corpus/manifest.json` and every source hash. Copy the completed run's `results.json` to `research/legacy/auto-v2-benchmark-results.json`, then regenerate this report with `python scripts/summarize-auto-v2.py`. No sources are downloaded or changed by the comparison.", "",
         f"Original Auto executable SHA256: `{data['ReferenceExecutableSHA256']}`.", "",
         f"Optimized executable SHA256: `{data['ExecutableSHA256']}`.", ""]
 (root / "docs/auto-optimization.md").write_text("\n".join(out), encoding="utf-8")

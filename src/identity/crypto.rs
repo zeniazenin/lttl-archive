@@ -51,7 +51,7 @@ impl Header {
     fn validate(&self)->Result<[u8;16]> {
         if let Some(policy)=&self.tracking {policy.validate()?;}
         ensure!(valid_id(&self.archive_id),"Invalid archive ID");
-        ensure!(matches!(self.format.as_str(),"zip"|"tar.zst"|"tar.lz4"),"Unsupported inner archive");
+        ensure!(matches!(self.format.as_str(),"lttl"|"zip"|"tar.zst"|"tar.lz4"),"Unsupported inner archive");
         B64.decode(&self.nonce)?.try_into().map_err(|_|anyhow::anyhow!("Invalid archive nonce"))
     }
 }

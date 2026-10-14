@@ -1,8 +1,10 @@
 # Detailed user guide
 
-An early Rust desktop archiver for Windows, with a simple interface, expandable advanced controls, and a command-line engine. It creates, lists, tests, and extracts **ZIP**, **TAR.ZST**, and **TAR.LZ4** archives. **Auto** is the default for TAR.ZST: it samples content and chooses CPU settings, uncompressed storage, or the NVIDIA GPU according to the selected goal. The experimental GPU backend has been exercised on an **RTX 4070 Laptop GPU**.
+Alpha.4 defaults to native `.lttl`. In Create, choose Auto, lttl Fast, lttl Dense or Zstandard. See [native compression](native-compression.md) for selection rules and sharing. Choose ZIP/TAR explicitly when interoperability is needed.
 
-The project uses open compression libraries and NVIDIA nvCOMP. It does not create or extract RAR archives or provide full WinRAR compatibility. The [native investigation](native-analysis.md) informed architectural analysis; the app does not contain a reconstructed proprietary RAR codec.
+An early Rust desktop archiver for Windows, with a simple interface, expandable advanced controls, and a command-line engine. It creates, lists, tests, and extracts **native lttl**, **ZIP**, **TAR.ZST**, and **TAR.LZ4** archives. **Auto** is the default for TAR.ZST: it samples content and chooses CPU settings, uncompressed storage, or the NVIDIA GPU according to the selected goal. The experimental GPU backend has been exercised on an **RTX 4070 Laptop GPU**.
+
+The project uses open compression libraries and NVIDIA nvCOMP for ZIP/Deflate, Zstandard and LZ4 compression.
 
 The [Auto optimization comparison](auto-optimization.md) completed 324 verified creation/extraction runs against preserved Auto v1 and explicit CPU presets. Fast now skips sampling, and Balanced uses cheaper probes; all 18 Balanced/Small dataset-goal combinations retained their previous archive sizes. Selection overhead fell substantially, but some full-run regressions and GPU startup spikes remain. Auto is a bounded heuristic, not a guaranteed optimum. Explicit CPU/GPU choices remain available. The earlier [GPU baseline](gpu-performance.md) and [Auto v1 results](auto-performance.md) retain their original measurements.
 
@@ -47,7 +49,8 @@ GPU setup downloads the pinned NVIDIA redistributable packages into the project.
 
 | Capability | Implementation |
 |---|---|
-| Desktop interface | Create, extract, inspect, and test views; file/folder selection; background operations; progress and cancellation for supported jobs |
+| Desktop interface | Create, extract, inspect, identity sharing, and Audit & retention views; file/folder selection; background operations; progress and cancellation for supported jobs |
+| Archive administration | Administrators can browse activity, extend retention, set/remove UTC access expiry, and place/release individual legal holds. Changes require a reason, review and fresh IDP sign-in. Included in alpha.6; deploy the matching broker. [Workflow and limits](audit-retention.md#windows-administrator-interface) |
 | ZIP | Deflate compression, one CPU compression stream; presets use levels 1 / 6 / 9; Fast can store files whose samples show little compression benefit |
 | Auto TAR.ZST | Fast directly uses CPU Fast with no sampling; Balanced uses 64 KiB sample regions; Small retains up to 1.5 MiB samples and actual GPU trials for structured content; records its decision |
 | TAR.LZ4 | Standard independent LZ4 blocks with content checksum; multithreaded CPU or portable wgpu encoder, strict CPU extraction |
@@ -76,16 +79,16 @@ Use your own existing input path. The archive output's parent directory must exi
 .\target\release\lttl.exe create .\input -o .\backup.tar.zst --format tar-zstd --preset balanced --threads 8
 
 # Favor size; Auto may compare the GPU on structured content.
-.\target\release\lttl.exe create .\input -o .\small.tar.zst --backend auto --preset small
+.\target\release\lttl.exe create .\input -o .\small.tar.zst --backend auto --preset small --format tar-zstd
 
 # Bypass sampling and retain the previous fixed CPU behavior.
-.\target\release\lttl.exe create .\input -o .\cpu.tar.zst --backend cpu --preset balanced
+.\target\release\lttl.exe create .\input -o .\cpu.tar.zst --backend cpu --preset balanced --format tar-zstd
 
 # Create with the NVIDIA GPU's fixed Zstandard setting.
 .\target\release\lttl.exe create .\input -o .\gpu-backup.tar.zst --format tar-zstd --backend gpu --chunk-mib 1 --batch-mib 32
 
 # GPU setting measured on generated CSV: smaller parallel chunks.
-.\target\release\lttl.exe create .\input -o .\fast-gpu.tar.zst --backend gpu --chunk-kib 64 --batch-mib 32
+.\target\release\lttl.exe create .\input -o .\fast-gpu.tar.zst --backend gpu --chunk-kib 64 --batch-mib 32 --format tar-zstd
 
 # Create a broadly compatible ZIP archive.
 .\target\release\lttl.exe create .\input -o .\backup.zip --format zip --preset fast
@@ -132,7 +135,7 @@ The engine rejects unsafe member paths, duplicate/case-conflicting names, file/d
 
 `test` reads file contents and checks declared lengths and codec integrity, including ZIP CRC and available Zstandard checksums. Listing a ZIP alone is not a full integrity test. Archives created here include a Zstandard checksum; checksums detect accidental corruption and are not cryptographic authenticity checks.
 
-This prototype supports ordinary files/directories, ZIP Store/Deflate reading, and a restricted TAR subset within Zstandard, including GNU long filenames. It does not support standalone `.zst` files, RAR, 7z, password-encrypted ZIP/7z archives, split volumes, recovery records, PAX/sparse TAR entries, or archive updates. It does not preserve Windows ACLs, alternate data streams, all timestamps, or complete filesystem metadata. It does not take a filesystem snapshot, so archive inputs that are actively being modified are unsuitable for reliable backups.
+This prototype supports ordinary files/directories, ZIP Store/Deflate reading, and a restricted TAR subset within Zstandard, including GNU long filenames. It does not support standalone `.zst` files, password-encrypted ZIP archives, split volumes, recovery records, PAX/sparse TAR entries, or archive updates. It does not preserve Windows ACLs, alternate data streams, all timestamps, or complete filesystem metadata. It does not take a filesystem snapshot, so archive inputs that are actively being modified are unsuitable for reliable backups.
 
 Use copies of representative data while evaluating this alpha. Test the resulting archive and check an extracted copy against the originals before relying on it.
 
@@ -141,22 +144,19 @@ The Auto implementation passes 26 ordinary tests, including raw-frame corruption
 ## Investigation and benchmarks
 
 - [AMD, Intel and Apple silicon feasibility](vendor-support.md): current CPU portability, vendor GPU options, local Intel Arc availability, and the earlier proposal for the now-implemented wgpu backend; AMD/Apple hardware remain untested.
-- [Auto sampling optimization](auto-optimization.md), [raw v1/v2/CPU comparison](auto-v2-benchmark-results.json), and [reproduction script](../scripts/benchmark-auto-v2.ps1).
+- [Auto sampling optimization](auto-optimization.md), [raw v1/v2/CPU comparison](../research/legacy/auto-v2-benchmark-results.json), and [reproduction script](../scripts/benchmark-auto-v2.ps1).
 - [Content-aware policy and measured results](auto-compression.md), [raw Auto comparison](auto-benchmark-results.json), and [reproduction script](../scripts/benchmark-auto.ps1).
-- [Measured CPU/GPU performance](gpu-performance.md), [raw GPU comparison results](gpu-benchmark-results.json), and [benchmark harness](../scripts/benchmark-gpu.ps1).
+- [Measured CPU/GPU performance](gpu-performance.md), [raw GPU comparison results](../research/legacy/gpu-benchmark-results.json), and [benchmark harness](../scripts/benchmark-gpu.ps1).
 - [GPU design and improvement review](gpu-improvements.md): chunk history, complete pipeline costs, and remaining opportunities.
 - [Measured chunk/batch tuning](gpu-tuning.md): 64 KiB chunks improved generated CSV; 128 MiB batches improved enwik8 while preserving output size. CPU remains faster on these inputs.
 - [GPU codec choices](gpu-algorithms.md) and [measured codec probes](codec-performance.md): Zstandard, LZ4 and GDeflate speed/ratio tradeoffs. Alternative codecs are experiments, not additional app archive formats.
 - [Public sample download script](../scripts/download-samples.ps1): verified Canterbury and enwik8 inputs, with retained provenance and file hashes; see the performance report for completed downloaded-sample results.
-- [RAR compressor review and measured results](rar-compressor-review.md): controlled synthetic-corpus results, documented RAR behavior, and evidence limits.
-- [Raw RAR benchmark CSV](rar-benchmark-results.csv) and [reproduction script](../scripts/benchmark-rar.ps1).
-- [Rust comparison on the same corpus](rust-performance.md), [raw results](rust-benchmark-results.json), and [reproduction script](../scripts/benchmark-rust.ps1).
+- [Rust synthetic-corpus measurements](rust-performance.md), [raw results](../research/legacy/rust-benchmark-results.json), and [reproduction script](../scripts/benchmark-rust.ps1).
 - [Performance research](performance-research.md): open-codec and CPU/GPU considerations.
-- [Native REA findings](native-analysis.md): bounded static analysis with evidence IDs and unresolved questions.
 - [Validation record](validation.md) and [decompiler setup](decompiler-setup.md).
 - [Internal API contract](api-contract.md): the library/GUI interface.
 
-The RAR measurements compare settings of the installed RAR executable. Earlier Rust CPU results reuse those synthetic inputs; the later GPU report uses its own recorded comparison matrix. These experiments do not establish a universal performance winner. The older native-analysis and performance-research documents retain their dated pre-GPU investigation scope; current implementation and timing results are in the GPU report.
+The earlier Rust CPU results use synthetic inputs; the later GPU report uses its own recorded comparison matrix. These experiments do not establish a universal performance winner. Historical planning reports retain their dated scope; current implementation and timing results are in the GPU reports.
 
 To prepare public samples and run the reproducible comparison (PowerShell 7):
 

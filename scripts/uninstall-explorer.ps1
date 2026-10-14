@@ -1,9 +1,9 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-Removes only this project's owned Explorer verb keys for the current user.
+Removes only this project's owned Explorer verb keys for the selected scope.
 .DESCRIPTION
-Checks the fixed ten HKCU locations and their ownership markers before making
+Checks the fixed ten locations in the selected hive and their ownership markers before making
 changes. Refuses conflicting or unexpectedly extended keys. Missing keys are
 harmless. Does not remove file associations, parent keys, or other applications'
 commands. Supports -WhatIf. Windows 11 registrations use Show more options.
@@ -11,7 +11,7 @@ commands. Supports -WhatIf. Windows 11 registrations use Show more options.
 .\scripts\uninstall-explorer.ps1 -WhatIf
 #>
 [CmdletBinding(SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
-param()
+param([ValidateSet("CurrentUser", "AllUsers")][string] $Scope = "CurrentUser")
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
@@ -29,7 +29,8 @@ $paths = @(
     'Software\Classes\SystemFileAssociations\.lttl\shell\lttl.ExtractHere',
     'Software\Classes\SystemFileAssociations\.lttl\shell\lttl.ExtractFolder'
 )
-$hive = [Microsoft.Win32.Registry]::CurrentUser
+$hive = if ($Scope -eq "AllUsers") { [Microsoft.Win32.Registry]::LocalMachine } else { [Microsoft.Win32.Registry]::CurrentUser }
+$hiveLabel = if ($Scope -eq "AllUsers") { "HKLM" } else { "HKCU" }
 $owned = [System.Collections.Generic.List[string]]::new()
 try {
     # Complete all preflight checks before deleting any key. RegistryKey uses
@@ -39,23 +40,23 @@ try {
         if ($null -eq $key) { continue }
         try {
             if ($key.GetValue('lttlOwner', '') -cne $owner) {
-                throw "Refusing to remove unowned key HKCU\$keyPath. Nothing was changed."
+                throw "Refusing to remove unowned key ${hiveLabel}\$keyPath. Nothing was changed."
             }
             foreach ($name in $key.GetValueNames()) {
                 if ($name -notin @('', 'lttlOwner', 'MultiSelectModel', 'Icon', 'AppliesTo')) {
-                    throw "Unexpected value '$name' in HKCU\$keyPath. Nothing was changed; inspect the key manually."
+                    throw "Unexpected value '$name' in ${hiveLabel}\$keyPath. Nothing was changed; inspect the key manually."
                 }
             }
             foreach ($child in $key.GetSubKeyNames()) {
                 if ($child -ine 'command') {
-                    throw "Unexpected subkey '$child' in HKCU\$keyPath. Nothing was changed; inspect the key manually."
+                    throw "Unexpected subkey '$child' in ${hiveLabel}\$keyPath. Nothing was changed; inspect the key manually."
                 }
             }
             $commandKey = $key.OpenSubKey('command')
             if ($null -ne $commandKey) {
                 try {
                     if ($commandKey.SubKeyCount -ne 0 -or @($commandKey.GetValueNames() | Where-Object { $_ -ne '' }).Count -ne 0) {
-                        throw "Unexpected data in HKCU\$keyPath\command. Nothing was changed; inspect the key manually."
+                        throw "Unexpected data in ${hiveLabel}\$keyPath\command. Nothing was changed; inspect the key manually."
                     }
                 } finally { $commandKey.Dispose() }
             }
@@ -66,8 +67,8 @@ try {
         Write-Output 'No owned lttl Explorer commands are installed.'
         return
     }
-    foreach ($keyPath in $owned) { Write-Output "Remove HKCU\$keyPath" }
-    if ($PSCmdlet.ShouldProcess('HKCU\Software\Classes (owned lttl verb keys)', 'Uninstall Explorer commands')) {
+    foreach ($keyPath in $owned) { Write-Output "Remove ${hiveLabel}\$keyPath" }
+    if ($PSCmdlet.ShouldProcess("${hiveLabel}\Software\Classes (owned lttl verb keys)", 'Uninstall Explorer commands')) {
         foreach ($keyPath in $owned) { $hive.DeleteSubKeyTree($keyPath, $false) }
         Write-Output 'Removed lttl Explorer commands. Reopen Explorer if its menu is cached.'
     }

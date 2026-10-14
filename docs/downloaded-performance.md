@@ -77,4 +77,4 @@ These medians are milliseconds. Host-call wall time includes the device interval
 
 The device compression stage itself consumed about 130 ms on Canterbury and 304 ms on enwik8, while transfers were much smaller. This run therefore does not support blaming PCIe alone, or predicting a win merely by reusing initialization. Persistent contexts and overlapping batches need their own measured implementation.
 
-These public samples strengthen the case for a CPU default and an explicit experimental GPU option. They do not cover all real datasets, storage devices or GPUs. The [improvement analysis](gpu-improvements.md) lists specific next experiments without claiming that the RAR compressor has been reconstructed or accelerated.
+These public samples strengthen the case for a CPU default and an explicit experimental GPU option. They do not cover all real datasets, storage devices or GPUs. The [improvement analysis](gpu-improvements.md) lists specific next experiments for lttl’s independent CPU and GPU backends.

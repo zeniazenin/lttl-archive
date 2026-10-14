@@ -1,43 +1,24 @@
 {
-  "scope": "Actual silent per-user Windows x64 installation in temporary directories, no Explorer registration",
-  "checks_passed": 17,
+  "scope": "Actual Program Files in-place installation/repair; current component selection preserved. Fresh uninstall/other component configuration not repeated for alpha.6.",
+  "checks_passed": 11,
   "checks": [
-    "Payload hashes and optional component selection: nvidia=False",
-    "Installed CLI version",
-    "Installed retention command, audit guide and serverless vault sources",
-    "Installed client passes real mock-IDP audit/retention integration",
-    "Installed zip creation/integrity/extraction: nvidia=False",
-    "Installed tar-zstd creation/integrity/extraction: nvidia=False",
-    "Installed tar-lz4 creation/integrity/extraction: nvidia=False",
-    "Existing installation refused",
-    "Uninstall removes owned files/registration/shortcut and preserves user-added file",
-    "Payload hashes and optional component selection: nvidia=True",
-    "Installed CLI version",
-    "Installed retention command, audit guide and serverless vault sources",
-    "Installed zip creation/integrity/extraction: nvidia=True",
-    "Installed tar-zstd creation/integrity/extraction: nvidia=True",
-    "Installed tar-lz4 creation/integrity/extraction: nvidia=True",
-    "Existing installation refused",
-    "Uninstall removes owned files/registration/shortcut and preserves user-added file"
+    "Machine registration version, directory and desktop DisplayIcon verified",
+    "All 649 installed payload hashes match release manifest; NVIDIA=True",
+    "Desktop GUI subsystem, CLI console subsystem and executable/installer icon resources verified",
+    "Installed CLI version and captured terminal output verified",
+    "Installed lttl/auto creation, integrity and exact extraction",
+    "Installed lttl/lttl-fast creation, integrity and exact extraction",
+    "Installed lttl/lttl-dense creation, integrity and exact extraction",
+    "Installed zip/cpu creation, integrity and exact extraction",
+    "Installed tar-zstd/cpu creation, integrity and exact extraction",
+    "Installed tar-lz4/cpu creation, integrity and exact extraction",
+    "Installed client passes 171 mock-IDP audit/retention integration checks; matching client and broker hashes"
   ],
-  "installer": "lttl-0.1.0-alpha.3-windows-x64-setup.exe",
-  "sha256": "e7b935172732fccaf2f96dff2c3aac0da417eb68f0b48cd5f98644f65c28e5c7",
-  "nvidia_doctor": {
-    "codecs": [
-      "ZIP / Deflate (serial)",
-      "tar.zst / Zstandard (multithreaded)"
-    ],
-    "explorer": "Optional per-user installer script; Windows 11 Show more options",
-    "gpu_compression": {
-      "available": true,
-      "codec": "nvCOMP Zstd, fixed setting",
-      "device": "NVIDIA GeForce RTX 4070 Laptop GPU",
-      "initialize_seconds": 2.0072324
-    },
-    "logical_processors": 22,
-    "rar_creation": false
-  },
+  "installer": "lttl-0.1.0-alpha.6-windows-x64-setup.exe",
+  "sha256": "03226e01738caa5bef209155c2c43f59f26dcb2dc6de521e2a2bbb8b94adfd7d",
   "signed": false,
   "visual_installer_tested": false,
-  "explorer_install_tested": false
+  "explorer_install_tested": false,
+  "installation_directory": "C:\\Program Files\\lttl",
+  "desktop_launch_visual": "Desktop launcher and title-bar logo observed in prior local alpha.6 build; executable hashes unchanged"
 }

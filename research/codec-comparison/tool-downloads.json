@@ -1,0 +1,12 @@
+[
+  {
+    "url": "https://github.com/ip7z/7zip/releases/download/26.04/7zr.exe",
+    "bytes": 602624,
+    "sha256": "256feca8e274e5da655e2a284fabafd9f554365eb164862089dacd4e8276d282"
+  },
+  {
+    "url": "https://github.com/ip7z/7zip/releases/download/26.04/7z2604-extra.7z",
+    "bytes": 1764616,
+    "sha256": "dc4b11d3399db18b063630137145f5585d8f7ac847bf3639bd1185d7d1f7cee0"
+  }
+]

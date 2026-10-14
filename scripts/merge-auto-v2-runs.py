@@ -35,6 +35,6 @@ merged["SourceRuns"] = [{"path": str(p), "sha256": hashlib.sha256(p.read_bytes()
                         "date_utc": part["DateUTC"], "repetitions": sorted({r["Repeat"] for r in part["Results"]})}
                        for p,part in zip(paths,parts)]
 merged["MergeNote"] = "Repetitions 1–3 followed by a separate fourth reversed-order pass, so each Auto version runs first equally often. No observations removed or retimed; raw source paths and hashes retained."
-target = Path(__file__).resolve().parent.parent / "docs/auto-v2-benchmark-results.json"
+target = Path(__file__).resolve().parent.parent / "research/legacy/auto-v2-benchmark-results.json"
 target.write_text(json.dumps(merged, indent=2), encoding="utf-8")
 print(f"Merged {len(rows)} verified cases into {target}")

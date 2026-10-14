@@ -599,6 +599,18 @@ async fn retention_status(State(app):State<Shared>,Path(id):Path<String>,headers
     app.db.audit(Some(&grant.user.id),Some(&id),"retention_inspected").await?;
     Ok(Json(app.db.lifecycle(&id).await?))
 }
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct AuditPage { before: Option<i64> }
+async fn archive_audit(State(app):State<Shared>,Path(id):Path<String>,Query(page):Query<AuditPage>,headers:HeaderMap)->Api<Json<serde_json::Value>> {
+    if !crypto::valid_id(&id) || page.before.is_some_and(|n|n<=0) {return Err(bad());}
+    let grant=audit_admin(&app,&headers).await?;
+    if sqlx::query("SELECT id FROM archives WHERE id=$1").bind(&id).fetch_optional(&app.db.pool).await?.is_none() {
+        return Err(Error(StatusCode::NOT_FOUND,"Unknown archive"));
+    }
+    app.db.audit(Some(&grant.user.id),Some(&id),"audit_inspected").await?;
+    Ok(Json(app.db.archive_audit(&id,page.before).await?))
+}
 async fn retention_update(State(app):State<Shared>,Path(id):Path<String>,headers:HeaderMap,Json(action):Json<retention::Action>)->Api<Json<serde_json::Value>> {
     if !crypto::valid_id(&id) {return Err(bad());}
     let grant=audit_admin(&app,&headers).await?;
@@ -675,6 +687,7 @@ fn router(app: Shared) -> Router {
         .route("/v1/tracking/dispatch", post(dispatch_tracking))
         .route("/v1/audit/dispatch", post(audit_dispatch))
         .route("/v1/archives/{id}/retention", get(retention_status).post(retention_update))
+        .route("/v1/archives/{id}/audit", get(archive_audit))
         .route("/v1/archives/{id}/recipients", post(recipients_update))
         .layer(middleware::from_fn_with_state(app.clone(),tracking_context))
         .layer(DefaultBodyLimit::max(131072))

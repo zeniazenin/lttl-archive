@@ -1,6 +1,6 @@
 # Content-aware compression in lttl
 
-Auto is now the CLI and desktop default for TAR.ZST. It inspects bytes and selects a backend and settings according to the Fast, Balanced, or Small goal. Explicit `--backend cpu` and `--backend gpu` remain available. ZIP keeps its previous CPU policy. Archives remain ordinary TAR.ZST files and extract on CPU without NVIDIA software.
+Native lttl is now the CLI and desktop default format; see [native Auto](native-compression.md). This page describes the separate Auto policy when TAR.ZST is explicitly selected. It inspects bytes and selects a backend and settings according to the Fast, Balanced, or Small goal. Explicit `--backend cpu` and `--backend gpu` remain available. ZIP keeps its previous CPU policy. Archives remain ordinary TAR.ZST files and extract on CPU without NVIDIA software.
 
 The [original 189-case comparison](auto-performance.md) exposed sampling regressions. The [version-2 optimization comparison](auto-optimization.md) runs preserved Auto v1, optimized Auto, and explicit CPU settings on the same corpus. Both include sampling, trial work, GPU initialization, transfers, checksums, filesystem work, and process startup. Auto does not guarantee the best setting for arbitrary files or machines.
 
@@ -33,13 +33,13 @@ JSON `selection` reports the policy version, chosen settings, content class, sam
 
 ```powershell
 # Auto Balanced is the new default.
-.\target\release\lttl.exe create .\input -o .\backup.tar.zst
+.\target\release\lttl.exe create .\input -o .\backup.tar.zst --format tar-zstd
 
 # Favor size; structured content may select the GPU.
-.\target\release\lttl.exe create .\input -o .\small.tar.zst --backend auto --preset small
+.\target\release\lttl.exe create .\input -o .\small.tar.zst --format tar-zstd --backend auto --preset small
 
 # Preserve explicit CPU behavior without selection overhead.
-.\target\release\lttl.exe create .\input -o .\fixed.tar.zst --backend cpu --preset balanced
+.\target\release\lttl.exe create .\input -o .\fixed.tar.zst --format tar-zstd --backend cpu --preset balanced
 ```
 
 The library's `create()` convenience function intentionally remains CPU-only for compatibility; callers opt in through `create_with_backend(..., Backend::Auto, ...)`.

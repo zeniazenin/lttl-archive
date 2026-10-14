@@ -7,6 +7,7 @@ use std::{
 
 use eframe::egui::{self, Color32, RichText};
 use lttl::{Backend, CreateOptions, EntryInfo, Format, GpuOptions, Preset, Progress, Stats};
+mod admin;
 
 const ACCENT: Color32 = Color32::from_rgb(116, 171, 255);
 const MUTED: Color32 = Color32::from_rgb(153, 165, 185);
@@ -22,6 +23,8 @@ pub fn run(initial: Option<GuiAction>) -> anyhow::Result<()> {
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
             .with_title("lttl")
+            .with_icon(eframe::icon_data::from_png_bytes(include_bytes!("../assets/lttl-icon.png"))
+                .expect("Embedded lttl icon must be a valid PNG"))
             .with_inner_size([1100.0, 720.0])
             .with_min_inner_size([820.0, 620.0]),
         ..Default::default()
@@ -46,18 +49,19 @@ pub fn run(initial: Option<GuiAction>) -> anyhow::Result<()> {
 }
 
 #[derive(Clone, Copy, PartialEq)]
-enum View { Create, Extract, Inspect, Identity }
+enum View { Create, Extract, Inspect, Identity, Admin }
 
 enum Job {
     Create(CreateOptions, Backend, GpuOptions, lttl::PortableOptions),
     SharedCreate(CreateOptions, Backend, GpuOptions, lttl::PortableOptions, lttl::identity::Profile, Vec<String>, lttl::identity::crypto::TrackingPolicy),
     SignIn(lttl::identity::Profile),
+    Admin(admin::Request, lttl::identity::Profile),
     Extract(PathBuf, PathBuf),
     Inspect(PathBuf),
     Test(PathBuf),
 }
 
-enum JobOutput { Archive(Stats), Entries(Vec<EntryInfo>), Identity(Vec<lttl::identity::User>, lttl::identity::User) }
+enum JobOutput { Archive(Stats), Entries(Vec<EntryInfo>), Identity(Vec<lttl::identity::User>, lttl::identity::User), Admin(admin::Outcome) }
 enum Event { Progress(Progress), Browser(String), Finished(Result<JobOutput, String>) }
 
 struct Worker {
@@ -67,6 +71,7 @@ struct Worker {
 }
 
 struct LttlApp {
+    admin: admin::State,
     view: View,
     inputs: Vec<PathBuf>,
     output: String,
@@ -101,8 +106,9 @@ struct LttlApp {
 impl LttlApp {
     fn new(initial: Option<GuiAction>) -> Self {
         let mut app = Self {
+            admin: admin::State::default(),
             view: View::Create, inputs: Vec::new(), output: String::new(),
-            format: Format::TarZstd, preset: Preset::Balanced, threads: 0,
+            format: Format::Lttl, preset: Preset::Balanced, threads: 0,
             backend: Backend::Auto, gpu_chunk_kib: 1024, gpu_batch_mib: 32, portable_adapter: String::new(),
             archive: String::new(), destination: String::new(), worker: None,
             progress: None, status: "Ready when you are".into(), error: None,
@@ -162,15 +168,17 @@ impl LttlApp {
         self.progress = None;
         self.status = match &job {
             Job::Create(_, Backend::Auto, _, _) => "Choosing compression for this content",
-            Job::Create(_, Backend::Cpu | Backend::CpuChunked, _, _) => "Creating archive on CPU",
+            Job::Create(_, Backend::Cpu | Backend::CpuChunked | Backend::LttlFast | Backend::LttlDense, _, _) => "Creating archive on CPU",
             Job::Create(_, Backend::Wgpu, _, _) => "Creating archive on portable GPU",
             Job::Create(_, Backend::Gpu, _, _) => "Creating archive on NVIDIA GPU",
             Job::SharedCreate(..) => "Signing in to protect the archive",
             Job::SignIn(_) => "Signing in to your organization",
+            Job::Admin(..) => "Signing in for archive administration",
             Job::Extract(..) => "Extracting archive",
             Job::Inspect(_) => "Reading archive contents",
             Job::Test(_) => "Verifying archive integrity",
         }.into();
+        if matches!(&job, Job::Admin(..)) { self.admin.clear(); }
         if let Job::Inspect(path) = &job {
             self.entries.clear();
             self.inspected_archive = path.display().to_string();
@@ -191,6 +199,7 @@ impl LttlApp {
                 Job::Create(options, backend, gpu, portable) => lttl::create_with_provider(&options, backend, &gpu, &portable, &worker_cancel, &mut progress).map(JobOutput::Archive),
                 Job::SharedCreate(options,backend,gpu,portable,profile,recipients,tracking) => lttl::identity::login(&profile,None,&worker_cancel,&mut notice).and_then(|session|lttl::identity::create_tracked(&options,backend,&gpu,&portable,&session,&recipients,&tracking,&worker_cancel,&mut progress)).map(JobOutput::Archive),
                 Job::SignIn(profile) => lttl::identity::login(&profile,None,&worker_cancel,&mut notice).and_then(|session|Ok(JobOutput::Identity(session.users()?,session.user.clone()))),
+                Job::Admin(request,profile) => request.run(&profile,&worker_cancel,&mut notice).map(JobOutput::Admin),
                 Job::Extract(archive,dest) => lttl::identity::is_protected(&archive).and_then(|protected|if protected {lttl::identity::extract(&archive,&dest,&identity_profile,&worker_cancel,&mut progress,&mut notice)} else {lttl::extract(&archive,&dest,&worker_cancel,&mut progress)}).map(JobOutput::Archive),
                 Job::Inspect(archive) => lttl::identity::is_protected(&archive).and_then(|protected|if protected {lttl::identity::list(&archive,&identity_profile,&worker_cancel,&mut notice)} else {lttl::list(&archive)}).map(JobOutput::Entries),
                 Job::Test(archive) => lttl::identity::is_protected(&archive).and_then(|protected|if protected {lttl::identity::test(&archive,&identity_profile,&worker_cancel,&mut notice)} else {lttl::test(&archive,&worker_cancel)}).map(JobOutput::Archive),
@@ -220,7 +229,9 @@ impl LttlApp {
         if let Some(result) = finished {
             let cancelled = self.worker.as_ref().is_some_and(|w| w.cancel.load(Ordering::Relaxed));
             self.worker = None;
+            self.sign_in_url.clear();
             match result {
+                Ok(JobOutput::Admin(result)) => self.status=self.admin.accept(result),
                 Ok(JobOutput::Identity(users,user)) => {
                     self.identity_user=format!("{} ({})",user.name,user.email);self.recipients=users;
                     self.selected_recipients.retain(|id|self.recipients.iter().any(|u|&u.id==id));
@@ -283,22 +294,30 @@ impl LttlApp {
             columns[0].label(RichText::new("FORMAT").small().color(MUTED));
             let previous = self.format;
             columns[0].horizontal(|ui| {
+                ui.selectable_value(&mut self.format, Format::Lttl, "lttl");
                 ui.selectable_value(&mut self.format, Format::TarZstd, "TAR + Zstandard");
                 ui.selectable_value(&mut self.format, Format::Zip, "ZIP");
                 ui.selectable_value(&mut self.format, Format::TarLz4, "TAR + LZ4");
             });
             columns[0].label(RichText::new(match self.format {
+                Format::Lttl => "Adaptive per-file compression. Requires lttl to extract; encryption is optional.",
                 Format::TarLz4 => "Independent LZ4 blocks for CPU or portable GPU compression.",
                 Format::TarZstd => "Zstandard with CPU or NVIDIA GPU compression.",
                 Format::Zip => "Broad compatibility. Deflate uses a single CPU thread.",
             }).small().color(MUTED));
             if self.format != previous && !self.output.is_empty() {
+                let original = if self.share_identity && previous != Format::Lttl {
+                    self.output.strip_suffix(".lttl").unwrap_or(&self.output)
+                } else { &self.output };
                 let old_ext = format!(".{}", previous.extension());
-                if let Some(stem) = self.output.strip_suffix(&old_ext) {
-                    self.output = format!("{stem}.{}", self.format.extension());
+                if let Some(stem) = original.strip_suffix(&old_ext) {
+                    self.output = format!("{stem}.{}{}", self.format.extension(),
+                        if self.share_identity && self.format != Format::Lttl { ".lttl" } else { "" });
                 }
             }
             if self.format == Format::Zip { self.backend = Backend::Cpu; }
+            if self.format != Format::Lttl && matches!(self.backend, Backend::LttlFast | Backend::LttlDense) { self.backend = Backend::Auto; }
+            if self.format == Format::Lttl && matches!(self.backend, Backend::Gpu | Backend::Wgpu | Backend::CpuChunked) { self.backend = Backend::Auto; }
             if self.format == Format::TarLz4 && matches!(self.backend, Backend::Gpu | Backend::CpuChunked) { self.backend = Backend::Auto; }
             if self.format == Format::TarZstd && self.backend == Backend::Wgpu { self.backend = Backend::Auto; }
             columns[1].label(RichText::new("COMPRESSION PREFERENCE").small().color(MUTED));
@@ -319,6 +338,16 @@ impl LttlApp {
             }};
             columns[1].label(RichText::new(preset_hint).small().color(MUTED));
         });
+        if self.format == Format::Lttl {
+            ui.horizontal(|ui| {
+                ui.label("Compress with");
+                ui.selectable_value(&mut self.backend, Backend::Auto, "Auto");
+                ui.selectable_value(&mut self.backend, Backend::LttlFast, "lttl Fast");
+                ui.selectable_value(&mut self.backend, Backend::LttlDense, "lttl Dense");
+                ui.selectable_value(&mut self.backend, Backend::Cpu, "Zstandard");
+            });
+            ui.label(RichText::new("Auto compares numeric compression with Zstandard for each block. Fast favors measured speed; Balanced and Smallest also consider size. All choices run on CPU.").small().color(MUTED));
+        }
         if self.format == Format::TarZstd {
             ui.horizontal(|ui| {
                 ui.label(RichText::new("COMPRESS WITH").small().color(MUTED));
@@ -379,7 +408,7 @@ impl LttlApp {
         ui.checkbox(&mut self.share_identity,"Encrypt for selected organization users");
         if was_shared!=self.share_identity && !self.output.is_empty() {
             if self.share_identity && !self.output.ends_with(".lttl") {self.output.push_str(".lttl");}
-            else if !self.share_identity {if let Some(path)=self.output.strip_suffix(".lttl") {self.output=path.into();}}
+            else if !self.share_identity && self.format != Format::Lttl {if let Some(path)=self.output.strip_suffix(".lttl") {self.output=path.into();}}
         }
         if self.share_identity {
             ui.label("Recipients must sign in to the configured organization key service to open this archive.");
@@ -425,6 +454,7 @@ impl LttlApp {
         ui.label("Company key-service URL");
         if ui.add(egui::TextEdit::singleline(&mut self.identity_profile.broker_url).hint_text("https://keys.company.example").desired_width(f32::INFINITY)).changed() {
             self.recipients.clear();self.selected_recipients.clear();self.identity_user.clear();
+            self.admin.clear();
         }
         ui.horizontal(|ui| {
             if ui.button("Save connection").clicked() {
@@ -433,7 +463,7 @@ impl LttlApp {
                 match result {Ok(())=>self.status="Identity connection saved (no tokens or secrets)".into(),Err(e)=>self.error=Some(format!("{e:#}"))}
             }
             if ui.button("Import profile").clicked() {if let Some(path)=rfd::FileDialog::new().add_filter("Identity profile",&["json"]).pick_file() {
-                match lttl::identity::Profile::load(&path) {Ok(profile)=>{self.identity_profile=profile;self.recipients.clear();self.selected_recipients.clear();},Err(e)=>self.error=Some(format!("{e:#}"))}
+                match lttl::identity::Profile::load(&path) {Ok(profile)=>{self.identity_profile=profile;self.recipients.clear();self.selected_recipients.clear();self.identity_user.clear();self.admin.clear();},Err(e)=>self.error=Some(format!("{e:#}"))}
             }}
             if ui.button("Sign in / enroll").clicked() {self.start(ctx,Job::SignIn(self.identity_profile.clone()));}
         });
@@ -462,7 +492,7 @@ impl LttlApp {
         ui.label(RichText::new("Protected archives contact the organization service when opened. Access attempts, identity, time and network location may be reported to its security system.").small().color(MUTED));
         ui.label(RichText::new("ARCHIVE").small().color(MUTED));
         ui.horizontal(|ui| {
-            ui.add(egui::TextEdit::singleline(&mut self.archive).desired_width(ui.available_width() - 110.0).hint_text("Select a .zip, .tar.zst, .tar.lz4 or protected .lttl archive"));
+            ui.add(egui::TextEdit::singleline(&mut self.archive).desired_width(ui.available_width() - 110.0).hint_text("Select a .zip, .tar.zst, .tar.lz4 or .lttl archive"));
             if ui.button("Browse…").clicked() { self.choose_archive(); }
         });
     }
@@ -573,6 +603,9 @@ impl LttlApp {
                 if portable.session_reused { ui.label(RichText::new("Reused GPU session").small().color(MUTED)); }
                 if let Some(reason) = &portable.auto_reason { ui.label(RichText::new(reason).small().color(MUTED)); }
             }
+            if let Some(numeric) = &stats.numeric {
+                ui.label(format!("lttl blocks: {} · selection {:.3} s", numeric.blocks.iter().map(|(name,count)| format!("{name}: {count}")).collect::<Vec<_>>().join(", "), numeric.selection_seconds));
+            }
             if let Some(choice) = &stats.selection {
                 ui.label(format!("Auto chose {:?} / {} · {} · sampled {} in {:.3} s", choice.backend,
                     if choice.stored { "Stored".into() } else if choice.backend == Backend::Gpu { "fixed Zstd".into() } else { format!("{:?}", choice.preset) },
@@ -599,6 +632,7 @@ impl eframe::App for LttlApp {
             let dropped: Vec<PathBuf> = ctx.input(|i| i.raw.dropped_files.iter().filter_map(|f| f.path.clone()).collect());
             if !dropped.is_empty() {
                 if self.view == View::Create { self.add_inputs(dropped); }
+                else if self.view == View::Admin { self.admin.path=dropped[0].display().to_string();self.admin.clear(); }
                 else {
                     self.archive = dropped[0].display().to_string();
                     self.destination = named_destination(&dropped[0]).display().to_string();
@@ -618,7 +652,7 @@ impl eframe::App for LttlApp {
         egui::SidePanel::left("navigation").resizable(false).exact_width(174.0).frame(egui::Frame::new().fill(Color32::from_rgb(17, 22, 31)).inner_margin(18.0)).show(ctx, |ui| {
             ui.add_space(10.0);
             ui.add_enabled_ui(self.worker.is_none(), |ui| {
-                for (view, label) in [(View::Create, "Create archive"), (View::Extract, "Extract files"), (View::Inspect, "Inspect & test"), (View::Identity,"Identity & sharing")] {
+                for (view, label) in [(View::Create, "Create archive"), (View::Extract, "Extract files"), (View::Inspect, "Inspect & test"), (View::Identity,"Identity & sharing"), (View::Admin,"Audit & retention")] {
                     ui.selectable_value(&mut self.view, view, label);
                 }
             });
@@ -638,6 +672,7 @@ impl eframe::App for LttlApp {
                     View::Extract => self.extract_view(ui, ctx),
                     View::Inspect => self.inspect_view(ui, ctx),
                     View::Identity => self.identity_view(ui, ctx),
+                    View::Admin => {if let Some(request)=self.admin.ui(ui,&self.identity_profile){self.start(ctx,Job::Admin(request,self.identity_profile.clone()));}},
                 });
             });
         });

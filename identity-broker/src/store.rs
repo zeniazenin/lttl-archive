@@ -442,6 +442,15 @@ mod tests {
         a.create_archive_tracked(&id, &owner.id, &[recipient.id.clone()], b"wrapped", &crypto::TrackingPolicy{enabled:true,alert_countries:vec!["KP".into()]})
             .await
             .unwrap();
+        if a.signer.is_some() {
+            let page=b.archive_audit(&id,None).await.unwrap();
+            let events=page["events"].as_array().unwrap();
+            assert!(!events.is_empty());
+            assert!(events.iter().all(|e|e["record"]["archive"]==id));
+            assert!(events.iter().any(|e|e["actor_name"]=="Renamed" && e["record"]["actor"]==owner.id));
+            let last=events.last().unwrap()["record"]["seq"].as_i64().unwrap();
+            assert!(b.archive_audit(&id,Some(last)).await.unwrap()["events"].as_array().unwrap().is_empty());
+        }
         let tracking=crate::tracking::Service::new(crate::tracking::Config::default()).unwrap();
         tracking.record(a,&id,Some(&recipient.id),"key_denied",&crate::tracking::Location::default()).await.unwrap();
         assert!(b.tracking_policy(&id).await.unwrap().unwrap().enabled);

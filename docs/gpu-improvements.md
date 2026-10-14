@@ -1,10 +1,10 @@
 # lttl GPU evaluation and practical compression improvements
 
-This report separates shipped-binary observations, lttl design choices, and measured results. The benchmark's retained `doctor` output confirms **NVIDIA GeForce RTX 4070 Laptop GPU**. No speedup is assumed from that product name or from GPU utilization alone.
+This report separates lttl design proposals from measured results. The benchmark's retained `doctor` output confirms **NVIDIA GeForce RTX 4070 Laptop GPU**. No speedup is assumed from that product name or from GPU utilization alone.
 
 ## Benchmark status
 
-The working GPU build completed **147 synthetic/real-snapshot creation and integrity cases**, with **31 extracted archive checks and 493 matching file hashes**. See [measured GPU performance](gpu-performance.md) and [raw results](gpu-benchmark-results.json). CPU Fast and Balanced were faster on every baseline dataset; GPU had a tentative favorable tradeoff versus CPU Small on generated CSV, with overlapping timing ranges. Larger chunks did not restore useful compression for the deliberately related files under the tested Fast/fixed settings.
+The working GPU build completed **147 synthetic/real-snapshot creation and integrity cases**, with **31 extracted archive checks and 493 matching file hashes**. See [measured GPU performance](gpu-performance.md) and [raw results](../research/legacy/gpu-benchmark-results.json). CPU Fast and Balanced were faster on every baseline dataset; GPU had a tentative favorable tradeoff versus CPU Small on generated CSV, with overlapping timing ranges. Larger chunks did not restore useful compression for the deliberately related files under the tested Fast/fixed settings.
 
 Downloaded public-corpus creation and unpacking measurements are complete in the [Canterbury/enwik8 report](downloaded-performance.md): 30 full creation/test/extraction cases and 180 matching hashes. CPU Balanced was faster and smaller than the GPU setting on both. These separate records keep real samples and the initial synthetic tests distinguishable.
 
@@ -41,23 +41,9 @@ The primary synthetic datasets are **exactly 64 MiB each**. They represent delib
 | Similar files | 64 separate 1 MiB files with shared random content and distinct 1 KiB tails | Cross-file reuse lost at resets and frame boundaries |
 | Precompressed ZIP | Real Deflate streams for sensor/RGB prefixes, independent random bytes in a Stored member, and a short random ZIP comment to reach exactly 64 MiB | Recompressing a valid precompressed container without repeated or compressible padding |
 
-Two smaller real-file collections use their actual sizes: an explicit snapshot of project source/Cargo/README files and, when requested, the installed `Rar.exe` and `WinRAR.exe`. The latter are copied as inert test data; their contents are not multiplied to simulate a larger real binary collection. No private user document folders are searched.
+Two smaller real-file collections use their actual sizes: an explicit snapshot of project source/Cargo/README files and, when requested, installed executable test data. The latter are copied as inert test data; their contents are not multiplied to simulate a larger real binary collection. No private user document folders are searched.
 
 The C# generator is deterministic at the byte-pattern level and records its runtime plus every source hash. The ZIP stream bytes also depend on the .NET compressor version. Source snapshots and installed executable bytes can change; hashes identify the exact inputs in each run. Sharing the same retained corpus is preferable to regenerating it for another backend.
-
-## What the RAR investigation actually supports
-
-The [native investigation](native-analysis.md) traced an installed RAR CPU task pool, chunked classification, batch barriers, and a position-history hashing routine. These observations are more specific than a claim that RAR merely “uses the CPU,” but they do not identify the dominant runtime cost.
-
-| Retained observation | Practical implication for lttl | Evidence limit |
-|---|---|---|
-| Reusable workers, batched callbacks and completion barriers | Reuse workers/contexts across many chunks; inspect batch occupancy and synchronization costs | Static code establishes structure, not idle time or measured throughput |
-| Per-block classifiers and ordered result gathering | Bounded content sampling can route effort and avoid expensive processing where savings are unlikely | RAR's exact classification decisions and whole encoder integration were not recovered |
-| A hash table reads a prior position and then replaces it in input order | Directly mapping that loop to unordered GPU writes changes predecessor semantics | Not a complete matcher, parse algorithm, or recovered RAR compression pipeline |
-| Branch-pattern classifier candidates and local recency statistics | Content can inform compression policy beyond filename extensions | No forward filter implementation or exact cost/benefit threshold was established |
-| Several distinct pool users, including probable recovery and block summaries | Profile a specific operation before deciding what to accelerate | “Threaded” does not mean “compression,” and static function count is not CPU time |
-
-The [RAR parameter benchmark](rar-compressor-review.md) already measured substantial CPU-level tuning effects: storing pseudorandom data avoided wasted search; related-file solid history substantially changed size; and more exhaustive search gave diminishing gains on generated text. Those results do not prove lttl's GPU backend improves RAR itself. lttl is an independent implementation using open formats.
 
 ## Comparing CPU and GPU fairly
 
@@ -88,11 +74,11 @@ These are proposals until implemented and measured; they are not all current ltt
 
 Raw numeric data is a plausible target for delta/bitshuffle-like preprocessing, and executable data can benefit from branch transforms. Applying an undeclared transform before writing an ordinary Zstandard frame would produce a syntactically valid stream whose decompressed bytes are wrong for the original file. Such ideas require an interoperable container/codec mechanism or an explicitly new format, not just an internal optimization switch.
 
-### A concrete RAR-informed matcher experiment
+### A parallel matcher experiment
 
-The retained RAR position-history routine reads the predecessor of each hash slot and then replaces that slot in input order. **Unordered GPU atomic exchanges do not preserve which earlier position each input observes.** An independently designed candidate could compute `(hash, position)` pairs in parallel, sort by hash and then position, and perform segmented predecessor selection before verifying candidate bytes against the original input. It would need to preserve the intended prefix/hash classes, window expiration and boundary semantics of its own reference algorithm; a hash collision is not a valid string match by itself.
+An ordered position-history matcher reads the predecessor of each hash slot and then replaces that slot in input order. **Unordered GPU atomic exchanges do not preserve which earlier position each input observes.** An independently designed candidate could compute `(hash, position)` pairs in parallel, sort by hash and then position, and perform segmented predecessor selection before verifying candidate bytes against the original input. It would need to preserve the intended prefix/hash classes, window expiration and boundary semantics of its own reference algorithm; a hash collision is not a valid string match by itself.
 
-This is a **future design**, not recovered RAR code or a component of lttl. Sorting, scratch memory, compaction and transfer costs may exceed the CPU loop's cost. Benchmark candidate generation plus verification and the resulting archive ratio, rather than only the sort kernel. A CPU reference and adversarial repeated/colliding inputs are necessary before claiming correctness.
+This is a **future design** and is not a component of lttl. Sorting, scratch memory, compaction and transfer costs may exceed the CPU loop's cost. Benchmark candidate generation plus verification and the resulting archive ratio, rather than only the sort kernel. A CPU reference and adversarial repeated/colliding inputs are necessary before claiming correctness.
 
 Bounded history overlap or codec dictionaries could preserve cross-chunk matches where an interoperable decoder can obtain the needed history/dictionary. The current nvCOMP Zstandard option structure exposes reserved fields rather than a supported window/search tuning knob. The implemented backend therefore cannot promise that increasing chunk size increases the effective matcher window; the measured 1/4/16 MiB sweep confirms that chunk size alone did not solve this corpus.
 
@@ -102,4 +88,4 @@ Currently implemented: explicit streaming CPU, CPU-chunked and GPU backends; CPU
 
 The subsequent [content-aware implementation](auto-compression.md) adds bounded CPU/GPU routing and settings selection; its [benchmark](auto-performance.md) records benefits and regressions. Still not implemented: a new match finder, a persistent cross-job GPU context, overlapping batch pipeline, a tunable nvCOMP Zstandard search window, cross-frame history/dictionary support, custom file-type transforms, or GPU decompression. Those remain proposals with compatibility, correctness and performance tests attached.
 
-No unsupported conclusion that GPU is universally faster, no claim of reconstructed RAR compressor internals, and no estimate derived from a vendor's decompression-engine peak belongs in the final benchmark conclusion.
+Benchmark conclusions must come from complete measured archive operations, including transfer time and compression ratio. A vendor’s decompression-engine peak does not establish archive-creation performance.

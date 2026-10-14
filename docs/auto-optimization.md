@@ -8,7 +8,7 @@ Completed 324 creation/integrity checks, 324 timed extractions, and 2,988 matchi
 
 RTX 4070 Laptop GPU, Core Ultra 9 185H, Windows x64, eight requested CPU workers. Full process times include file reads/writes, selection, any GPU trials/initialization/transfers, checksums, and publication. Extraction includes staging/copy publication; verification and SHA256 time are outside the timed creation/extraction. Warm filesystem cache, no controlled thermal/power/background-load isolation. Small differences and overlapping ranges do not prove a speed advantage. The corpus is reused for this optimization, not a new held-out evaluation.
 
-[Raw results](auto-v2-benchmark-results.json) · [Reproduction script](../scripts/benchmark-auto-v2.ps1) · [Original policy measurements](auto-performance.md)
+[Raw results](../research/legacy/auto-v2-benchmark-results.json) · [Reproduction script](../scripts/benchmark-auto-v2.ps1) · [Original policy measurements](auto-performance.md)
 
 Repetitions 1–3 followed by a separate fourth reversed-order pass, so each Auto version runs first equally often. No observations removed or retimed; raw source paths and hashes retained.
 
@@ -125,7 +125,7 @@ Preserve the policy-v1 release as `target/release/lttl-auto-v1.exe` before rebui
 pwsh -NoProfile -File scripts/benchmark-auto-v2.ps1
 ```
 
-The harness validates the retained `bench-output/auto-corpus/manifest.json` and every source hash. Copy the completed run's `results.json` to `docs/auto-v2-benchmark-results.json`, then regenerate this report with `python scripts/summarize-auto-v2.py`. No sources are downloaded or changed by the comparison.
+The harness validates the retained `bench-output/auto-corpus/manifest.json` and every source hash. Copy the completed run's `results.json` to `research/legacy/auto-v2-benchmark-results.json`, then regenerate this report with `python scripts/summarize-auto-v2.py`. No sources are downloaded or changed by the comparison.
 
 Original Auto executable SHA256: `59887D30DFDB846828EAA29E22387B49B3D86D0E356793B93749FB2904F5A929`.
 

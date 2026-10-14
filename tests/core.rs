@@ -25,7 +25,7 @@ fn make_zip(path: &Path, entries: &[(&str, &[u8])]) {
 
 #[test]
 fn both_formats_round_trip_nested_unicode_and_empty_entries() {
-    for format in [Format::Zip, Format::TarZstd] {
+    for format in [Format::Lttl, Format::Zip, Format::TarZstd] {
         let temp = TempDir::new().unwrap();
         let input = fixture(temp.path());
         let output = temp.path().join(format!("archive.{}", format.extension()));
@@ -141,7 +141,7 @@ fn detects_zstd_checksum_corruption_after_tar_end_marker() {
 
 #[test]
 fn cancellation_cleans_up_incomplete_archive_and_extraction_staging() {
-    for format in [Format::Zip, Format::TarZstd] {
+    for format in [Format::Lttl, Format::Zip, Format::TarZstd] {
         let temp = TempDir::new().unwrap();
         let input = fixture(temp.path());
         let archive = temp.path().join(format!("archive.{}", format.extension()));
@@ -203,7 +203,7 @@ fn reject_zstd_frames_requesting_excessive_decoder_memory() {
 
 #[test]
 fn archive_inside_input_is_excluded_from_manifest() {
-    for format in [Format::Zip, Format::TarZstd] {
+    for format in [Format::Lttl, Format::Zip, Format::TarZstd] {
         let temp = TempDir::new().unwrap();
         let input = fixture(temp.path());
         let archive = input.join(format!("output.{}", format.extension()));
@@ -216,7 +216,7 @@ fn archive_inside_input_is_excluded_from_manifest() {
 
 #[test]
 fn changing_input_length_aborts_creation_without_publishing() {
-    for format in [Format::Zip, Format::TarZstd] {
+    for format in [Format::Lttl, Format::Zip, Format::TarZstd] {
         let temp = TempDir::new().unwrap();
         let input = temp.path().join("changing.bin");
         fs::write(&input, vec![42; 500_000]).unwrap();

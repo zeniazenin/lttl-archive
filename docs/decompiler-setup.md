@@ -19,7 +19,7 @@ Already-running MCP processes retain their old environment until reconnection. T
 Example:
 
 ```powershell
-./scripts/rea.ps1 inspect 'C:/Program Files/WinRAR/Rar.exe' --provider ghidra --format json
+./scripts/rea.ps1 inspect 'C:/path/to/analysis-target.exe' --provider ghidra --format json
 ```
 
 `tools/` is ignored by Git and contains large official downloaded packages. These paths depend on keeping the project at this location. No IDA license, Hopper installation, or unrelated runtime was installed.

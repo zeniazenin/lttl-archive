@@ -4,7 +4,7 @@ Measured 2026-10-12. **GPU compression works and its archives round-trip through
 
 ## Evidence and setup
 
-The retained run is `bench-output/gpu-review/20261012T212845059Z`. [Raw results](gpu-benchmark-results.json) include every invocation, source SHA-256, original and archive sizes, wall/engine timings, CPU time and GPU counters. The [reproducible harness](../scripts/benchmark-gpu.ps1) and [corpus/design notes](gpu-improvements.md) describe input generation.
+The retained run is `bench-output/gpu-review/20261012T212845059Z`. [Raw results](../research/legacy/gpu-benchmark-results.json) include every invocation, source SHA-256, original and archive sizes, wall/engine timings, CPU time and GPU counters. The [reproducible harness](../scripts/benchmark-gpu.ps1) and [corpus/design notes](gpu-improvements.md) describe input generation.
 
 - GPU: **NVIDIA GeForce RTX 4070 Laptop GPU**, driver **592.82**, `nvidia-smi` reports **8188 MiB** VRAM. This is a laptop GPU, not an assumed desktop RTX 4070 configuration.
 - CPU: 22 logical processors reported; earlier registry inspection identified Intel Core Ultra 9 185H. CPU variants requested eight workers.
@@ -12,7 +12,7 @@ The retained run is `bench-output/gpu-review/20261012T212845059Z`. [Raw results]
 - Three repetitions per configuration, sequential with rotated order. The parent task paused other build/compression work during this matrix. Background OS/graphics work, cache, thermals and power state were not controlled.
 - All **147 creations and integrity checks passed**. **31 CPU extraction round trips** produced **493 matching file SHA-256 values**, including each backend and all chunk sizes tested. Hashing/verification were excluded from archive-creation timing.
 
-The baseline covers seven exactly 64 MiB synthetic datasets, 4,257,184 bytes of actual installed RAR/WinRAR executables, and a 172,785-byte real project-source snapshot. Synthetic data is deliberately chosen to exercise properties, not sampled to represent the user's typical workload. No GPU power, peak VRAM, or usable peak RAM measurement was obtained; null memory fields mean unavailable, not zero.
+The baseline covers seven exactly 64 MiB synthetic datasets, 4,257,184 bytes of installed executable test data, and a 172,785-byte real project-source snapshot. Synthetic data is deliberately chosen to exercise properties, not sampled to represent the user's typical workload. No GPU power, peak VRAM, or usable peak RAM measurement was obtained; null memory fields mean unavailable, not zero.
 
 Every invocation is a fresh process and creates a new GPU context. DLL/driver/JIT caches may already be warm, so these are **fresh-context runs, not a controlled cold-machine test**. Reported external wall time includes startup, reading, processing, standard checksum work, output writes, publication, and teardown. Kernel-only throughput is not substituted for this total.
 
@@ -85,6 +85,6 @@ Increasing the chunk size from 1 to 4 or 16 MiB did **not** recover meaningful c
 
 Keep CPU as the default and make GPU a selectable, accurately labeled option. The strongest current opportunities are content-aware effort selection, preserving useful history, and avoiding unnecessary copies/allocations. A persistent GPU session, pipelined batches and output packing are candidates for further measurement, not demonstrated speedups.
 
-The RAR static analysis provides architectural ideas about reusable workers and classification, but these results come from independent Zstandard encoders. Nothing here establishes improved RAR encoding or full WinRAR parity. See [practical improvement analysis](gpu-improvements.md) for the evidence-linked priorities and remaining limits.
+These results come from lttl’s independent Zstandard encoders and apply to the recorded configurations and input corpus. See [practical improvement analysis](gpu-improvements.md) for the evidence-linked priorities and remaining limits.
 
 Downloaded real-world sample creation **and unpacking** measurements are complete in the [Canterbury/enwik8 report](downloaded-performance.md). CPU Balanced was faster and smaller than GPU on both collections. These separate timings preserve their corpus and measurement distinctions.

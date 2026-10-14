@@ -17,6 +17,9 @@ mod portable;
 pub use portable::{PortableOptions, PortableMetrics, adapters as portable_adapters, clear_sessions as clear_portable_sessions};
 pub use gpu::{Backend, GpuOptions, GpuMetrics, gpu_status};
 mod auto;
+mod numeric;
+mod native_archive;
+pub use native_archive::Metrics as NumericMetrics;
 pub mod identity;
 pub use auto::Selection;
 
@@ -27,10 +30,10 @@ const ZIP_SAMPLE_MIN_SIZE: u64 = 1024 * 1024;
 const ZIP_SAMPLE_SIZE: usize = 64 * 1024;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, clap::ValueEnum)]
-pub enum Format { Zip, TarZstd, TarLz4 }
+pub enum Format { Lttl, Zip, TarZstd, TarLz4 }
 impl Format {
     pub fn extension(self) -> &'static str {
-        match self { Self::Zip => "zip", Self::TarZstd => "tar.zst", Self::TarLz4 => "tar.lz4" }
+        match self { Self::Lttl => "lttl", Self::Zip => "zip", Self::TarZstd => "tar.zst", Self::TarLz4 => "tar.lz4" }
     }
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, clap::ValueEnum)]
@@ -53,6 +56,8 @@ pub struct Stats {
     pub portable: Option<PortableMetrics>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub selection: Option<Selection>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub numeric: Option<NumericMetrics>,
 }
 #[derive(Debug, Clone, Serialize)]
 pub struct EntryInfo { pub path: String, pub size: u64, pub is_dir: bool }
@@ -254,7 +259,7 @@ pub fn create_with_provider(options: &CreateOptions, backend: Backend, gpu_optio
     let is_auto = backend == Backend::Auto;
     let started = Instant::now();
     cancelled(cancel)?;
-    ensure!(matches!(backend, Backend::Cpu | Backend::Auto) || (options.format == Format::TarZstd && matches!(backend, Backend::Gpu | Backend::CpuChunked)) || (options.format == Format::TarLz4 && backend == Backend::Wgpu), "wgpu requires TAR.LZ4; NVIDIA Zstd and CPU-chunked require TAR.ZST");
+    ensure!(matches!(backend, Backend::Cpu | Backend::Auto) || (options.format == Format::Lttl && matches!(backend, Backend::LttlFast | Backend::LttlDense)) || (options.format == Format::TarZstd && matches!(backend, Backend::Gpu | Backend::CpuChunked)) || (options.format == Format::TarLz4 && backend == Backend::Wgpu), "lttl Fast/Dense require LTTL; wgpu requires TAR.LZ4; NVIDIA Zstd and CPU-chunked require TAR.ZST");
     ensure!(options.threads <= 256, "CPU thread count must be at most 256");
     check_path(&options.output)?;
     absent(&options.output)?;
@@ -274,14 +279,21 @@ pub fn create_with_provider(options: &CreateOptions, backend: Backend, gpu_optio
         prepared = plan.probe;
         selected = Some(plan.report);
         actual
-    } else if backend == Backend::Auto { Backend::Cpu } else { backend };
+    } else if backend == Backend::Auto && options.format != Format::Lttl { Backend::Cpu } else { backend };
     let options = &effective;
     let mut temporary = NamedTempFile::new_in(parent_dir(&options.output))?;
     let mut done = 0;
     let mut files = 0;
     let mut gpu_stats = None;
     let mut portable_stats = None;
+    let mut numeric_stats = None;
     match options.format {
+        Format::Lttl => {
+            let mut writer = BufWriter::new(temporary.as_file_mut());
+            numeric_stats = Some(native_archive::create(&mut writer, &sources, total, options, backend, cancel, progress)?);
+            writer.flush()?;
+            files = sources.iter().filter(|s| !s.info.is_dir).count() as u64;
+        }
         Format::Zip => {
             let mut archive = zip::ZipWriter::new(BufWriter::new(temporary.as_file_mut()));
             let level = match options.preset { Preset::Fast => 1, Preset::Balanced => 6, Preset::Small => 9 };
@@ -342,7 +354,7 @@ pub fn create_with_provider(options: &CreateOptions, backend: Backend, gpu_optio
     check_path(&options.output)?;
     temporary.persist_noclobber(&options.output).map_err(|error| error.error).context("Publishing archive without overwriting")?;
     progress(Progress { phase: "Complete".into(), path: options.output.display().to_string(), bytes_done: total, bytes_total: total });
-    Ok(Stats { input_bytes: total, output_bytes, files, elapsed_seconds: started.elapsed().as_secs_f64(), gpu: gpu_stats, portable: portable_stats, selection: selected })
+    Ok(Stats { input_bytes: total, output_bytes, files, elapsed_seconds: started.elapsed().as_secs_f64(), gpu: gpu_stats, portable: portable_stats, selection: selected, numeric: numeric_stats })
 }
 
 // Bounds TAR metadata/padding as well as member data; this also observes cancel
@@ -365,6 +377,7 @@ fn visit(archive_path: &Path, cancel: &AtomicBool, read_files: bool,
     let mut signature = [0; 4];
     probe.read_exact(&mut signature).context("Archive is too short")?;
     drop(probe);
+    if &signature == b"LTTL" { return native_archive::visit(archive_path, cancel, read_files, callback); }
     let mut names = Names::default();
     let mut entries = Vec::new();
     if signature[0..2] == *b"PK" {
@@ -426,7 +439,7 @@ fn visit(archive_path: &Path, cancel: &AtomicBool, read_files: bool,
             if count == 0 { break; }
             ensure!(buffer[..count].iter().all(|byte| *byte == 0), "Unexpected data after TAR end marker");
         }
-    } else { bail!("Unsupported archive format. Supported: ZIP, TAR.ZST and TAR.LZ4"); }
+    } else { bail!("Unsupported archive format. Supported: LTTL, ZIP, TAR.ZST and TAR.LZ4"); }
     Ok((entries, names))
 }
 
@@ -444,7 +457,7 @@ pub fn test(archive: &Path, cancel: &AtomicBool) -> Result<Stats> {
         copy_checked(&mut checked, &mut io::sink(), entry.size)
     })?;
     Ok(Stats { input_bytes: fs::metadata(archive)?.len(), output_bytes: names.bytes,
-        files: entries.iter().filter(|entry| !entry.is_dir).count() as u64, elapsed_seconds: started.elapsed().as_secs_f64(), gpu: None, portable: None, selection: None })
+        files: entries.iter().filter(|entry| !entry.is_dir).count() as u64, elapsed_seconds: started.elapsed().as_secs_f64(), gpu: None, portable: None, selection: None, numeric: None })
 }
 
 fn destination_preflight(destination: &Path, names: &Names) -> Result<()> {
@@ -521,5 +534,5 @@ pub fn extract(archive: &Path, destination: &Path, cancel: &AtomicBool, progress
     }
     progress(Progress { phase: "Complete".into(), path: destination.display().to_string(), bytes_done: names.bytes, bytes_total: names.bytes });
     Ok(Stats { input_bytes: fs::metadata(archive)?.len(), output_bytes: names.bytes,
-        files: entries.iter().filter(|entry| !entry.is_dir).count() as u64, elapsed_seconds: started.elapsed().as_secs_f64(), gpu: None, portable: None, selection: None })
+        files: entries.iter().filter(|entry| !entry.is_dir).count() as u64, elapsed_seconds: started.elapsed().as_secs_f64(), gpu: None, portable: None, selection: None, numeric: None })
 }

@@ -8,7 +8,7 @@ use std::{path::PathBuf, sync::atomic::AtomicBool};
 mod gui;
 
 #[derive(Parser)]
-#[command(version, about = "lttl — CPU and portable/NVIDIA GPU archiving with standard ZIP / Zstandard / LZ4")]
+#[command(version, about = "lttl — CPU and portable/NVIDIA GPU archiving with native lttl and standard ZIP / Zstandard / LZ4")]
 struct Cli {
     #[command(subcommand)]
     command: Option<Command>,
@@ -28,12 +28,12 @@ enum Command {
         #[arg(long, requires="identity_profile")] track_access: bool,
         /// Country watchlist (IP estimates), e.g. KP. Repeat or use commas.
         #[arg(long, requires="track_access", value_delimiter=',')] alert_country:Vec<String>,
-        #[arg(short, long, value_enum, default_value = "tar-zstd")] format: Format,
+        #[arg(short, long, value_enum, default_value = "lttl")] format: Format,
         /// ZIP/Zstd compression goal or preset. LZ4 uses a fixed fast setting.
         #[arg(short, long, value_enum, default_value = "balanced")] preset: Preset,
         /// CPU Zstandard/LZ4 workers; 0 chooses automatically. ZIP is serial.
         #[arg(short, long, default_value_t = 0)] threads: u32,
-        /// Auto selects CPU/NVIDIA Zstd; wgpu selects portable LZ4.
+        /// Auto selects per-block lttl/Zstd in LTTL, CPU/NVIDIA in TAR.ZST; wgpu selects portable LZ4.
         #[arg(long, value_enum, default_value = "auto")] backend: Backend,
         /// Portable GPU name/vendor filter (intel, nvidia, amd). Only for TAR.LZ4.
         #[arg(long)] adapter: Option<String>,
@@ -237,6 +237,14 @@ fn run() -> Result<()> {
 
 #[cfg(feature = "gui")]
 fn launch_gui(command: Option<Command>) -> Result<()> {
+    // Legacy CLI GUI entry points must not keep their allocated console open.
+    // Shortcuts use lttl-gui.exe so Windows never allocates one in the first place.
+    #[cfg(windows)]
+    unsafe {
+        #[link(name = "kernel32")]
+        unsafe extern "system" { fn FreeConsole() -> i32; }
+        FreeConsole();
+    }
     let initial = match command {
         Some(Command::Gui { archive: Some(path) }) => Some(gui::GuiAction::Open(path)),
         Some(Command::GuiCreate { path }) => Some(gui::GuiAction::Create(path)),

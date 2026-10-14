@@ -39,11 +39,9 @@ NVIDIA documents its fixed-function Decompression Engine for B200, B300, GB200 a
 
 For any proposed default change, require repeated complete creation measurements at acceptable output size, independent CPU extraction where interchange is promised, SHA-256 byte checks, bounded memory, cancellation and corruption tests. Report per-dataset results and timing ranges; a kernel-throughput ranking alone cannot choose the default archiver.
 
-## What the RAR evidence contributes
+## Ordered matching on a GPU
 
-The [static review](native-analysis.md) observed procedure `0x140049b0c` reading old hash-position entries before replacing them in input order (evidence H2: `ev_08f7ddcc68d2b730b3f7e73bad4aac9e8144c81a487e46a6d05e602d885aba5b`). Concurrent atomic exchanges can change the predecessors seen by later positions. This is a reason to redesign and verify ordered matching, not evidence that RAR's whole compressor or its bottleneck has been recovered.
-
-A future independent matcher could group `(hash, position)` pairs, select ordered predecessors and verify actual strings and window bounds. Sorting, memory and verification costs must count toward the result. The existing [matcher proposal](gpu-improvements.md#a-concrete-rar-informed-matcher-experiment) remains research; none of the codec comparisons establishes a GPU RAR encoder.
+A future independent matcher could group `(hash, position)` pairs, select ordered predecessors and verify actual strings and window bounds. Unordered atomic writes can change which predecessor a position observes. Sorting, memory and verification costs must count toward the result. The [matcher proposal](gpu-improvements.md#a-parallel-matcher-experiment) remains research.
 
 ## Alternative-codec measurements
 

@@ -18,6 +18,7 @@
     "owner-only tracking access",
     "webhook outbox lease claim",
     "signed audit batches",
+    "scoped signature-verified activity with actor names and exclusive cursor",
     "retention cannot be shortened",
     "legal hold blocks cleanup and key destruction",
     "access expiry independent of preservation",

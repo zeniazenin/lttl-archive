@@ -2,6 +2,7 @@
 pub mod crypto;
 pub mod guides;
 pub mod hosting;
+pub mod admin;
 use anyhow::{Context,Result,ensure};
 use serde::{Deserialize,Serialize};
 use std::{path::{Path,PathBuf},io::{Read,Seek,SeekFrom},sync::atomic::AtomicBool,time::{Duration,Instant}};
@@ -91,6 +92,12 @@ pub fn login(profile:&Profile,archive_id:Option<&str>,cancel:&AtomicBool,notice:
 }
 
 impl Session {
+    pub fn audit_activity(&self,id:&str,before:Option<i64>)->Result<admin::Activity> {
+        ensure!(crypto::valid_id(id) && before.is_none_or(|n|n>0),"Invalid archive ID or activity cursor");
+        let mut request=http()?.get(format!("{}/v1/archives/{id}/audit",self.profile.broker_url)).bearer_auth(&*self.token);
+        if let Some(before)=before {request=request.query(&[("before",before)]);}
+        json(request.send()?)
+    }
     pub fn retention(&self,id:&str,action:Option<&serde_json::Value>)->Result<serde_json::Value> {
         ensure!(crypto::valid_id(id),"Invalid archive ID");
         let url=format!("{}/v1/archives/{id}/retention",self.profile.broker_url);

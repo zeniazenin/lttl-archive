@@ -95,7 +95,8 @@ def main():
                            'atomic concurrent code/session consumption', 'expiry', 'distinct issuer/subject identities',
                            'recipient authorization', 'owner-only revocation', 'disabled recipient rejection', 'audit writes',
                            'archive tracking policy and events across pools', 'owner-only tracking access', 'webhook outbox lease claim',
-                           'signed audit batches', 'retention cannot be shortened', 'legal hold blocks cleanup and key destruction',
+                           'signed audit batches', 'scoped signature-verified activity with actor names and exclusive cursor',
+                           'retention cannot be shortened', 'legal hold blocks cleanup and key destruction',
                            'access expiry independent of preservation', 'exported evidence cleanup after hold release', 'archive key destruction']
             }, indent=2)+'\n', encoding='utf-8')
         finally:

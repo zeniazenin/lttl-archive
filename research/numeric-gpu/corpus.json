@@ -1,0 +1,161 @@
+{
+  "retrieved_utc": "2026-10-13T20:29:06.387059+00:00",
+  "sources": [
+    {
+      "url": "https://physionet.org/files/mitdb/1.0.0/100.hea",
+      "local_path": "bench-output\\numeric-real-corpus\\sources\\mitdb-100.hea",
+      "bytes": 143,
+      "sha256": "60ebc904c7bf3e04d142638d3fd5c903e8dc9f10f1ea3264e07926aa089ee75e"
+    },
+    {
+      "url": "https://physionet.org/files/mitdb/1.0.0/100.dat",
+      "local_path": "bench-output\\numeric-real-corpus\\sources\\mitdb-100.dat",
+      "bytes": 1950000,
+      "sha256": "b2ea3c250e56e48f4b7b90697832b8ecd1afa1e0bb31f2dcfea4ed6e1075a639"
+    },
+    {
+      "url": "https://physionet.org/files/mitdb/1.0.0/101.hea",
+      "local_path": "bench-output\\numeric-real-corpus\\sources\\mitdb-101.hea",
+      "bytes": 131,
+      "sha256": "d5f02fbe8673fa05465442191b98ca0d28a1670e7ef0e83fb9ef8723113a311c"
+    },
+    {
+      "url": "https://physionet.org/files/mitdb/1.0.0/101.dat",
+      "local_path": "bench-output\\numeric-real-corpus\\sources\\mitdb-101.dat",
+      "bytes": 1950000,
+      "sha256": "698d1ea6f472d23ca50317c72c96cda2698badd8578220ed0380cdf241e39006"
+    },
+    {
+      "url": "https://physionet.org/files/eegmmidb/1.0.0/S001/S001R03.edf",
+      "local_path": "bench-output\\numeric-real-corpus\\sources\\S001R03.edf",
+      "bytes": 2596896,
+      "sha256": "3427c8d01bff1380bc9ab9f27a35ece2af5dfadf3e291bbc05eb66e4dadbfe2e"
+    },
+    {
+      "url": "https://physionet.org/files/eegmmidb/1.0.0/S002/S002R03.edf",
+      "local_path": "bench-output\\numeric-real-corpus\\sources\\S002R03.edf",
+      "bytes": 2555616,
+      "sha256": "cbabe29620b19978454bc429f59976f6ee8f32f6392e4fcdf7e463981248072c"
+    },
+    {
+      "url": "https://physionet.org/files/eegmmidb/1.0.0/S003/S003R03.edf",
+      "local_path": "bench-output\\numeric-real-corpus\\sources\\S003R03.edf",
+      "bytes": 2596896,
+      "sha256": "ebf184ea51d9aa3178190583f428db02f184e22412ff300a5f224776d1e8dbb4"
+    },
+    {
+      "url": "https://physionet.org/files/eegmmidb/1.0.0/S004/S004R03.edf",
+      "local_path": "bench-output\\numeric-real-corpus\\sources\\S004R03.edf",
+      "bytes": 2555616,
+      "sha256": "b24e3ae9d302935be06c0905d1e925ad68a94b4a5b20dc659cbc63bb8481d503"
+    },
+    {
+      "url": "https://physionet.org/files/ptbdb/1.0.0/patient001/s0010_re.hea",
+      "local_path": "bench-output\\numeric-real-corpus\\sources\\ptb-s0010_re.hea",
+      "bytes": 2687,
+      "sha256": "30d2d5db5b7b735f7dc39e5cf3e60a433a868b53d24587c9820cf51aa1729b87"
+    },
+    {
+      "url": "https://physionet.org/files/ptbdb/1.0.0/patient001/s0010_re.dat",
+      "local_path": "bench-output\\numeric-real-corpus\\sources\\ptb-s0010_re.dat",
+      "bytes": 921600,
+      "sha256": "4e26a62c96e50eebd0eca7a11a4ad62ac8d7654e4de47acf2e0ce64be9565f20"
+    },
+    {
+      "url": "https://s3.amazonaws.com/elevation-tiles-prod/skadi/N37/N37W122.hgt.gz",
+      "local_path": "bench-output\\numeric-real-corpus\\sources\\N37W122.hgt.gz",
+      "bytes": 10093110,
+      "sha256": "7d28cdc456aef1d1fc8143deea5806b2d89e6bcd38c994f679aaf6845913d4d1"
+    }
+  ],
+  "datasets": [
+    {
+      "name": "mitbih-original-212",
+      "path": "bench-output\\numeric-real-corpus\\mitbih-original-212.bin",
+      "bytes": 3900000,
+      "sha256": "65ba8d22f67069da181d90285261c3ff2612e3549fc3a9dd15f975adec52ad24",
+      "description": "Original packed ECG records 100 and 101 concatenated in order, no sample conversion.",
+      "provenance": "https://physionet.org/content/mitdb/1.0.0/"
+    },
+    {
+      "name": "mitbih-s16le",
+      "path": "bench-output\\numeric-real-corpus\\mitbih-s16le.bin",
+      "bytes": 5200000,
+      "sha256": "269cb3d023627dc3f1880bc45cb8243087ad63615b88f5faf96f50228cfebbc0",
+      "description": "Same records unpacked losslessly from WFDB 212 to interleaved signed 16-bit little-endian samples. Exact 212 repacking verified. Conversion is outside compression timing.",
+      "provenance": "https://physionet.org/content/mitdb/1.0.0/"
+    },
+    {
+      "name": "eeg-edf-original",
+      "path": "bench-output\\numeric-real-corpus\\eeg-edf-original.bin",
+      "bytes": 10305024,
+      "sha256": "f1198e5bad6fbc5c084b74700aae63b4024028caff423cf4fb5f95d3e6ccccfa",
+      "description": "Four complete original EDF+ files S001R03 through S004R03 concatenated in order, including headers and annotation channels. No conversion, scaling, duplication or quantization.",
+      "provenance": "https://physionet.org/content/eegmmidb/1.0.0/"
+    },
+    {
+      "name": "ptb-12lead-original",
+      "path": "bench-output\\numeric-real-corpus\\ptb-12lead-original.bin",
+      "bytes": 921600,
+      "sha256": "4e26a62c96e50eebd0eca7a11a4ad62ac8d7654e4de47acf2e0ce64be9565f20",
+      "description": "Original 12-channel signed 16-bit little-endian ECG .dat file; 12-channel stride is deliberately outside the original codec candidate set. No conversion.",
+      "provenance": "https://physionet.org/content/ptbdb/1.0.0/"
+    },
+    {
+      "name": "terrain-hgt-be",
+      "path": "bench-output\\numeric-real-corpus\\terrain-hgt-be.bin",
+      "bytes": 25934402,
+      "sha256": "5814efb46d1e3982d567295fc37d326d995aed0df6b511e77621e7a43ee35a13",
+      "description": "Complete N37W122 elevation tile, gzip transport removed. Original big-endian signed 16-bit HGT samples.",
+      "provenance": "https://registry.opendata.aws/terrain-tiles/"
+    },
+    {
+      "name": "terrain-s16le",
+      "path": "bench-output\\numeric-real-corpus\\terrain-s16le.bin",
+      "bytes": 25934402,
+      "sha256": "9fa86b9dc97710bd2607d89f23ef6c8001b31c52652dcc11175864e02d930c92",
+      "description": "Same complete elevation tile with reversible byte swap to little endian, no quantization. Byte-swap conversion is outside compression timing.",
+      "provenance": "https://registry.opendata.aws/terrain-tiles/"
+    },
+    {
+      "name": "raw-sensors-1MiB",
+      "path": "bench-output\\numeric-real-corpus\\raw-sensors-1MiB.bin",
+      "bytes": 1048576,
+      "sha256": "881a0160f976688aaa56d8fa228ae841f033d9f0120d329816b3a060aaa27c49",
+      "description": "Existing corpus control: first 1 MiB. Sensor/noise controls are synthetic; enwik8 is real text.",
+      "provenance": "raw-sensors\\sensor-u16le.raw"
+    },
+    {
+      "name": "raw-sensors-16MiB",
+      "path": "bench-output\\numeric-real-corpus\\raw-sensors-16MiB.bin",
+      "bytes": 16777216,
+      "sha256": "323c424fd85ee19d37ed7f22b399800ef1fa50736119de21bd7851cb20f27333",
+      "description": "Existing corpus control: first 16 MiB. Sensor/noise controls are synthetic; enwik8 is real text.",
+      "provenance": "raw-sensors\\sensor-u16le.raw"
+    },
+    {
+      "name": "raw-sensors-64MiB",
+      "path": "bench-output\\numeric-real-corpus\\raw-sensors-64MiB.bin",
+      "bytes": 67108864,
+      "sha256": "62c6889ca47afb30e972ebc44b5bca97c9a8acbff7729b7d498adb3cc566d365",
+      "description": "Existing corpus control: first 64 MiB. Sensor/noise controls are synthetic; enwik8 is real text.",
+      "provenance": "raw-sensors\\sensor-u16le.raw"
+    },
+    {
+      "name": "independent-noise-16MiB",
+      "path": "bench-output\\numeric-real-corpus\\independent-noise-16MiB.bin",
+      "bytes": 16777216,
+      "sha256": "6602a041ac29c9b3cc1bbe0cabe551d029a8ed5dbd2fa579918958f04b9befbf",
+      "description": "Existing corpus control: first 16 MiB. Sensor/noise controls are synthetic; enwik8 is real text.",
+      "provenance": "independent-noise\\noise.bin"
+    },
+    {
+      "name": "enwik8-16MiB",
+      "path": "bench-output\\numeric-real-corpus\\enwik8-16MiB.bin",
+      "bytes": 16777216,
+      "sha256": "e6d287b341ea0dc183fb334ae05e558df4540752bf2be88da9570338fa711585",
+      "description": "Existing corpus control: first 16 MiB. Sensor/noise controls are synthetic; enwik8 is real text.",
+      "provenance": "enwik8\\enwik8"
+    }
+  ]
+}

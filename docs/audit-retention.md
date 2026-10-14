@@ -65,7 +65,27 @@ Provider references: [Azure immutable storage](https://learn.microsoft.com/en-us
 
 ## Administrator operations
 
-Administrators are selected by exact OIDC subject within the broker's configured issuer, never by email or client input. Use fresh organization sign-in through the CLI:
+Administrators are selected by exact OIDC subject within the broker's configured issuer, never by email or client input. Configure signed audit and `audit.administrator_subjects` first; being an archive owner or recipient does not grant this role.
+
+### Windows administrator interface
+
+The **Audit & retention** screen is included in alpha.6. Build and deploy the broker from the same release tag to enable its activity endpoint. No new database migration is needed if the audit/retention schema is already initialized.
+
+1. In **Identity & sharing**, save or import the company's trusted key-service connection.
+2. Select **Audit & retention**, browse to a protected `.lttl` file, and choose **Sign in & refresh**. Use an account on the broker's audit administrator list. The file's service must match the configured connection; the app never follows an arbitrary service from its header.
+3. Check the displayed archive ID against your organization's records. Administration reads the public header to identify the record; it does not decrypt the archive or authenticate the file contents.
+4. On **Activity**, inspect the latest archive-specific audit records, including time in UTC, action, actor display name and stable ID, reason/details, and vault export status. Expand a record for its details. **Older activity** and **Latest activity** fetch bounded pages with fresh sign-in. The directory display name can change; the recorded actor ID is stable.
+5. On **Retention & access**, enter a reason and choose a deadline in `YYYY-MM-DD HH:MM` or `YYYY-MM-DD HH:MM:SS`, explicitly in UTC. Preservation can be extended or made indefinite; it cannot be shortened. Access expiry is independent, can be removed, and can be set in the past to block new key releases immediately. Revocation and recipient authorization still apply.
+6. On **Legal holds**, enter a reason or case reference and choose **Place legal hold…**, or select **Release this hold…** beside the specific active hold. The app generates the hold ID. Multiple holds are independent; releasing one leaves the others in force.
+7. Review the exact archive, service, deadline/hold and reason, then choose **Sign in & apply change**. The service rechecks the administrator role and current state before applying the action. **Cancel change** makes no request.
+
+All viewing, pagination and changes use short-lived management sessions; the desktop does not save tokens. Changing the archive or service discards pending edits. A destroyed archive key makes the controls read-only. If a save fails or times out, refresh before retrying: the service might have committed it. If activity fails after a successful change, the app reports **Change saved** with an activity warning; it does not silently repeat the change.
+
+The activity screen shows locally retained, archive-specific evidence; it is not a complete independent audit-verification tool. The service verifies stored event signatures before returning records, while export status reflects its receipt from the separate vault. Global broker/administrator events and evidence already removed under retention are available through the independent audit process, not this archive view. Consult the security team's signed vault batches for authoritative evidence and continuity checks. Holds on the broker do not place holds on archive files or remove external storage holds when released.
+
+### CLI and API
+
+The CLI remains available for automation, destruction and approval attestations:
 
 ```powershell
 lttl identity retention .\shared.lttl --profile .\company.json
@@ -79,6 +99,8 @@ Example `hold.json`:
 ```
 
 The placeholder must be replaced with a real 43-character base64url ID (32 random bytes, no padding). Use the same ID to release that hold. Multiple holds can coexist; all must be released before destruction. The CLI sends administrator requests to `GET/POST /v1/archives/{id}/retention` using a management session. Archive-opening grants and ordinary recipients cannot administer retention.
+
+`GET /v1/archives/{id}/audit?before=SEQUENCE` uses the same administrator authorization. Omit `before` for the latest page. It returns up to 10 events, newest first, as `{record, exported, actor_name}`, and a nullable `next_before` cursor. `record` is the parsed, service-verified signed event; this response is a display projection, not a signed export packet. Pagination uses an exclusive sequence cursor so new inspection events cannot duplicate earlier pages. Unknown archives return 404, invalid cursors 400, and unauthorized roles 403. Activity reads append an `audit_inspected` event. Signature/hash/archive mismatches fail the entire page.
 
 | Action | Additional fields | Effect |
 |---|---|---|
@@ -97,6 +119,6 @@ Key destruction and its audit record commit together. The operation is logical d
 
 Local audit deletion requires: the event's snapshotted finite deadline elapsed, the archive's finite deadline elapsed, no active legal hold, and an acknowledged external copy. Tracking additionally requires completed webhook delivery and no pending audit evidence for the archive. Undelivered tracking messages no longer expire at 90 days. Indefinite and unexported evidence remains. Holds and cleanup serialize on the archive lifecycle row; disposition takes the same lock. A hold cannot recover information legitimately deleted before it was placed.
 
-The broker stores keys and metadata, **not archive bytes**. Put retained `.lttl` files in company-controlled immutable storage with matching holds; this feature cannot prevent deletion of a copy on someone's laptop. There is no archive-file deletion API or automatic external archive upload. Decrypted files remain outside these retention controls. No live infrastructure is provisioned by the client. Administrative retention/hold controls are currently CLI/API features, not new GUI panels.
+The broker stores keys and metadata, **not archive bytes**. Put retained `.lttl` files in company-controlled immutable storage with matching holds; this feature cannot prevent deletion of a copy on someone's laptop. There is no archive-file deletion API or automatic external archive upload. Decrypted files remain outside these retention controls. No live infrastructure is provisioned by the client. Per-archive retention and hold controls are available in the Windows interface and CLI/API; organization defaults and administrator assignments remain broker configuration.
 
 Offline batch verification: `python identity-broker/audit-vault/vault.py batch.json --stream STREAM --public-key PUBLIC_KEY`. This validates signatures and in-batch continuity; verify predecessor batches too for full history. Keep public keys and evidence access under auditor control. See [test results](audit-retention-validation.json).

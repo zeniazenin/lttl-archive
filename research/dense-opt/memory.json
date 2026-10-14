@@ -1,0 +1,6043 @@
+{
+  "completed": true,
+  "iterations": 7,
+  "corpus_sha256": "33457e3bb9722675d0489956abd01f4a9b147b1d9240117215800e9d5375c619",
+  "binary_sha256": "38b89bd0bf405fe0f42a06b5d4acb88a3e5cd537566384aa616caf1957e229ee",
+  "groups": [
+    {
+      "dataset": "mitbih-s16le",
+      "config": "before",
+      "rows": [
+        {
+          "decode_ms": 9.001900000000001,
+          "encode_ms": 10.6641,
+          "output_bytes": 1251787,
+          "output_xxh64": 6082260096057889493,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 7172,
+            "sample_zstd_bytes": 12681,
+            "selection_ms": 3.9560999999999997,
+            "stage": 4
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 8.56,
+          "encode_ms": 7.6546,
+          "output_bytes": 1251787,
+          "output_xxh64": 6082260096057889493,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 7172,
+            "sample_zstd_bytes": 12681,
+            "selection_ms": 2.8789000000000002,
+            "stage": 4
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 9.489600000000001,
+          "encode_ms": 7.5522,
+          "output_bytes": 1251787,
+          "output_xxh64": 6082260096057889493,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 7172,
+            "sample_zstd_bytes": 12681,
+            "selection_ms": 2.848,
+            "stage": 4
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 9.7088,
+          "encode_ms": 7.591600000000001,
+          "output_bytes": 1251787,
+          "output_xxh64": 6082260096057889493,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 7172,
+            "sample_zstd_bytes": 12681,
+            "selection_ms": 2.3487999999999998,
+            "stage": 4
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 8.113,
+          "encode_ms": 7.1457999999999995,
+          "output_bytes": 1251787,
+          "output_xxh64": 6082260096057889493,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 7172,
+            "sample_zstd_bytes": 12681,
+            "selection_ms": 1.9266,
+            "stage": 4
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.4590000000000005,
+          "encode_ms": 8.7633,
+          "output_bytes": 1251787,
+          "output_xxh64": 6082260096057889493,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 7172,
+            "sample_zstd_bytes": 12681,
+            "selection_ms": 2.9107,
+            "stage": 4
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 9.002899999999999,
+          "encode_ms": 8.586500000000001,
+          "output_bytes": 1251787,
+          "output_xxh64": 6082260096057889493,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 7172,
+            "sample_zstd_bytes": 12681,
+            "selection_ms": 2.7756,
+            "stage": 4
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "enwik8-16MiB",
+      "config": "after",
+      "rows": [
+        {
+          "decode_ms": 33.845800000000004,
+          "encode_ms": 55.1387,
+          "output_bytes": 5998120,
+          "output_xxh64": 17620851715006562317,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 0.0,
+              "entropy_worker_ms": 0.0,
+              "framing_ms": 0.0,
+              "transform_worker_ms": 0.0
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 23464,
+            "sample_zstd_bytes": 11251,
+            "selection_ms": 2.2407,
+            "stage": 3
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 33.0118,
+          "encode_ms": 53.116,
+          "output_bytes": 5998120,
+          "output_xxh64": 17620851715006562317,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 0.0,
+              "entropy_worker_ms": 0.0,
+              "framing_ms": 0.0,
+              "transform_worker_ms": 0.0
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 23464,
+            "sample_zstd_bytes": 11251,
+            "selection_ms": 1.7730000000000001,
+            "stage": 3
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 30.4701,
+          "encode_ms": 49.0367,
+          "output_bytes": 5998120,
+          "output_xxh64": 17620851715006562317,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 0.0,
+              "entropy_worker_ms": 0.0,
+              "framing_ms": 0.0,
+              "transform_worker_ms": 0.0
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 23464,
+            "sample_zstd_bytes": 11251,
+            "selection_ms": 2.1416999999999997,
+            "stage": 3
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 29.6722,
+          "encode_ms": 48.6593,
+          "output_bytes": 5998120,
+          "output_xxh64": 17620851715006562317,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 0.0,
+              "entropy_worker_ms": 0.0,
+              "framing_ms": 0.0,
+              "transform_worker_ms": 0.0
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 23464,
+            "sample_zstd_bytes": 11251,
+            "selection_ms": 1.9857999999999998,
+            "stage": 3
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 31.566200000000002,
+          "encode_ms": 49.484300000000005,
+          "output_bytes": 5998120,
+          "output_xxh64": 17620851715006562317,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 0.0,
+              "entropy_worker_ms": 0.0,
+              "framing_ms": 0.0,
+              "transform_worker_ms": 0.0
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 23464,
+            "sample_zstd_bytes": 11251,
+            "selection_ms": 1.8531000000000002,
+            "stage": 3
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 33.111200000000004,
+          "encode_ms": 53.125400000000006,
+          "output_bytes": 5998120,
+          "output_xxh64": 17620851715006562317,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 0.0,
+              "entropy_worker_ms": 0.0,
+              "framing_ms": 0.0,
+              "transform_worker_ms": 0.0
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 23464,
+            "sample_zstd_bytes": 11251,
+            "selection_ms": 1.9875,
+            "stage": 3
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 31.942400000000003,
+          "encode_ms": 51.803399999999996,
+          "output_bytes": 5998120,
+          "output_xxh64": 17620851715006562317,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 0.0,
+              "entropy_worker_ms": 0.0,
+              "framing_ms": 0.0,
+              "transform_worker_ms": 0.0
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 23464,
+            "sample_zstd_bytes": 11251,
+            "selection_ms": 1.9451,
+            "stage": 3
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "raw-sensors-16MiB",
+      "config": "before",
+      "rows": [
+        {
+          "decode_ms": 21.8461,
+          "encode_ms": 26.274700000000003,
+          "output_bytes": 4181435,
+          "output_xxh64": 12593809422538383769,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16845,
+            "selection_ms": 3.4353000000000002,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 24.0971,
+          "encode_ms": 27.3949,
+          "output_bytes": 4181435,
+          "output_xxh64": 12593809422538383769,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16845,
+            "selection_ms": 3.3108,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 22.459500000000002,
+          "encode_ms": 24.316000000000003,
+          "output_bytes": 4181435,
+          "output_xxh64": 12593809422538383769,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16845,
+            "selection_ms": 2.6354,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 25.279,
+          "encode_ms": 26.884999999999998,
+          "output_bytes": 4181435,
+          "output_xxh64": 12593809422538383769,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16845,
+            "selection_ms": 2.9926000000000004,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 22.352,
+          "encode_ms": 27.5544,
+          "output_bytes": 4181435,
+          "output_xxh64": 12593809422538383769,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16845,
+            "selection_ms": 3.069,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 22.786,
+          "encode_ms": 23.7528,
+          "output_bytes": 4181435,
+          "output_xxh64": 12593809422538383769,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16845,
+            "selection_ms": 2.3417,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 21.831500000000002,
+          "encode_ms": 23.3307,
+          "output_bytes": 4181435,
+          "output_xxh64": 12593809422538383769,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16845,
+            "selection_ms": 2.2686,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "mitbih-original-212",
+      "config": "original",
+      "rows": [
+        {
+          "decode_ms": 1.0804,
+          "encode_ms": 6.6259,
+          "output_bytes": 3900026,
+          "output_xxh64": 10345060205241822988,
+          "plan": null,
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.1604,
+          "encode_ms": 6.3790000000000004,
+          "output_bytes": 3900026,
+          "output_xxh64": 10345060205241822988,
+          "plan": null,
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.0894,
+          "encode_ms": 6.7538,
+          "output_bytes": 3900026,
+          "output_xxh64": 10345060205241822988,
+          "plan": null,
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.0981,
+          "encode_ms": 6.100099999999999,
+          "output_bytes": 3900026,
+          "output_xxh64": 10345060205241822988,
+          "plan": null,
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.0141,
+          "encode_ms": 6.3597,
+          "output_bytes": 3900026,
+          "output_xxh64": 10345060205241822988,
+          "plan": null,
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.0924,
+          "encode_ms": 6.1484,
+          "output_bytes": 3900026,
+          "output_xxh64": 10345060205241822988,
+          "plan": null,
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.1147,
+          "encode_ms": 7.689299999999999,
+          "output_bytes": 3900026,
+          "output_xxh64": 10345060205241822988,
+          "plan": null,
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "independent-noise-16MiB",
+      "config": "original",
+      "rows": [
+        {
+          "decode_ms": 4.1246,
+          "encode_ms": 22.2387,
+          "output_bytes": 16777242,
+          "output_xxh64": 9576700988805831005,
+          "plan": null,
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.4308000000000005,
+          "encode_ms": 20.5962,
+          "output_bytes": 16777242,
+          "output_xxh64": 9576700988805831005,
+          "plan": null,
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.443,
+          "encode_ms": 21.8429,
+          "output_bytes": 16777242,
+          "output_xxh64": 9576700988805831005,
+          "plan": null,
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.5496,
+          "encode_ms": 22.7668,
+          "output_bytes": 16777242,
+          "output_xxh64": 9576700988805831005,
+          "plan": null,
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.596699999999999,
+          "encode_ms": 23.1231,
+          "output_bytes": 16777242,
+          "output_xxh64": 9576700988805831005,
+          "plan": null,
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.3587,
+          "encode_ms": 21.001700000000003,
+          "output_bytes": 16777242,
+          "output_xxh64": 9576700988805831005,
+          "plan": null,
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.0867,
+          "encode_ms": 20.4891,
+          "output_bytes": 16777242,
+          "output_xxh64": 9576700988805831005,
+          "plan": null,
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "synthetic-f64be-3ch",
+      "config": "original",
+      "rows": [
+        {
+          "decode_ms": 0.5529000000000001,
+          "encode_ms": 4.6122000000000005,
+          "output_bytes": 2097178,
+          "output_xxh64": 12391561858946044613,
+          "plan": null,
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 0.5310999999999999,
+          "encode_ms": 4.428999999999999,
+          "output_bytes": 2097178,
+          "output_xxh64": 12391561858946044613,
+          "plan": null,
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 0.4946,
+          "encode_ms": 3.6706,
+          "output_bytes": 2097178,
+          "output_xxh64": 12391561858946044613,
+          "plan": null,
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 0.501,
+          "encode_ms": 3.709,
+          "output_bytes": 2097178,
+          "output_xxh64": 12391561858946044613,
+          "plan": null,
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 0.5305000000000001,
+          "encode_ms": 4.2347,
+          "output_bytes": 2097178,
+          "output_xxh64": 12391561858946044613,
+          "plan": null,
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 0.5014000000000001,
+          "encode_ms": 4.2806,
+          "output_bytes": 2097178,
+          "output_xxh64": 12391561858946044613,
+          "plan": null,
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 0.49700000000000005,
+          "encode_ms": 3.8325,
+          "output_bytes": 2097178,
+          "output_xxh64": 12391561858946044613,
+          "plan": null,
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "terrain-hgt-be",
+      "config": "after",
+      "rows": [
+        {
+          "decode_ms": 34.6478,
+          "encode_ms": 19.5367,
+          "output_bytes": 5672840,
+          "output_xxh64": 16946944181241094692,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 14.1032,
+              "entropy_worker_ms": 85.30890000000002,
+              "framing_ms": 3.2729999999999997,
+              "transform_worker_ms": 11.528600000000003
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11996,
+            "selection_ms": 1.9557,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 38.434799999999996,
+          "encode_ms": 20.878600000000002,
+          "output_bytes": 5672840,
+          "output_xxh64": 16946944181241094692,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 14.6673,
+              "entropy_worker_ms": 87.94669999999999,
+              "framing_ms": 3.4968999999999997,
+              "transform_worker_ms": 10.335200000000002
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11996,
+            "selection_ms": 2.2649,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 36.755,
+          "encode_ms": 18.8995,
+          "output_bytes": 5672840,
+          "output_xxh64": 16946944181241094692,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 13.3148,
+              "entropy_worker_ms": 76.1864,
+              "framing_ms": 3.6010999999999997,
+              "transform_worker_ms": 10.652699999999998
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11996,
+            "selection_ms": 1.6392,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 38.7536,
+          "encode_ms": 21.1273,
+          "output_bytes": 5672840,
+          "output_xxh64": 16946944181241094692,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 14.0296,
+              "entropy_worker_ms": 78.63759999999999,
+              "framing_ms": 4.7626,
+              "transform_worker_ms": 10.286599999999998
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11996,
+            "selection_ms": 2.1153,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 37.2669,
+          "encode_ms": 18.2412,
+          "output_bytes": 5672840,
+          "output_xxh64": 16946944181241094692,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 13.1895,
+              "entropy_worker_ms": 75.6568,
+              "framing_ms": 3.5282999999999998,
+              "transform_worker_ms": 9.9755
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11996,
+            "selection_ms": 1.1925,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 37.7585,
+          "encode_ms": 20.301199999999998,
+          "output_bytes": 5672840,
+          "output_xxh64": 16946944181241094692,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 13.230799999999999,
+              "entropy_worker_ms": 76.18039999999998,
+              "framing_ms": 4.7609,
+              "transform_worker_ms": 11.0628
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11996,
+            "selection_ms": 1.9276,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 37.7527,
+          "encode_ms": 18.856399999999997,
+          "output_bytes": 5672840,
+          "output_xxh64": 16946944181241094692,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 13.4457,
+              "entropy_worker_ms": 79.63730000000001,
+              "framing_ms": 3.5231,
+              "transform_worker_ms": 10.736699999999999
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11996,
+            "selection_ms": 1.6344,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "raw-sensors-64MiB",
+      "config": "after",
+      "rows": [
+        {
+          "decode_ms": 87.7035,
+          "encode_ms": 54.1387,
+          "output_bytes": 16725440,
+          "output_xxh64": 16241825557273593827,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 43.233000000000004,
+              "entropy_worker_ms": 296.54959999999994,
+              "framing_ms": 9.1105,
+              "transform_worker_ms": 25.7026
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16803,
+            "selection_ms": 1.7335,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 86.397,
+          "encode_ms": 57.7962,
+          "output_bytes": 16725440,
+          "output_xxh64": 16241825557273593827,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 45.698,
+              "entropy_worker_ms": 316.9417,
+              "framing_ms": 10.1943,
+              "transform_worker_ms": 26.390200000000007
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16803,
+            "selection_ms": 1.5451,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 85.325,
+          "encode_ms": 59.7964,
+          "output_bytes": 16725440,
+          "output_xxh64": 16241825557273593827,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 48.2984,
+              "entropy_worker_ms": 331.9043999999999,
+              "framing_ms": 9.9945,
+              "transform_worker_ms": 24.956599999999987
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16803,
+            "selection_ms": 1.2088999999999999,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 82.9638,
+          "encode_ms": 59.1352,
+          "output_bytes": 16725440,
+          "output_xxh64": 16241825557273593827,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 47.622499999999995,
+              "entropy_worker_ms": 322.07299999999987,
+              "framing_ms": 10.332600000000001,
+              "transform_worker_ms": 26.270900000000008
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16803,
+            "selection_ms": 1.1345,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 89.4002,
+          "encode_ms": 59.494699999999995,
+          "output_bytes": 16725440,
+          "output_xxh64": 16241825557273593827,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 46.7952,
+              "entropy_worker_ms": 322.82670000000013,
+              "framing_ms": 10.270700000000001,
+              "transform_worker_ms": 24.876499999999993
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16803,
+            "selection_ms": 2.2374,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 86.78030000000001,
+          "encode_ms": 58.8674,
+          "output_bytes": 16725440,
+          "output_xxh64": 16241825557273593827,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 47.4232,
+              "entropy_worker_ms": 322.4363,
+              "framing_ms": 10.331,
+              "transform_worker_ms": 25.829199999999997
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16803,
+            "selection_ms": 1.0745,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 80.0842,
+          "encode_ms": 57.212399999999995,
+          "output_bytes": 16725440,
+          "output_xxh64": 16241825557273593827,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 45.718300000000006,
+              "entropy_worker_ms": 314.4382,
+              "framing_ms": 9.8371,
+              "transform_worker_ms": 24.9053
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16803,
+            "selection_ms": 1.2692999999999999,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "synthetic-f64be-3ch",
+      "config": "after",
+      "rows": [
+        {
+          "decode_ms": 3.5507,
+          "encode_ms": 4.9573,
+          "output_bytes": 142620,
+          "output_xxh64": 8284629645492810548,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": true
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.7729,
+              "entropy_worker_ms": 2.8348,
+              "framing_ms": 0.2816,
+              "transform_worker_ms": 2.4993000000000003
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 14668,
+            "sample_zstd_bytes": 7271,
+            "selection_ms": 1.8611,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.6182,
+          "encode_ms": 3.9128000000000003,
+          "output_bytes": 142620,
+          "output_xxh64": 8284629645492810548,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": true
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.5818,
+              "entropy_worker_ms": 2.4853,
+              "framing_ms": 0.258,
+              "transform_worker_ms": 2.3771999999999998
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 14668,
+            "sample_zstd_bytes": 7271,
+            "selection_ms": 1.0445,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.9075,
+          "encode_ms": 4.4877,
+          "output_bytes": 142620,
+          "output_xxh64": 8284629645492810548,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": true
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.2463,
+              "entropy_worker_ms": 3.369,
+              "framing_ms": 0.2421,
+              "transform_worker_ms": 2.7803999999999998
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 14668,
+            "sample_zstd_bytes": 7271,
+            "selection_ms": 0.9726,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.7338,
+          "encode_ms": 4.1736,
+          "output_bytes": 142620,
+          "output_xxh64": 8284629645492810548,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": true
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.754,
+              "entropy_worker_ms": 2.6308999999999996,
+              "framing_ms": 0.22870000000000001,
+              "transform_worker_ms": 2.5822
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 14668,
+            "sample_zstd_bytes": 7271,
+            "selection_ms": 1.1597,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.883,
+          "encode_ms": 4.0801,
+          "output_bytes": 142620,
+          "output_xxh64": 8284629645492810548,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": true
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.8654,
+              "entropy_worker_ms": 2.7544,
+              "framing_ms": 0.2712,
+              "transform_worker_ms": 2.6994000000000002
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 14668,
+            "sample_zstd_bytes": 7271,
+            "selection_ms": 0.9058,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.4673,
+          "encode_ms": 3.9048,
+          "output_bytes": 142620,
+          "output_xxh64": 8284629645492810548,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": true
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.5791999999999997,
+              "entropy_worker_ms": 2.5479,
+              "framing_ms": 0.2684,
+              "transform_worker_ms": 2.4524
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 14668,
+            "sample_zstd_bytes": 7271,
+            "selection_ms": 1.0247,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.7548,
+          "encode_ms": 3.8945,
+          "output_bytes": 142620,
+          "output_xxh64": 8284629645492810548,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": true
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.6725999999999996,
+              "entropy_worker_ms": 2.6937000000000006,
+              "framing_ms": 0.2353,
+              "transform_worker_ms": 2.488
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 14668,
+            "sample_zstd_bytes": 7271,
+            "selection_ms": 0.9586,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "terrain-hgt-be",
+      "config": "before",
+      "rows": [
+        {
+          "decode_ms": 36.742,
+          "encode_ms": 30.4819,
+          "output_bytes": 5672840,
+          "output_xxh64": 16946944181241094692,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11996,
+            "selection_ms": 3.2462,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 35.8173,
+          "encode_ms": 36.9373,
+          "output_bytes": 5672840,
+          "output_xxh64": 16946944181241094692,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11996,
+            "selection_ms": 2.4072,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 35.98500000000001,
+          "encode_ms": 28.5017,
+          "output_bytes": 5672840,
+          "output_xxh64": 16946944181241094692,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11996,
+            "selection_ms": 2.8475,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 35.766,
+          "encode_ms": 28.0946,
+          "output_bytes": 5672840,
+          "output_xxh64": 16946944181241094692,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11996,
+            "selection_ms": 2.5547,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 35.8735,
+          "encode_ms": 26.7804,
+          "output_bytes": 5672840,
+          "output_xxh64": 16946944181241094692,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11996,
+            "selection_ms": 2.9059,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 35.4842,
+          "encode_ms": 29.731299999999997,
+          "output_bytes": 5672840,
+          "output_xxh64": 16946944181241094692,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11996,
+            "selection_ms": 2.4406,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 37.62,
+          "encode_ms": 30.3078,
+          "output_bytes": 5672840,
+          "output_xxh64": 16946944181241094692,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11996,
+            "selection_ms": 2.2642,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "synthetic-u64le-3ch",
+      "config": "after",
+      "rows": [
+        {
+          "decode_ms": 3.6046,
+          "encode_ms": 4.215199999999999,
+          "output_bytes": 103339,
+          "output_xxh64": 6913009705618785158,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.3365,
+              "entropy_worker_ms": 2.1416999999999997,
+              "framing_ms": 0.20359999999999998,
+              "transform_worker_ms": 2.3930000000000002
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 2628,
+            "sample_zstd_bytes": 4841,
+            "selection_ms": 1.6376,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.6118,
+          "encode_ms": 4.1013,
+          "output_bytes": 103339,
+          "output_xxh64": 6913009705618785158,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.8024,
+              "entropy_worker_ms": 2.3781000000000003,
+              "framing_ms": 0.2145,
+              "transform_worker_ms": 2.8701000000000003
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 2628,
+            "sample_zstd_bytes": 4841,
+            "selection_ms": 1.056,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.3622,
+          "encode_ms": 3.4102,
+          "output_bytes": 103339,
+          "output_xxh64": 6913009705618785158,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.3148,
+              "entropy_worker_ms": 1.9991999999999999,
+              "framing_ms": 0.17129999999999998,
+              "transform_worker_ms": 2.467
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 2628,
+            "sample_zstd_bytes": 4841,
+            "selection_ms": 0.8965000000000001,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.1944999999999997,
+          "encode_ms": 3.6551,
+          "output_bytes": 103339,
+          "output_xxh64": 6913009705618785158,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.4059,
+              "entropy_worker_ms": 2.052,
+              "framing_ms": 0.1492,
+              "transform_worker_ms": 2.3682999999999996
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 2628,
+            "sample_zstd_bytes": 4841,
+            "selection_ms": 1.0749,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.1505,
+          "encode_ms": 4.325,
+          "output_bytes": 103339,
+          "output_xxh64": 6913009705618785158,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.2663,
+              "entropy_worker_ms": 2.5559999999999996,
+              "framing_ms": 0.14100000000000001,
+              "transform_worker_ms": 2.6764
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 2628,
+            "sample_zstd_bytes": 4841,
+            "selection_ms": 0.8953,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.6285000000000003,
+          "encode_ms": 4.2766,
+          "output_bytes": 103339,
+          "output_xxh64": 6913009705618785158,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.8727,
+              "entropy_worker_ms": 2.6036,
+              "framing_ms": 0.2293,
+              "transform_worker_ms": 2.9323
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 2628,
+            "sample_zstd_bytes": 4841,
+            "selection_ms": 1.1357,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.8906,
+          "encode_ms": 3.9413,
+          "output_bytes": 103339,
+          "output_xxh64": 6913009705618785158,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.593,
+              "entropy_worker_ms": 2.1884,
+              "framing_ms": 0.23,
+              "transform_worker_ms": 2.7728
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 2628,
+            "sample_zstd_bytes": 4841,
+            "selection_ms": 1.0819,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "mitbih-s16le",
+      "config": "original",
+      "rows": [
+        {
+          "decode_ms": 3.5141999999999998,
+          "encode_ms": 4.6088,
+          "output_bytes": 1485120,
+          "output_xxh64": 381325202263280946,
+          "plan": null,
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.9503999999999997,
+          "encode_ms": 4.4375,
+          "output_bytes": 1485120,
+          "output_xxh64": 381325202263280946,
+          "plan": null,
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.5337,
+          "encode_ms": 3.9076,
+          "output_bytes": 1485120,
+          "output_xxh64": 381325202263280946,
+          "plan": null,
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.5586,
+          "encode_ms": 3.7632999999999996,
+          "output_bytes": 1485120,
+          "output_xxh64": 381325202263280946,
+          "plan": null,
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.589,
+          "encode_ms": 5.3436,
+          "output_bytes": 1485120,
+          "output_xxh64": 381325202263280946,
+          "plan": null,
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.5277,
+          "encode_ms": 4.063,
+          "output_bytes": 1485120,
+          "output_xxh64": 381325202263280946,
+          "plan": null,
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.5229,
+          "encode_ms": 4.01,
+          "output_bytes": 1485120,
+          "output_xxh64": 381325202263280946,
+          "plan": null,
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "raw-sensors-1MiB",
+      "config": "original",
+      "rows": [
+        {
+          "decode_ms": 1.649,
+          "encode_ms": 2.4436,
+          "output_bytes": 279574,
+          "output_xxh64": 9581068929345963958,
+          "plan": null,
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.6801,
+          "encode_ms": 2.4927,
+          "output_bytes": 279574,
+          "output_xxh64": 9581068929345963958,
+          "plan": null,
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.6711,
+          "encode_ms": 2.5526,
+          "output_bytes": 279574,
+          "output_xxh64": 9581068929345963958,
+          "plan": null,
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.7861,
+          "encode_ms": 2.6561000000000003,
+          "output_bytes": 279574,
+          "output_xxh64": 9581068929345963958,
+          "plan": null,
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.8565,
+          "encode_ms": 2.2514000000000003,
+          "output_bytes": 279574,
+          "output_xxh64": 9581068929345963958,
+          "plan": null,
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.7126000000000001,
+          "encode_ms": 2.6689000000000003,
+          "output_bytes": 279574,
+          "output_xxh64": 9581068929345963958,
+          "plan": null,
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.7476,
+          "encode_ms": 2.419,
+          "output_bytes": 279574,
+          "output_xxh64": 9581068929345963958,
+          "plan": null,
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "ptb-12lead-original",
+      "config": "before",
+      "rows": [
+        {
+          "decode_ms": 4.6873000000000005,
+          "encode_ms": 7.5949,
+          "output_bytes": 373342,
+          "output_xxh64": 16706627806917144244,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 12,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 10952,
+            "sample_zstd_bytes": 18843,
+            "selection_ms": 3.5572,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.4399,
+          "encode_ms": 5.8374999999999995,
+          "output_bytes": 373342,
+          "output_xxh64": 16706627806917144244,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 12,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 10952,
+            "sample_zstd_bytes": 18843,
+            "selection_ms": 2.4193000000000002,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.3417,
+          "encode_ms": 6.2409,
+          "output_bytes": 373342,
+          "output_xxh64": 16706627806917144244,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 12,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 10952,
+            "sample_zstd_bytes": 18843,
+            "selection_ms": 2.4298,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.7109,
+          "encode_ms": 6.8306000000000004,
+          "output_bytes": 373342,
+          "output_xxh64": 16706627806917144244,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 12,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 10952,
+            "sample_zstd_bytes": 18843,
+            "selection_ms": 2.8611999999999997,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.033,
+          "encode_ms": 6.2188,
+          "output_bytes": 373342,
+          "output_xxh64": 16706627806917144244,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 12,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 10952,
+            "sample_zstd_bytes": 18843,
+            "selection_ms": 2.4892,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.7445,
+          "encode_ms": 5.403,
+          "output_bytes": 373342,
+          "output_xxh64": 16706627806917144244,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 12,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 10952,
+            "sample_zstd_bytes": 18843,
+            "selection_ms": 1.8240999999999998,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.7747,
+          "encode_ms": 5.7242,
+          "output_bytes": 373342,
+          "output_xxh64": 16706627806917144244,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 12,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 10952,
+            "sample_zstd_bytes": 18843,
+            "selection_ms": 2.2706,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "synthetic-f64be-3ch",
+      "config": "before",
+      "rows": [
+        {
+          "decode_ms": 4.0382,
+          "encode_ms": 6.7321,
+          "output_bytes": 142620,
+          "output_xxh64": 8284629645492810548,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": true
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 14668,
+            "sample_zstd_bytes": 7271,
+            "selection_ms": 3.0039,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.6797,
+          "encode_ms": 6.1933,
+          "output_bytes": 142620,
+          "output_xxh64": 8284629645492810548,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": true
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 14668,
+            "sample_zstd_bytes": 7271,
+            "selection_ms": 2.6626000000000003,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.2824,
+          "encode_ms": 5.7804,
+          "output_bytes": 142620,
+          "output_xxh64": 8284629645492810548,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": true
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 14668,
+            "sample_zstd_bytes": 7271,
+            "selection_ms": 2.5071,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.4771,
+          "encode_ms": 5.8176,
+          "output_bytes": 142620,
+          "output_xxh64": 8284629645492810548,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": true
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 14668,
+            "sample_zstd_bytes": 7271,
+            "selection_ms": 2.1407000000000003,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.8289999999999997,
+          "encode_ms": 5.517799999999999,
+          "output_bytes": 142620,
+          "output_xxh64": 8284629645492810548,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": true
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 14668,
+            "sample_zstd_bytes": 7271,
+            "selection_ms": 1.7714,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.4983000000000004,
+          "encode_ms": 5.2444,
+          "output_bytes": 142620,
+          "output_xxh64": 8284629645492810548,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": true
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 14668,
+            "sample_zstd_bytes": 7271,
+            "selection_ms": 2.2569,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.1769,
+          "encode_ms": 5.5888,
+          "output_bytes": 142620,
+          "output_xxh64": 8284629645492810548,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": true
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 14668,
+            "sample_zstd_bytes": 7271,
+            "selection_ms": 2.3057,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "terrain-hgt-be",
+      "config": "original",
+      "rows": [
+        {
+          "decode_ms": 17.833000000000002,
+          "encode_ms": 23.907799999999998,
+          "output_bytes": 18945820,
+          "output_xxh64": 17134371717595403672,
+          "plan": null,
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 16.420299999999997,
+          "encode_ms": 24.2455,
+          "output_bytes": 18945820,
+          "output_xxh64": 17134371717595403672,
+          "plan": null,
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 16.8696,
+          "encode_ms": 23.891,
+          "output_bytes": 18945820,
+          "output_xxh64": 17134371717595403672,
+          "plan": null,
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 16.760299999999997,
+          "encode_ms": 22.729,
+          "output_bytes": 18945820,
+          "output_xxh64": 17134371717595403672,
+          "plan": null,
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 17.278000000000002,
+          "encode_ms": 24.829,
+          "output_bytes": 18945820,
+          "output_xxh64": 17134371717595403672,
+          "plan": null,
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 17.0369,
+          "encode_ms": 24.3544,
+          "output_bytes": 18945820,
+          "output_xxh64": 17134371717595403672,
+          "plan": null,
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 17.7242,
+          "encode_ms": 24.580000000000002,
+          "output_bytes": 18945820,
+          "output_xxh64": 17134371717595403672,
+          "plan": null,
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "raw-sensors-64MiB",
+      "config": "before",
+      "rows": [
+        {
+          "decode_ms": 82.9688,
+          "encode_ms": 88.7718,
+          "output_bytes": 16725440,
+          "output_xxh64": 16241825557273593827,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16803,
+            "selection_ms": 3.2725,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 84.9406,
+          "encode_ms": 83.39320000000001,
+          "output_bytes": 16725440,
+          "output_xxh64": 16241825557273593827,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16803,
+            "selection_ms": 3.0389000000000004,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 83.5165,
+          "encode_ms": 85.35130000000001,
+          "output_bytes": 16725440,
+          "output_xxh64": 16241825557273593827,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16803,
+            "selection_ms": 2.5808,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 84.87939999999999,
+          "encode_ms": 83.095,
+          "output_bytes": 16725440,
+          "output_xxh64": 16241825557273593827,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16803,
+            "selection_ms": 2.6849,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 81.1963,
+          "encode_ms": 82.934,
+          "output_bytes": 16725440,
+          "output_xxh64": 16241825557273593827,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16803,
+            "selection_ms": 2.4534000000000002,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 80.8583,
+          "encode_ms": 81.2759,
+          "output_bytes": 16725440,
+          "output_xxh64": 16241825557273593827,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16803,
+            "selection_ms": 1.6283999999999998,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 85.73949999999999,
+          "encode_ms": 75.4401,
+          "output_bytes": 16725440,
+          "output_xxh64": 16241825557273593827,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16803,
+            "selection_ms": 1.8771,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "ptb-12lead-original",
+      "config": "after",
+      "rows": [
+        {
+          "decode_ms": 3.9893000000000005,
+          "encode_ms": 4.293,
+          "output_bytes": 373342,
+          "output_xxh64": 16706627806917144244,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 12,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 1.9570999999999998,
+              "entropy_worker_ms": 1.6675,
+              "framing_ms": 0.1429,
+              "transform_worker_ms": 0.2816
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 10952,
+            "sample_zstd_bytes": 18843,
+            "selection_ms": 2.1454999999999997,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.1253,
+          "encode_ms": 3.9782999999999995,
+          "output_bytes": 373342,
+          "output_xxh64": 16706627806917144244,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 12,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.5265999999999997,
+              "entropy_worker_ms": 2.1734,
+              "framing_ms": 0.18660000000000002,
+              "transform_worker_ms": 0.2791
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 10952,
+            "sample_zstd_bytes": 18843,
+            "selection_ms": 1.2385,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.6806,
+          "encode_ms": 3.8693999999999997,
+          "output_bytes": 373342,
+          "output_xxh64": 16706627806917144244,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 12,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.1054,
+              "entropy_worker_ms": 1.7505000000000002,
+              "framing_ms": 0.18139999999999998,
+              "transform_worker_ms": 0.2836
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 10952,
+            "sample_zstd_bytes": 18843,
+            "selection_ms": 1.2041,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.0351,
+          "encode_ms": 3.633,
+          "output_bytes": 373342,
+          "output_xxh64": 16706627806917144244,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 12,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.1779,
+              "entropy_worker_ms": 1.8275,
+              "framing_ms": 0.1772,
+              "transform_worker_ms": 0.2778
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 10952,
+            "sample_zstd_bytes": 18843,
+            "selection_ms": 1.2488,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.93,
+          "encode_ms": 3.0845,
+          "output_bytes": 373342,
+          "output_xxh64": 16706627806917144244,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 12,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 1.9891,
+              "entropy_worker_ms": 1.7395,
+              "framing_ms": 0.1305,
+              "transform_worker_ms": 0.24689999999999998
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 10952,
+            "sample_zstd_bytes": 18843,
+            "selection_ms": 0.9394,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.5525,
+          "encode_ms": 3.0844,
+          "output_bytes": 373342,
+          "output_xxh64": 16706627806917144244,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 12,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.0403000000000002,
+              "entropy_worker_ms": 1.6964000000000001,
+              "framing_ms": 0.1913,
+              "transform_worker_ms": 0.26899999999999996
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 10952,
+            "sample_zstd_bytes": 18843,
+            "selection_ms": 0.8272,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.9201,
+          "encode_ms": 3.5042,
+          "output_bytes": 373342,
+          "output_xxh64": 16706627806917144244,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 12,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.1325,
+              "entropy_worker_ms": 1.8402,
+              "framing_ms": 0.2682,
+              "transform_worker_ms": 0.2893
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 10952,
+            "sample_zstd_bytes": 18843,
+            "selection_ms": 1.0677,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "raw-sensors-64MiB",
+      "config": "original",
+      "rows": [
+        {
+          "decode_ms": 38.8265,
+          "encode_ms": 40.1558,
+          "output_bytes": 17891694,
+          "output_xxh64": 13918386902616463007,
+          "plan": null,
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 38.5946,
+          "encode_ms": 39.5553,
+          "output_bytes": 17891694,
+          "output_xxh64": 13918386902616463007,
+          "plan": null,
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 39.5853,
+          "encode_ms": 40.0621,
+          "output_bytes": 17891694,
+          "output_xxh64": 13918386902616463007,
+          "plan": null,
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 39.3121,
+          "encode_ms": 40.7787,
+          "output_bytes": 17891694,
+          "output_xxh64": 13918386902616463007,
+          "plan": null,
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 38.9522,
+          "encode_ms": 40.6584,
+          "output_bytes": 17891694,
+          "output_xxh64": 13918386902616463007,
+          "plan": null,
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 41.4544,
+          "encode_ms": 43.7923,
+          "output_bytes": 17891694,
+          "output_xxh64": 13918386902616463007,
+          "plan": null,
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 38.3476,
+          "encode_ms": 43.021499999999996,
+          "output_bytes": 17891694,
+          "output_xxh64": 13918386902616463007,
+          "plan": null,
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "synthetic-u32be-12ch",
+      "config": "before",
+      "rows": [
+        {
+          "decode_ms": 2.9116,
+          "encode_ms": 5.5011,
+          "output_bytes": 187120,
+          "output_xxh64": 11254484283377764732,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 12,
+              "width": 4,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 3600,
+            "sample_zstd_bytes": 19096,
+            "selection_ms": 2.9379,
+            "stage": 4
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 2.9417,
+          "encode_ms": 4.0012,
+          "output_bytes": 187120,
+          "output_xxh64": 11254484283377764732,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 12,
+              "width": 4,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 3600,
+            "sample_zstd_bytes": 19096,
+            "selection_ms": 1.5039,
+            "stage": 4
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.383,
+          "encode_ms": 3.9449000000000005,
+          "output_bytes": 187120,
+          "output_xxh64": 11254484283377764732,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 12,
+              "width": 4,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 3600,
+            "sample_zstd_bytes": 19096,
+            "selection_ms": 1.4903,
+            "stage": 4
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 2.8005,
+          "encode_ms": 4.9496,
+          "output_bytes": 187120,
+          "output_xxh64": 11254484283377764732,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 12,
+              "width": 4,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 3600,
+            "sample_zstd_bytes": 19096,
+            "selection_ms": 2.2274,
+            "stage": 4
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 2.8423,
+          "encode_ms": 4.4825,
+          "output_bytes": 187120,
+          "output_xxh64": 11254484283377764732,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 12,
+              "width": 4,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 3600,
+            "sample_zstd_bytes": 19096,
+            "selection_ms": 1.9719,
+            "stage": 4
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 2.7971,
+          "encode_ms": 4.3867,
+          "output_bytes": 187120,
+          "output_xxh64": 11254484283377764732,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 12,
+              "width": 4,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 3600,
+            "sample_zstd_bytes": 19096,
+            "selection_ms": 2.058,
+            "stage": 4
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.3786,
+          "encode_ms": 4.3922,
+          "output_bytes": 187120,
+          "output_xxh64": 11254484283377764732,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 12,
+              "width": 4,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 3600,
+            "sample_zstd_bytes": 19096,
+            "selection_ms": 1.5782,
+            "stage": 4
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "raw-sensors-16MiB",
+      "config": "original",
+      "rows": [
+        {
+          "decode_ms": 9.772499999999999,
+          "encode_ms": 11.953999999999999,
+          "output_bytes": 4472942,
+          "output_xxh64": 1086140914197943796,
+          "plan": null,
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 12.4911,
+          "encode_ms": 11.4275,
+          "output_bytes": 4472942,
+          "output_xxh64": 1086140914197943796,
+          "plan": null,
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 10.847000000000001,
+          "encode_ms": 11.0085,
+          "output_bytes": 4472942,
+          "output_xxh64": 1086140914197943796,
+          "plan": null,
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 10.288200000000002,
+          "encode_ms": 11.9703,
+          "output_bytes": 4472942,
+          "output_xxh64": 1086140914197943796,
+          "plan": null,
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 11.7776,
+          "encode_ms": 11.274799999999999,
+          "output_bytes": 4472942,
+          "output_xxh64": 1086140914197943796,
+          "plan": null,
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 11.9887,
+          "encode_ms": 10.8993,
+          "output_bytes": 4472942,
+          "output_xxh64": 1086140914197943796,
+          "plan": null,
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 10.370000000000001,
+          "encode_ms": 11.7766,
+          "output_bytes": 4472942,
+          "output_xxh64": 1086140914197943796,
+          "plan": null,
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "synthetic-u32be-12ch",
+      "config": "original",
+      "rows": [
+        {
+          "decode_ms": 0.5435,
+          "encode_ms": 4.2024,
+          "output_bytes": 2097178,
+          "output_xxh64": 12329046319222349449,
+          "plan": null,
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 0.5253,
+          "encode_ms": 4.213299999999999,
+          "output_bytes": 2097178,
+          "output_xxh64": 12329046319222349449,
+          "plan": null,
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 0.536,
+          "encode_ms": 4.3293,
+          "output_bytes": 2097178,
+          "output_xxh64": 12329046319222349449,
+          "plan": null,
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 0.5540999999999999,
+          "encode_ms": 4.3304,
+          "output_bytes": 2097178,
+          "output_xxh64": 12329046319222349449,
+          "plan": null,
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 0.5199,
+          "encode_ms": 4.142200000000001,
+          "output_bytes": 2097178,
+          "output_xxh64": 12329046319222349449,
+          "plan": null,
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 0.6742,
+          "encode_ms": 4.2753000000000005,
+          "output_bytes": 2097178,
+          "output_xxh64": 12329046319222349449,
+          "plan": null,
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 0.8159000000000001,
+          "encode_ms": 4.1328,
+          "output_bytes": 2097178,
+          "output_xxh64": 12329046319222349449,
+          "plan": null,
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "synthetic-u32be-12ch",
+      "config": "after",
+      "rows": [
+        {
+          "decode_ms": 3.0627,
+          "encode_ms": 4.3933,
+          "output_bytes": 187120,
+          "output_xxh64": 11254484283377764732,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 12,
+              "width": 4,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.1753,
+              "entropy_worker_ms": 1.0758,
+              "framing_ms": 0.24860000000000002,
+              "transform_worker_ms": 2.9071
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 3600,
+            "sample_zstd_bytes": 19096,
+            "selection_ms": 1.9189999999999998,
+            "stage": 4
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 2.8882,
+          "encode_ms": 3.4202,
+          "output_bytes": 187120,
+          "output_xxh64": 11254484283377764732,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 12,
+              "width": 4,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 1.9481,
+              "entropy_worker_ms": 0.9439000000000001,
+              "framing_ms": 0.1858,
+              "transform_worker_ms": 2.9348000000000005
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 3600,
+            "sample_zstd_bytes": 19096,
+            "selection_ms": 1.0485,
+            "stage": 4
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.2769,
+          "encode_ms": 3.3476,
+          "output_bytes": 187120,
+          "output_xxh64": 11254484283377764732,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 12,
+              "width": 4,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 1.9712000000000003,
+              "entropy_worker_ms": 0.8486,
+              "framing_ms": 0.1556,
+              "transform_worker_ms": 2.9837
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 3600,
+            "sample_zstd_bytes": 19096,
+            "selection_ms": 0.8719,
+            "stage": 4
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 2.8756,
+          "encode_ms": 3.1826,
+          "output_bytes": 187120,
+          "output_xxh64": 11254484283377764732,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 12,
+              "width": 4,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 1.9662999999999997,
+              "entropy_worker_ms": 0.8066,
+              "framing_ms": 0.1626,
+              "transform_worker_ms": 2.7801
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 3600,
+            "sample_zstd_bytes": 19096,
+            "selection_ms": 0.8228000000000001,
+            "stage": 4
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.4158,
+          "encode_ms": 3.3424,
+          "output_bytes": 187120,
+          "output_xxh64": 11254484283377764732,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 12,
+              "width": 4,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.1725999999999996,
+              "entropy_worker_ms": 1.0039,
+              "framing_ms": 0.18789999999999998,
+              "transform_worker_ms": 3.1014999999999997
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 3600,
+            "sample_zstd_bytes": 19096,
+            "selection_ms": 0.9308,
+            "stage": 4
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 2.8954,
+          "encode_ms": 3.1708000000000003,
+          "output_bytes": 187120,
+          "output_xxh64": 11254484283377764732,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 12,
+              "width": 4,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.1167,
+              "entropy_worker_ms": 0.7809,
+              "framing_ms": 0.1598,
+              "transform_worker_ms": 3.1361
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 3600,
+            "sample_zstd_bytes": 19096,
+            "selection_ms": 0.8691,
+            "stage": 4
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 2.7896,
+          "encode_ms": 6.2118,
+          "output_bytes": 187120,
+          "output_xxh64": 11254484283377764732,
+          "plan": {
+            "layout": {
+              "big_endian": true,
+              "stride": 12,
+              "width": 4,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 5.1732000000000005,
+              "entropy_worker_ms": 0.7263,
+              "framing_ms": 0.18939999999999999,
+              "transform_worker_ms": 6.5317
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 3600,
+            "sample_zstd_bytes": 19096,
+            "selection_ms": 0.8245,
+            "stage": 4
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "mitbih-s16le",
+      "config": "after",
+      "rows": [
+        {
+          "decode_ms": 7.3094,
+          "encode_ms": 5.7082,
+          "output_bytes": 1251787,
+          "output_xxh64": 6082260096057889493,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.1512,
+              "entropy_worker_ms": 3.9010000000000007,
+              "framing_ms": 0.8248,
+              "transform_worker_ms": 9.7686
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 7172,
+            "sample_zstd_bytes": 12681,
+            "selection_ms": 1.6921,
+            "stage": 4
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.8139,
+          "encode_ms": 5.0705,
+          "output_bytes": 1251787,
+          "output_xxh64": 6082260096057889493,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.5462000000000002,
+              "entropy_worker_ms": 2.8096,
+              "framing_ms": 1.0634,
+              "transform_worker_ms": 8.8833
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 7172,
+            "sample_zstd_bytes": 12681,
+            "selection_ms": 1.435,
+            "stage": 4
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.3378000000000005,
+          "encode_ms": 6.391100000000001,
+          "output_bytes": 1251787,
+          "output_xxh64": 6082260096057889493,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.7391,
+              "entropy_worker_ms": 2.9696999999999996,
+              "framing_ms": 0.8015,
+              "transform_worker_ms": 11.819700000000001
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 7172,
+            "sample_zstd_bytes": 12681,
+            "selection_ms": 1.8195999999999999,
+            "stage": 4
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.1316,
+          "encode_ms": 4.4165,
+          "output_bytes": 1251787,
+          "output_xxh64": 6082260096057889493,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.487,
+              "entropy_worker_ms": 2.4113,
+              "framing_ms": 0.7615999999999999,
+              "transform_worker_ms": 8.838899999999999
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 7172,
+            "sample_zstd_bytes": 12681,
+            "selection_ms": 1.1435,
+            "stage": 4
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 8.4633,
+          "encode_ms": 4.6324,
+          "output_bytes": 1251787,
+          "output_xxh64": 6082260096057889493,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.7563,
+              "entropy_worker_ms": 2.5019,
+              "framing_ms": 0.7816000000000001,
+              "transform_worker_ms": 9.8191
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 7172,
+            "sample_zstd_bytes": 12681,
+            "selection_ms": 1.0686,
+            "stage": 4
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.0804,
+          "encode_ms": 4.7462,
+          "output_bytes": 1251787,
+          "output_xxh64": 6082260096057889493,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.7018,
+              "entropy_worker_ms": 2.2962,
+              "framing_ms": 0.8197,
+              "transform_worker_ms": 9.7762
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 7172,
+            "sample_zstd_bytes": 12681,
+            "selection_ms": 1.1992,
+            "stage": 4
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.5942,
+          "encode_ms": 4.2042,
+          "output_bytes": 1251787,
+          "output_xxh64": 6082260096057889493,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 2.4297,
+              "entropy_worker_ms": 2.2544,
+              "framing_ms": 0.723,
+              "transform_worker_ms": 9.0165
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 7172,
+            "sample_zstd_bytes": 12681,
+            "selection_ms": 1.0273,
+            "stage": 4
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "synthetic-u64le-3ch",
+      "config": "before",
+      "rows": [
+        {
+          "decode_ms": 3.8687,
+          "encode_ms": 5.8071,
+          "output_bytes": 103339,
+          "output_xxh64": 6913009705618785158,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 2628,
+            "sample_zstd_bytes": 4841,
+            "selection_ms": 2.748,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.3113,
+          "encode_ms": 4.693700000000001,
+          "output_bytes": 103339,
+          "output_xxh64": 6913009705618785158,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 2628,
+            "sample_zstd_bytes": 4841,
+            "selection_ms": 1.6363,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.3952999999999998,
+          "encode_ms": 4.8483,
+          "output_bytes": 103339,
+          "output_xxh64": 6913009705618785158,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 2628,
+            "sample_zstd_bytes": 4841,
+            "selection_ms": 2.1209000000000002,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.035,
+          "encode_ms": 5.1343,
+          "output_bytes": 103339,
+          "output_xxh64": 6913009705618785158,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 2628,
+            "sample_zstd_bytes": 4841,
+            "selection_ms": 2.1404,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.5547,
+          "encode_ms": 4.1433,
+          "output_bytes": 103339,
+          "output_xxh64": 6913009705618785158,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 2628,
+            "sample_zstd_bytes": 4841,
+            "selection_ms": 1.324,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.2242,
+          "encode_ms": 4.947,
+          "output_bytes": 103339,
+          "output_xxh64": 6913009705618785158,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 2628,
+            "sample_zstd_bytes": 4841,
+            "selection_ms": 2.1216,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.6566,
+          "encode_ms": 4.7717,
+          "output_bytes": 103339,
+          "output_xxh64": 6913009705618785158,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 3,
+              "width": 8,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 2628,
+            "sample_zstd_bytes": 4841,
+            "selection_ms": 2.0121,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "raw-sensors-16MiB",
+      "config": "after",
+      "rows": [
+        {
+          "decode_ms": 21.981299999999997,
+          "encode_ms": 19.031,
+          "output_bytes": 4181435,
+          "output_xxh64": 12593809422538383769,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 14.6341,
+              "entropy_worker_ms": 92.09169999999999,
+              "framing_ms": 2.3148999999999997,
+              "transform_worker_ms": 7.997299999999999
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16845,
+            "selection_ms": 2.0309999999999997,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 21.3122,
+          "encode_ms": 17.8289,
+          "output_bytes": 4181435,
+          "output_xxh64": 12593809422538383769,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 13.2643,
+              "entropy_worker_ms": 74.60609999999998,
+              "framing_ms": 2.6313999999999997,
+              "transform_worker_ms": 6.6934
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16845,
+            "selection_ms": 1.8908,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 21.288999999999998,
+          "encode_ms": 17.786099999999998,
+          "output_bytes": 4181435,
+          "output_xxh64": 12593809422538383769,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 13.6627,
+              "entropy_worker_ms": 84.50820000000002,
+              "framing_ms": 2.521,
+              "transform_worker_ms": 7.185599999999999
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16845,
+            "selection_ms": 1.55,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 21.2555,
+          "encode_ms": 19.0509,
+          "output_bytes": 4181435,
+          "output_xxh64": 12593809422538383769,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 14.9189,
+              "entropy_worker_ms": 74.55649999999999,
+              "framing_ms": 2.5111,
+              "transform_worker_ms": 7.6919
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16845,
+            "selection_ms": 1.5766,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 21.842,
+          "encode_ms": 17.7725,
+          "output_bytes": 4181435,
+          "output_xxh64": 12593809422538383769,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 13.785499999999999,
+              "entropy_worker_ms": 82.7272,
+              "framing_ms": 2.5361,
+              "transform_worker_ms": 6.928299999999999
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16845,
+            "selection_ms": 1.2762,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 21.7361,
+          "encode_ms": 16.8423,
+          "output_bytes": 4181435,
+          "output_xxh64": 12593809422538383769,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 13.3711,
+              "entropy_worker_ms": 73.6099,
+              "framing_ms": 2.2361,
+              "transform_worker_ms": 7.137899999999999
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16845,
+            "selection_ms": 1.1865,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 22.804399999999998,
+          "encode_ms": 17.603,
+          "output_bytes": 4181435,
+          "output_xxh64": 12593809422538383769,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 12.668199999999999,
+              "entropy_worker_ms": 71.22699999999999,
+              "framing_ms": 2.214,
+              "transform_worker_ms": 9.7431
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16845,
+            "selection_ms": 2.0983,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "eeg-edf-original",
+      "config": "original",
+      "rows": [
+        {
+          "decode_ms": 7.3218,
+          "encode_ms": 8.621,
+          "output_bytes": 4594850,
+          "output_xxh64": 3235978253313861067,
+          "plan": null,
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 8.1646,
+          "encode_ms": 8.7711,
+          "output_bytes": 4594850,
+          "output_xxh64": 3235978253313861067,
+          "plan": null,
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 8.653599999999999,
+          "encode_ms": 9.4078,
+          "output_bytes": 4594850,
+          "output_xxh64": 3235978253313861067,
+          "plan": null,
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.412400000000001,
+          "encode_ms": 9.5428,
+          "output_bytes": 4594850,
+          "output_xxh64": 3235978253313861067,
+          "plan": null,
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.2649,
+          "encode_ms": 8.8856,
+          "output_bytes": 4594850,
+          "output_xxh64": 3235978253313861067,
+          "plan": null,
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.1829,
+          "encode_ms": 9.2684,
+          "output_bytes": 4594850,
+          "output_xxh64": 3235978253313861067,
+          "plan": null,
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.3544,
+          "encode_ms": 9.3907,
+          "output_bytes": 4594850,
+          "output_xxh64": 3235978253313861067,
+          "plan": null,
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "terrain-s16le",
+      "config": "original",
+      "rows": [
+        {
+          "decode_ms": 15.8446,
+          "encode_ms": 17.5828,
+          "output_bytes": 6634304,
+          "output_xxh64": 12807025739561151226,
+          "plan": null,
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 18.6018,
+          "encode_ms": 17.5295,
+          "output_bytes": 6634304,
+          "output_xxh64": 12807025739561151226,
+          "plan": null,
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 16.830399999999997,
+          "encode_ms": 15.8698,
+          "output_bytes": 6634304,
+          "output_xxh64": 12807025739561151226,
+          "plan": null,
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 17.2893,
+          "encode_ms": 15.277600000000001,
+          "output_bytes": 6634304,
+          "output_xxh64": 12807025739561151226,
+          "plan": null,
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 17.8627,
+          "encode_ms": 16.9605,
+          "output_bytes": 6634304,
+          "output_xxh64": 12807025739561151226,
+          "plan": null,
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 15.9644,
+          "encode_ms": 17.137800000000002,
+          "output_bytes": 6634304,
+          "output_xxh64": 12807025739561151226,
+          "plan": null,
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 16.2658,
+          "encode_ms": 16.2576,
+          "output_bytes": 6634304,
+          "output_xxh64": 12807025739561151226,
+          "plan": null,
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "enwik8-16MiB",
+      "config": "original",
+      "rows": [
+        {
+          "decode_ms": 4.158399999999999,
+          "encode_ms": 22.6636,
+          "output_bytes": 16777242,
+          "output_xxh64": 7668623883243098037,
+          "plan": null,
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.2299,
+          "encode_ms": 21.0503,
+          "output_bytes": 16777242,
+          "output_xxh64": 7668623883243098037,
+          "plan": null,
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.9213,
+          "encode_ms": 20.462,
+          "output_bytes": 16777242,
+          "output_xxh64": 7668623883243098037,
+          "plan": null,
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.3125,
+          "encode_ms": 22.018,
+          "output_bytes": 16777242,
+          "output_xxh64": 7668623883243098037,
+          "plan": null,
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.5466999999999995,
+          "encode_ms": 21.3583,
+          "output_bytes": 16777242,
+          "output_xxh64": 7668623883243098037,
+          "plan": null,
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.0202,
+          "encode_ms": 21.3035,
+          "output_bytes": 16777242,
+          "output_xxh64": 7668623883243098037,
+          "plan": null,
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.718,
+          "encode_ms": 22.1779,
+          "output_bytes": 16777242,
+          "output_xxh64": 7668623883243098037,
+          "plan": null,
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "independent-noise-16MiB",
+      "config": "after",
+      "rows": [
+        {
+          "decode_ms": 4.128,
+          "encode_ms": 5.9383,
+          "output_bytes": 16777245,
+          "output_xxh64": 12708455692179206921,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 0.0,
+              "entropy_worker_ms": 0.0,
+              "framing_ms": 0.0,
+              "transform_worker_ms": 0.0
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 24672,
+            "sample_zstd_bytes": 24606,
+            "selection_ms": 1.6036,
+            "stage": 0
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.1406,
+          "encode_ms": 5.8625,
+          "output_bytes": 16777245,
+          "output_xxh64": 12708455692179206921,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 0.0,
+              "entropy_worker_ms": 0.0,
+              "framing_ms": 0.0,
+              "transform_worker_ms": 0.0
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 24672,
+            "sample_zstd_bytes": 24606,
+            "selection_ms": 1.6322,
+            "stage": 0
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.5485,
+          "encode_ms": 5.4005,
+          "output_bytes": 16777245,
+          "output_xxh64": 12708455692179206921,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 0.0,
+              "entropy_worker_ms": 0.0,
+              "framing_ms": 0.0,
+              "transform_worker_ms": 0.0
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 24672,
+            "sample_zstd_bytes": 24606,
+            "selection_ms": 1.1785,
+            "stage": 0
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.271,
+          "encode_ms": 5.8929,
+          "output_bytes": 16777245,
+          "output_xxh64": 12708455692179206921,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 0.0,
+              "entropy_worker_ms": 0.0,
+              "framing_ms": 0.0,
+              "transform_worker_ms": 0.0
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 24672,
+            "sample_zstd_bytes": 24606,
+            "selection_ms": 1.7812999999999999,
+            "stage": 0
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.3596,
+          "encode_ms": 5.4227,
+          "output_bytes": 16777245,
+          "output_xxh64": 12708455692179206921,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 0.0,
+              "entropy_worker_ms": 0.0,
+              "framing_ms": 0.0,
+              "transform_worker_ms": 0.0
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 24672,
+            "sample_zstd_bytes": 24606,
+            "selection_ms": 1.1340000000000001,
+            "stage": 0
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 3.9791999999999996,
+          "encode_ms": 5.1335,
+          "output_bytes": 16777245,
+          "output_xxh64": 12708455692179206921,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 0.0,
+              "entropy_worker_ms": 0.0,
+              "framing_ms": 0.0,
+              "transform_worker_ms": 0.0
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 24672,
+            "sample_zstd_bytes": 24606,
+            "selection_ms": 1.1134000000000002,
+            "stage": 0
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.3847000000000005,
+          "encode_ms": 5.3283000000000005,
+          "output_bytes": 16777245,
+          "output_xxh64": 12708455692179206921,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 0.0,
+              "entropy_worker_ms": 0.0,
+              "framing_ms": 0.0,
+              "transform_worker_ms": 0.0
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 24672,
+            "sample_zstd_bytes": 24606,
+            "selection_ms": 1.0025,
+            "stage": 0
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "eeg-edf-original",
+      "config": "before",
+      "rows": [
+        {
+          "decode_ms": 18.4407,
+          "encode_ms": 15.1311,
+          "output_bytes": 3995180,
+          "output_xxh64": 10257373148596835194,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 12628,
+            "sample_zstd_bytes": 12914,
+            "selection_ms": 4.6669,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 16.565900000000003,
+          "encode_ms": 12.5678,
+          "output_bytes": 3995180,
+          "output_xxh64": 10257373148596835194,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 12628,
+            "sample_zstd_bytes": 12914,
+            "selection_ms": 2.4604000000000004,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 16.8563,
+          "encode_ms": 13.2791,
+          "output_bytes": 3995180,
+          "output_xxh64": 10257373148596835194,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 12628,
+            "sample_zstd_bytes": 12914,
+            "selection_ms": 2.6191999999999998,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 15.3668,
+          "encode_ms": 13.3825,
+          "output_bytes": 3995180,
+          "output_xxh64": 10257373148596835194,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 12628,
+            "sample_zstd_bytes": 12914,
+            "selection_ms": 2.8638,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 16.2101,
+          "encode_ms": 13.816500000000001,
+          "output_bytes": 3995180,
+          "output_xxh64": 10257373148596835194,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 12628,
+            "sample_zstd_bytes": 12914,
+            "selection_ms": 3.0187,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 17.564,
+          "encode_ms": 13.2712,
+          "output_bytes": 3995180,
+          "output_xxh64": 10257373148596835194,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 12628,
+            "sample_zstd_bytes": 12914,
+            "selection_ms": 2.7318,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 15.4498,
+          "encode_ms": 12.6695,
+          "output_bytes": 3995180,
+          "output_xxh64": 10257373148596835194,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 12628,
+            "sample_zstd_bytes": 12914,
+            "selection_ms": 1.846,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "mitbih-original-212",
+      "config": "after",
+      "rows": [
+        {
+          "decode_ms": 8.1407,
+          "encode_ms": 7.1875,
+          "output_bytes": 1251822,
+          "output_xxh64": 304183928793910539,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 3,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 4.4021,
+              "entropy_worker_ms": 3.0892000000000004,
+              "framing_ms": 0.8432,
+              "transform_worker_ms": 12.2953
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 9448,
+            "sample_zstd_bytes": 15655,
+            "selection_ms": 1.9024999999999999,
+            "stage": 4
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.5061,
+          "encode_ms": 5.938599999999999,
+          "output_bytes": 1251822,
+          "output_xxh64": 304183928793910539,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 3,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.9921999999999995,
+              "entropy_worker_ms": 2.2083,
+              "framing_ms": 0.6533,
+              "transform_worker_ms": 11.988999999999999
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 9448,
+            "sample_zstd_bytes": 15655,
+            "selection_ms": 1.2629,
+            "stage": 4
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.0556,
+          "encode_ms": 5.9559,
+          "output_bytes": 1251822,
+          "output_xxh64": 304183928793910539,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 3,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.9597,
+              "entropy_worker_ms": 2.2722,
+              "framing_ms": 0.6886,
+              "transform_worker_ms": 11.152999999999999
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 9448,
+            "sample_zstd_bytes": 15655,
+            "selection_ms": 1.2796,
+            "stage": 4
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.8587,
+          "encode_ms": 6.1419,
+          "output_bytes": 1251822,
+          "output_xxh64": 304183928793910539,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 3,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 4.1482,
+              "entropy_worker_ms": 2.4208,
+              "framing_ms": 0.6677000000000001,
+              "transform_worker_ms": 12.6055
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 9448,
+            "sample_zstd_bytes": 15655,
+            "selection_ms": 1.296,
+            "stage": 4
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.3586,
+          "encode_ms": 5.6998,
+          "output_bytes": 1251822,
+          "output_xxh64": 304183928793910539,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 3,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.8430999999999997,
+              "entropy_worker_ms": 2.4035,
+              "framing_ms": 0.6797,
+              "transform_worker_ms": 11.7989
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 9448,
+            "sample_zstd_bytes": 15655,
+            "selection_ms": 1.1511,
+            "stage": 4
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 8.916500000000001,
+          "encode_ms": 5.7153,
+          "output_bytes": 1251822,
+          "output_xxh64": 304183928793910539,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 3,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.8151,
+              "entropy_worker_ms": 2.1582,
+              "framing_ms": 0.7128,
+              "transform_worker_ms": 11.3543
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 9448,
+            "sample_zstd_bytes": 15655,
+            "selection_ms": 1.1537,
+            "stage": 4
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.8435999999999995,
+          "encode_ms": 6.695,
+          "output_bytes": 1251822,
+          "output_xxh64": 304183928793910539,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 3,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 4.1639,
+              "entropy_worker_ms": 2.2892,
+              "framing_ms": 0.8141999999999999,
+              "transform_worker_ms": 13.401700000000002
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 9448,
+            "sample_zstd_bytes": 15655,
+            "selection_ms": 1.6686999999999999,
+            "stage": 4
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "raw-sensors-1MiB",
+      "config": "before",
+      "rows": [
+        {
+          "decode_ms": 5.0919,
+          "encode_ms": 9.1523,
+          "output_bytes": 261427,
+          "output_xxh64": 18437540938971713233,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16808,
+            "selection_ms": 3.1285000000000003,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 6.0518,
+          "encode_ms": 8.1524,
+          "output_bytes": 261427,
+          "output_xxh64": 18437540938971713233,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16808,
+            "selection_ms": 2.5063,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 5.0732,
+          "encode_ms": 9.538400000000001,
+          "output_bytes": 261427,
+          "output_xxh64": 18437540938971713233,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16808,
+            "selection_ms": 3.3453,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.5788,
+          "encode_ms": 8.5875,
+          "output_bytes": 261427,
+          "output_xxh64": 18437540938971713233,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16808,
+            "selection_ms": 2.747,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.8632,
+          "encode_ms": 8.754700000000001,
+          "output_bytes": 261427,
+          "output_xxh64": 18437540938971713233,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16808,
+            "selection_ms": 2.7358000000000002,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.7974000000000006,
+          "encode_ms": 8.4227,
+          "output_bytes": 261427,
+          "output_xxh64": 18437540938971713233,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16808,
+            "selection_ms": 2.6994,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.8693,
+          "encode_ms": 8.645399999999999,
+          "output_bytes": 261427,
+          "output_xxh64": 18437540938971713233,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16808,
+            "selection_ms": 2.64,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "independent-noise-16MiB",
+      "config": "before",
+      "rows": [
+        {
+          "decode_ms": 4.2919,
+          "encode_ms": 23.2409,
+          "output_bytes": 16777245,
+          "output_xxh64": 12708455692179206921,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 24672,
+            "sample_zstd_bytes": 24606,
+            "selection_ms": 3.4311,
+            "stage": 0
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.5389,
+          "encode_ms": 21.9041,
+          "output_bytes": 16777245,
+          "output_xxh64": 12708455692179206921,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 24672,
+            "sample_zstd_bytes": 24606,
+            "selection_ms": 3.0122999999999998,
+            "stage": 0
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.96,
+          "encode_ms": 20.3445,
+          "output_bytes": 16777245,
+          "output_xxh64": 12708455692179206921,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 24672,
+            "sample_zstd_bytes": 24606,
+            "selection_ms": 2.5173,
+            "stage": 0
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.507,
+          "encode_ms": 20.2929,
+          "output_bytes": 16777245,
+          "output_xxh64": 12708455692179206921,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 24672,
+            "sample_zstd_bytes": 24606,
+            "selection_ms": 2.4189,
+            "stage": 0
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.4741,
+          "encode_ms": 22.3625,
+          "output_bytes": 16777245,
+          "output_xxh64": 12708455692179206921,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 24672,
+            "sample_zstd_bytes": 24606,
+            "selection_ms": 3.2193,
+            "stage": 0
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.4374,
+          "encode_ms": 20.555500000000002,
+          "output_bytes": 16777245,
+          "output_xxh64": 12708455692179206921,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 24672,
+            "sample_zstd_bytes": 24606,
+            "selection_ms": 2.463,
+            "stage": 0
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.4263,
+          "encode_ms": 20.973,
+          "output_bytes": 16777245,
+          "output_xxh64": 12708455692179206921,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 24672,
+            "sample_zstd_bytes": 24606,
+            "selection_ms": 2.3373999999999997,
+            "stage": 0
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "terrain-s16le",
+      "config": "after",
+      "rows": [
+        {
+          "decode_ms": 38.0534,
+          "encode_ms": 18.7945,
+          "output_bytes": 5672840,
+          "output_xxh64": 2361572729156108952,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 13.7737,
+              "entropy_worker_ms": 76.617,
+              "framing_ms": 3.274,
+              "transform_worker_ms": 11.661099999999998
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11986,
+            "selection_ms": 1.4349,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 35.1147,
+          "encode_ms": 18.567,
+          "output_bytes": 5672840,
+          "output_xxh64": 2361572729156108952,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 12.8762,
+              "entropy_worker_ms": 74.68190000000001,
+              "framing_ms": 3.4925,
+              "transform_worker_ms": 12.037300000000004
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11986,
+            "selection_ms": 1.5872,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 35.5464,
+          "encode_ms": 17.9957,
+          "output_bytes": 5672840,
+          "output_xxh64": 2361572729156108952,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 13.019400000000001,
+              "entropy_worker_ms": 79.28609999999998,
+              "framing_ms": 3.3308,
+              "transform_worker_ms": 11.141900000000001
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11986,
+            "selection_ms": 1.3419,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 35.8213,
+          "encode_ms": 17.5547,
+          "output_bytes": 5672840,
+          "output_xxh64": 2361572729156108952,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 12.7225,
+              "entropy_worker_ms": 76.7137,
+              "framing_ms": 3.5934,
+              "transform_worker_ms": 12.0771
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11986,
+            "selection_ms": 1.1878,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 36.3558,
+          "encode_ms": 18.3905,
+          "output_bytes": 5672840,
+          "output_xxh64": 2361572729156108952,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 13.4831,
+              "entropy_worker_ms": 78.95469999999999,
+              "framing_ms": 3.5734999999999997,
+              "transform_worker_ms": 11.261199999999999
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11986,
+            "selection_ms": 1.2957999999999998,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 34.6753,
+          "encode_ms": 18.0953,
+          "output_bytes": 5672840,
+          "output_xxh64": 2361572729156108952,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 12.9065,
+              "entropy_worker_ms": 76.42099999999999,
+              "framing_ms": 3.2678999999999996,
+              "transform_worker_ms": 11.101499999999998
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11986,
+            "selection_ms": 1.5424,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 35.9933,
+          "encode_ms": 19.3278,
+          "output_bytes": 5672840,
+          "output_xxh64": 2361572729156108952,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 13.4665,
+              "entropy_worker_ms": 78.0287,
+              "framing_ms": 3.5817,
+              "transform_worker_ms": 13.115300000000001
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11986,
+            "selection_ms": 1.9557,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "ptb-12lead-original",
+      "config": "original",
+      "rows": [
+        {
+          "decode_ms": 1.4954,
+          "encode_ms": 2.1382,
+          "output_bytes": 638790,
+          "output_xxh64": 9028170199235054186,
+          "plan": null,
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.5928,
+          "encode_ms": 1.7804,
+          "output_bytes": 638790,
+          "output_xxh64": 9028170199235054186,
+          "plan": null,
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.5922,
+          "encode_ms": 1.9797,
+          "output_bytes": 638790,
+          "output_xxh64": 9028170199235054186,
+          "plan": null,
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.4433,
+          "encode_ms": 1.7463,
+          "output_bytes": 638790,
+          "output_xxh64": 9028170199235054186,
+          "plan": null,
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.5031999999999999,
+          "encode_ms": 1.526,
+          "output_bytes": 638790,
+          "output_xxh64": 9028170199235054186,
+          "plan": null,
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.4543,
+          "encode_ms": 1.4982000000000002,
+          "output_bytes": 638790,
+          "output_xxh64": 9028170199235054186,
+          "plan": null,
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 1.4517,
+          "encode_ms": 1.7121,
+          "output_bytes": 638790,
+          "output_xxh64": 9028170199235054186,
+          "plan": null,
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "enwik8-16MiB",
+      "config": "before",
+      "rows": [
+        {
+          "decode_ms": 29.024,
+          "encode_ms": 49.1138,
+          "output_bytes": 5998120,
+          "output_xxh64": 17620851715006562317,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 23464,
+            "sample_zstd_bytes": 11251,
+            "selection_ms": 4.330900000000001,
+            "stage": 3
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 31.154,
+          "encode_ms": 49.6426,
+          "output_bytes": 5998120,
+          "output_xxh64": 17620851715006562317,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 23464,
+            "sample_zstd_bytes": 11251,
+            "selection_ms": 4.0961,
+            "stage": 3
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 30.9286,
+          "encode_ms": 49.5858,
+          "output_bytes": 5998120,
+          "output_xxh64": 17620851715006562317,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 23464,
+            "sample_zstd_bytes": 11251,
+            "selection_ms": 2.7786999999999997,
+            "stage": 3
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 33.4294,
+          "encode_ms": 55.9285,
+          "output_bytes": 5998120,
+          "output_xxh64": 17620851715006562317,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 23464,
+            "sample_zstd_bytes": 11251,
+            "selection_ms": 3.5766,
+            "stage": 3
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 36.2622,
+          "encode_ms": 60.451,
+          "output_bytes": 5998120,
+          "output_xxh64": 17620851715006562317,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 23464,
+            "sample_zstd_bytes": 11251,
+            "selection_ms": 3.2394,
+            "stage": 3
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 34.8607,
+          "encode_ms": 56.3866,
+          "output_bytes": 5998120,
+          "output_xxh64": 17620851715006562317,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 23464,
+            "sample_zstd_bytes": 11251,
+            "selection_ms": 3.2824,
+            "stage": 3
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 31.8774,
+          "encode_ms": 57.6294,
+          "output_bytes": 5998120,
+          "output_xxh64": 17620851715006562317,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 23464,
+            "sample_zstd_bytes": 11251,
+            "selection_ms": 2.4363,
+            "stage": 3
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "raw-sensors-1MiB",
+      "config": "after",
+      "rows": [
+        {
+          "decode_ms": 5.128299999999999,
+          "encode_ms": 6.3606,
+          "output_bytes": 261427,
+          "output_xxh64": 18437540938971713233,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.8669,
+              "entropy_worker_ms": 3.5564999999999998,
+              "framing_ms": 0.1948,
+              "transform_worker_ms": 0.27220000000000005
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16808,
+            "selection_ms": 2.2555,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.5145,
+          "encode_ms": 6.1671,
+          "output_bytes": 261427,
+          "output_xxh64": 18437540938971713233,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 4.2534,
+              "entropy_worker_ms": 3.9071,
+              "framing_ms": 0.1867,
+              "transform_worker_ms": 0.29180000000000006
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16808,
+            "selection_ms": 1.5739,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.6102,
+          "encode_ms": 5.2086,
+          "output_bytes": 261427,
+          "output_xxh64": 18437540938971713233,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.8636,
+              "entropy_worker_ms": 3.5985,
+              "framing_ms": 0.1733,
+              "transform_worker_ms": 0.22590000000000002
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16808,
+            "selection_ms": 1.141,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.7008,
+          "encode_ms": 5.5679,
+          "output_bytes": 261427,
+          "output_xxh64": 18437540938971713233,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 4.216,
+              "entropy_worker_ms": 3.9164,
+              "framing_ms": 0.2127,
+              "transform_worker_ms": 0.27249999999999996
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16808,
+            "selection_ms": 1.1035000000000001,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.2975,
+          "encode_ms": 5.2113000000000005,
+          "output_bytes": 261427,
+          "output_xxh64": 18437540938971713233,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.9071000000000002,
+              "entropy_worker_ms": 3.6361,
+              "framing_ms": 0.1659,
+              "transform_worker_ms": 0.2373
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16808,
+            "selection_ms": 1.1112,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.5077,
+          "encode_ms": 5.0517,
+          "output_bytes": 261427,
+          "output_xxh64": 18437540938971713233,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.7060999999999997,
+              "entropy_worker_ms": 3.4498999999999995,
+              "framing_ms": 0.1994,
+              "transform_worker_ms": 0.21810000000000002
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16808,
+            "selection_ms": 1.1175,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 4.7067000000000005,
+          "encode_ms": 5.161,
+          "output_bytes": 261427,
+          "output_xxh64": 18437540938971713233,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 16,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.9173999999999998,
+              "entropy_worker_ms": 3.6364,
+              "framing_ms": 0.1897,
+              "transform_worker_ms": 0.23129999999999998
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6756,
+            "sample_zstd_bytes": 16808,
+            "selection_ms": 1.0217,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "mitbih-original-212",
+      "config": "before",
+      "rows": [
+        {
+          "decode_ms": 7.693700000000001,
+          "encode_ms": 10.2968,
+          "output_bytes": 1251822,
+          "output_xxh64": 304183928793910539,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 3,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 9448,
+            "sample_zstd_bytes": 15655,
+            "selection_ms": 3.9325999999999994,
+            "stage": 4
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 8.2459,
+          "encode_ms": 9.3542,
+          "output_bytes": 1251822,
+          "output_xxh64": 304183928793910539,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 3,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 9448,
+            "sample_zstd_bytes": 15655,
+            "selection_ms": 3.3144,
+            "stage": 4
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.3359000000000005,
+          "encode_ms": 9.5718,
+          "output_bytes": 1251822,
+          "output_xxh64": 304183928793910539,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 3,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 9448,
+            "sample_zstd_bytes": 15655,
+            "selection_ms": 3.8906,
+            "stage": 4
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.5251,
+          "encode_ms": 8.8843,
+          "output_bytes": 1251822,
+          "output_xxh64": 304183928793910539,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 3,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 9448,
+            "sample_zstd_bytes": 15655,
+            "selection_ms": 3.4568,
+            "stage": 4
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.296,
+          "encode_ms": 9.6451,
+          "output_bytes": 1251822,
+          "output_xxh64": 304183928793910539,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 3,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 9448,
+            "sample_zstd_bytes": 15655,
+            "selection_ms": 3.8266,
+            "stage": 4
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.398499999999999,
+          "encode_ms": 7.912799999999999,
+          "output_bytes": 1251822,
+          "output_xxh64": 304183928793910539,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 3,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 9448,
+            "sample_zstd_bytes": 15655,
+            "selection_ms": 2.422,
+            "stage": 4
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 7.4011,
+          "encode_ms": 8.287799999999999,
+          "output_bytes": 1251822,
+          "output_xxh64": 304183928793910539,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 2,
+              "width": 3,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 9448,
+            "sample_zstd_bytes": 15655,
+            "selection_ms": 2.3588,
+            "stage": 4
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "synthetic-u64le-3ch",
+      "config": "original",
+      "rows": [
+        {
+          "decode_ms": 2.6829,
+          "encode_ms": 3.6132,
+          "output_bytes": 1474630,
+          "output_xxh64": 7246231127707427272,
+          "plan": null,
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 2.3475,
+          "encode_ms": 2.8202000000000003,
+          "output_bytes": 1474630,
+          "output_xxh64": 7246231127707427272,
+          "plan": null,
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 2.2691999999999997,
+          "encode_ms": 2.9845,
+          "output_bytes": 1474630,
+          "output_xxh64": 7246231127707427272,
+          "plan": null,
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 2.1531,
+          "encode_ms": 3.3358,
+          "output_bytes": 1474630,
+          "output_xxh64": 7246231127707427272,
+          "plan": null,
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 2.3403,
+          "encode_ms": 3.2817,
+          "output_bytes": 1474630,
+          "output_xxh64": 7246231127707427272,
+          "plan": null,
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 2.0945,
+          "encode_ms": 2.722,
+          "output_bytes": 1474630,
+          "output_xxh64": 7246231127707427272,
+          "plan": null,
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 2.2879,
+          "encode_ms": 2.8449,
+          "output_bytes": 1474630,
+          "output_xxh64": 7246231127707427272,
+          "plan": null,
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "terrain-s16le",
+      "config": "before",
+      "rows": [
+        {
+          "decode_ms": 36.2003,
+          "encode_ms": 31.3294,
+          "output_bytes": 5672840,
+          "output_xxh64": 2361572729156108952,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11986,
+            "selection_ms": 3.8784,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 37.4887,
+          "encode_ms": 33.132099999999994,
+          "output_bytes": 5672840,
+          "output_xxh64": 2361572729156108952,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11986,
+            "selection_ms": 2.7961,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 36.7648,
+          "encode_ms": 34.541799999999995,
+          "output_bytes": 5672840,
+          "output_xxh64": 2361572729156108952,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11986,
+            "selection_ms": 3.4161,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 40.524699999999996,
+          "encode_ms": 34.865100000000005,
+          "output_bytes": 5672840,
+          "output_xxh64": 2361572729156108952,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11986,
+            "selection_ms": 2.9272,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 37.5127,
+          "encode_ms": 31.949699999999996,
+          "output_bytes": 5672840,
+          "output_xxh64": 2361572729156108952,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11986,
+            "selection_ms": 2.8445,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 41.1679,
+          "encode_ms": 31.023100000000003,
+          "output_bytes": 5672840,
+          "output_xxh64": 2361572729156108952,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11986,
+            "selection_ms": 2.1829,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 38.099199999999996,
+          "encode_ms": 31.383000000000003,
+          "output_bytes": 5672840,
+          "output_xxh64": 2361572729156108952,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 6548,
+            "sample_zstd_bytes": 11986,
+            "selection_ms": 2.2923999999999998,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    },
+    {
+      "dataset": "eeg-edf-original",
+      "config": "after",
+      "rows": [
+        {
+          "decode_ms": 18.1581,
+          "encode_ms": 7.6251,
+          "output_bytes": 3995180,
+          "output_xxh64": 10257373148596835194,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.702,
+              "entropy_worker_ms": 16.755399999999998,
+              "framing_ms": 2.1475,
+              "transform_worker_ms": 5.5172
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 12628,
+            "sample_zstd_bytes": 12914,
+            "selection_ms": 1.7181,
+            "stage": 2
+          },
+          "run": 0,
+          "verified": true
+        },
+        {
+          "decode_ms": 17.1504,
+          "encode_ms": 7.2131,
+          "output_bytes": 3995180,
+          "output_xxh64": 10257373148596835194,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.8298,
+              "entropy_worker_ms": 18.074399999999997,
+              "framing_ms": 2.0525,
+              "transform_worker_ms": 5.0592999999999995
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 12628,
+            "sample_zstd_bytes": 12914,
+            "selection_ms": 1.2897,
+            "stage": 2
+          },
+          "run": 1,
+          "verified": true
+        },
+        {
+          "decode_ms": 17.09,
+          "encode_ms": 7.6376,
+          "output_bytes": 3995180,
+          "output_xxh64": 10257373148596835194,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 4.1639,
+              "entropy_worker_ms": 21.959400000000002,
+              "framing_ms": 2.0648,
+              "transform_worker_ms": 5.4454
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 12628,
+            "sample_zstd_bytes": 12914,
+            "selection_ms": 1.3437,
+            "stage": 2
+          },
+          "run": 2,
+          "verified": true
+        },
+        {
+          "decode_ms": 18.0351,
+          "encode_ms": 7.9784,
+          "output_bytes": 3995180,
+          "output_xxh64": 10257373148596835194,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 4.2669,
+              "entropy_worker_ms": 19.9807,
+              "framing_ms": 2.4185,
+              "transform_worker_ms": 5.4532
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 12628,
+            "sample_zstd_bytes": 12914,
+            "selection_ms": 1.2532,
+            "stage": 2
+          },
+          "run": 3,
+          "verified": true
+        },
+        {
+          "decode_ms": 18.7469,
+          "encode_ms": 7.023899999999999,
+          "output_bytes": 3995180,
+          "output_xxh64": 10257373148596835194,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.8962,
+              "entropy_worker_ms": 17.0227,
+              "framing_ms": 2.0788,
+              "transform_worker_ms": 5.4282
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 12628,
+            "sample_zstd_bytes": 12914,
+            "selection_ms": 1.0153,
+            "stage": 2
+          },
+          "run": 4,
+          "verified": true
+        },
+        {
+          "decode_ms": 17.4519,
+          "encode_ms": 7.184699999999999,
+          "output_bytes": 3995180,
+          "output_xxh64": 10257373148596835194,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.7607,
+              "entropy_worker_ms": 19.529199999999996,
+              "framing_ms": 2.1189,
+              "transform_worker_ms": 5.2859
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 12628,
+            "sample_zstd_bytes": 12914,
+            "selection_ms": 1.2614,
+            "stage": 2
+          },
+          "run": 5,
+          "verified": true
+        },
+        {
+          "decode_ms": 17.1937,
+          "encode_ms": 7.008,
+          "output_bytes": 3995180,
+          "output_xxh64": 10257373148596835194,
+          "plan": {
+            "layout": {
+              "big_endian": false,
+              "stride": 1,
+              "width": 2,
+              "xor": false
+            },
+            "level": 3,
+            "profile": {
+              "chunks_wall_ms": 3.7277,
+              "entropy_worker_ms": 16.3815,
+              "framing_ms": 2.1473,
+              "transform_worker_ms": 5.2756
+            },
+            "sample_input_bytes": 24576,
+            "sample_pack_bytes": 12628,
+            "sample_zstd_bytes": 12914,
+            "selection_ms": 1.0986,
+            "stage": 2
+          },
+          "run": 6,
+          "verified": true
+        }
+      ]
+    }
+  ],
+  "scope": "Same executable, eight-worker pool, memory resident original input, codec including selection/checksum; no IO or process startup. Run 0 cold; remaining runs reuse pool and compressor contexts. Exact recovered-byte equality checked outside timing. Before/after identical output length and XXH64; separate process benchmark verifies archive SHA256."
+}
